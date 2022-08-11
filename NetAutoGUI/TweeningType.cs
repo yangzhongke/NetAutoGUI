@@ -1,0 +1,37 @@
+﻿namespace NetAutoGUI
+{
+    public enum TweeningType
+    {
+        Linear,
+        CubicIn,
+        CubicOut,
+        CubicInOut,
+        QuadraticIn,
+        QuadraticOut,
+        QuadraticInOut,
+        QuarticIn,
+        QuarticOut,
+        QuarticInOut,
+        QuinticIn,
+        QuinticOut,
+        QuinticInOut,
+        SineIn,
+        SineOut,
+        SineInOut,
+        ExponentialIn,
+        ExponentialOut,
+        ExponentialInOut,
+        CircleIn,
+        CircleOut,
+        CircleInOut,
+        ElasticIn,
+        ElasticOut,
+        ElasticInOut,
+        BackIn,
+        BackOut,
+        BackInOut,
+        BounceOut,
+        BounceInOut,
+        BounceIn
+    }
+}
