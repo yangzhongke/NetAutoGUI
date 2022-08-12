@@ -5,7 +5,7 @@ using System.Threading;
 
 namespace NetAutoGUI.Internals
 {
-    internal abstract class AbstractMouseController : IMouseController
+    public abstract class AbstractMouseController : IMouseController
     {
         private readonly double MINIMUM_DURATION = 0.1;//If the duration is less than MINIMUM_DURATION the movement will be instant. 
 

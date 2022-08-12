@@ -3,12 +3,12 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
 	<LangVersion>Latest</LangVersion>
+	<Nullable>enable</Nullable>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="InputSimulatorStandard" Version="1.0.0" />
     <PackageReference Include="MonoGame.Extended.Tweening" Version="3.8.0" />
-    <PackageReference Include="Vanara.PInvoke.User32" Version="3.4.5" />
+    <PackageReference Include="OpenCvSharp4" Version="4.6.0.20220608" />
   </ItemGroup>
 
 </Project>

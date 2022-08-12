@@ -1,10 +1,11 @@
 ﻿using InputSimulatorStandard;
 using InputSimulatorStandard.Native;
+using NetAutoGUI.Internals;
 using System;
 using System.Threading;
 using Vanara.PInvoke;
 
-namespace NetAutoGUI.Internals
+namespace NetAutoGUI.Windows
 {
     internal class WindowsKeyboardController : IKeyboardController
     {

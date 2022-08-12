@@ -2,7 +2,7 @@
 
 namespace NetAutoGUI.Internals
 {
-    internal class KeyHoldContext : IDisposable
+    public class KeyHoldContext : IDisposable
     {
         private KeyBoardKey holdedKey;
         private IKeyboardController keyboardController;

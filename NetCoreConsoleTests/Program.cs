@@ -23,6 +23,13 @@ using (GUI.Keyboard.Hold(KeyBoardKey.SHIFT))
     Thread.Sleep(1000);
 }
 GUI.Keyboard.Press(KeyBoardKey.VK_A);*/
+/*
 GUI.MessageBox.Alert("Alert");
 GUI.MessageBox.Alert(GUI.MessageBox.Confirm("真的吗？").ToString());
-GUI.MessageBox.Alert(GUI.MessageBox.YesNoBox("你是男的吗？",title:"真的吗？").ToString());
+GUI.MessageBox.Alert(GUI.MessageBox.YesNoBox("你是男的吗？",title:"真的吗？").ToString());*/
+string? s= GUI.MessageBox.Prompt("请输入您的姓名");
+if (s != null)
+{
+    var pwd = GUI.MessageBox.Password($"请输入{s}的密码", "欧了", "走开");
+    GUI.MessageBox.Alert(pwd);
+}
