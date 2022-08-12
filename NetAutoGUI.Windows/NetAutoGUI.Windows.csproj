@@ -9,6 +9,8 @@
 
   <ItemGroup>
     <PackageReference Include="InputSimulatorStandard" Version="1.0.0" />
+    <PackageReference Include="OpenCvSharp4.runtime.win" Version="4.6.0.20220608" />
+    <PackageReference Include="System.Drawing.Common" Version="6.0.0" />
     <PackageReference Include="Vanara.PInvoke.User32" Version="3.4.6" />
   </ItemGroup>
 

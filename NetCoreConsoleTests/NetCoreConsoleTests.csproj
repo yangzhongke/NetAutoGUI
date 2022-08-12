@@ -8,8 +8,14 @@
   </PropertyGroup>
 
   <ItemGroup>	 
-    <ProjectReference Include="..\NetAutoGUI.Windows\NetAutoGUI.Windows.csproj" />
+    <ProjectReference Include="..\NetAutoGUI.Windows\NetAutoGUI.Windows.csproj" />	 
     <ProjectReference Include="..\NetAutoGUI\NetAutoGUI.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="1.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>

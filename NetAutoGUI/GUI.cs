@@ -1,5 +1,4 @@
-﻿using NetAutoGUI.Internals;
-using System;
+﻿using System;
 using System.IO;
 using System.Reflection;
 
@@ -10,6 +9,7 @@ namespace NetAutoGUI
         public static readonly IMouseController Mouse;
         public static readonly IKeyboardController Keyboard;
         public static readonly IMessageBoxController MessageBox;
+        public static readonly IScreenshotController Screenshot;
 
         static GUI()
         {
@@ -24,12 +24,12 @@ namespace NetAutoGUI
                 {
                     throw new InvalidOperationException("Assembly of NetAutoGUI.Windows is not found, please: Install-Package NetAutoGUI.Windows");
                 }
-                var typeMouseCtrl = asm.GetType("NetAutoGUI.Windows.WindowsMouseController");
-                Mouse = Activator.CreateInstance(typeMouseCtrl) as IMouseController;
-                var typeKeyboard = asm.GetType("NetAutoGUI.Windows.WindowsKeyboardController");
-                Keyboard = Activator.CreateInstance(typeKeyboard) as IKeyboardController;
-                var typeMsgBox = asm.GetType("NetAutoGUI.Windows.WinFormMessageBoxController");
-                MessageBox = Activator.CreateInstance(typeMsgBox) as IMessageBoxController;
+                Type serviceLoaderType = asm.GetType("NetAutoGUI.Windows.WindowsServiceLoader");
+                IServiceLoader serviceLoader = (IServiceLoader)Activator.CreateInstance(serviceLoaderType);
+                Mouse = serviceLoader.LoadMouseController();
+                Keyboard = serviceLoader.LoadKeyboardController();
+                MessageBox = serviceLoader.LoadMessageBoxController();
+                Screenshot = serviceLoader.LoadScreenshotController();
             }
             else
             {

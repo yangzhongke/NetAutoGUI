@@ -9,5 +9,15 @@
             width = Width;
             height = Height;
         }
+
+        public Location Center
+        {
+            get
+            {
+                int centerX = X + Width / 2;
+                int centerY = Y + Height / 2;
+                return new Location(centerX, centerY);
+            }
+        }
     }
 }

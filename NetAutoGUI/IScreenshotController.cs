@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace NetAutoGUI
+﻿namespace NetAutoGUI
 {
     public interface IScreenshotController
     {
-        public void Screenshot();
+        public BitmapData Screenshot(Rectangle? region=null);
+        public void Screenshot(string filename,Rectangle? region = null);
+        public Rectangle? LocateOnScreen(string imgFileToBeFound);
     }
 }
