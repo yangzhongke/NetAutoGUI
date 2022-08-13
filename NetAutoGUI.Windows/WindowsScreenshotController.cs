@@ -15,7 +15,7 @@ namespace NetAutoGUI.Windows
             bitmap.Save(memSteam, ImageFormat.Bmp);
             memSteam.Position = 0;
             byte[] data = memSteam.ToArray();
-            return new BitmapData(data);
+            return new BitmapData(data,bitmap.Width,bitmap.Height);
         }
 
         private Bitmap TakeScreenShot(Rectangle? region = null)
@@ -46,7 +46,7 @@ namespace NetAutoGUI.Windows
             bitmap.Save(memStream, ImageFormat.Bmp);
             memStream.Position = 0;
             byte[] data = memStream.ToArray();
-            return new BitmapData(data);
+            return new BitmapData(data, bitmap.Width, bitmap.Height);
         }
     }
 }

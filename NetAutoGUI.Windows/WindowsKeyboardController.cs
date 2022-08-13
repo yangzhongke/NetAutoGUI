@@ -3,7 +3,6 @@ using InputSimulatorStandard.Native;
 using NetAutoGUI.Internals;
 using System;
 using System.Threading;
-using Vanara.PInvoke;
 
 namespace NetAutoGUI.Windows
 {

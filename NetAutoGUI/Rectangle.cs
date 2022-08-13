@@ -10,6 +10,9 @@
             height = Height;
         }
 
+        /// <summary>
+        /// Center point of the Rectangle
+        /// </summary>
         public Location Center
         {
             get

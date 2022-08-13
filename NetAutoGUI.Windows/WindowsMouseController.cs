@@ -1,4 +1,5 @@
-﻿using NetAutoGUI.Internals;
+﻿using InputSimulatorStandard;
+using NetAutoGUI.Internals;
 using System;
 using System.Threading;
 using Vanara.PInvoke;
@@ -7,72 +8,86 @@ namespace NetAutoGUI.Windows
 {
     internal class WindowsMouseController : AbstractMouseController
     {
-        private static void CheckXandY(int? x = null, int? y = null)
-        {
-            if ((x == null && y != null) || (x != null && y == null))
-            {
-                throw new ArgumentException("Either x or y are all null or none of them are null");
-            }
-        }
+        private IInputSimulator inputSimulator = new InputSimulator();
+
         public override void Click(int? x = null, int? y = null, MouseButtonType button = MouseButtonType.Left, int clicks = 1, double interval = 0)
         {
-            CheckXandY(x, y);
-
             if(clicks<=0)
             {
                 throw new ArgumentOutOfRangeException(nameof(clicks), "clicks should be positive.");
             }
+            TryMoveTo(x, y);
+            var mouse = inputSimulator.Mouse;
             for (int i = 0; i < clicks;i++)
-            {
-                if (x == null && y == null)
+            {                
+                if(button == MouseButtonType.Left)
                 {
-                    (x, y) = Position();
+                    mouse.LeftButtonClick();
                 }
-                User32.MOUSEEVENTF btnTypeDown, btnTypeUp;
-                ToMouseEvent(button, out btnTypeDown, out btnTypeUp);
-                User32.mouse_event(btnTypeDown, 0, 0, 0, IntPtr.Zero);
-                User32.mouse_event(btnTypeUp, 0, 0, 0, IntPtr.Zero);
+                else if(button== MouseButtonType.Middle)
+                {
+                    mouse.MiddleButtonClick();
+                }
+                else if(button== MouseButtonType.Right)
+                {
+                    mouse.RightButtonClick();
+                }
                 Thread.Sleep((int)(interval * 1000));
-            }
-        }
-
-        private static void ToMouseEvent(MouseButtonType button, out User32.MOUSEEVENTF btnTypeDown, out User32.MOUSEEVENTF btnTypeUp)
-        {
-            if (button == MouseButtonType.Left)
-            {
-                btnTypeDown = User32.MOUSEEVENTF.MOUSEEVENTF_LEFTDOWN;
-                btnTypeUp = User32.MOUSEEVENTF.MOUSEEVENTF_LEFTUP;
-            }
-            else if (button == MouseButtonType.Right)
-            {
-                btnTypeDown = User32.MOUSEEVENTF.MOUSEEVENTF_RIGHTDOWN;
-                btnTypeUp = User32.MOUSEEVENTF.MOUSEEVENTF_RIGHTUP;
-            }
-            else if (button == MouseButtonType.Middle)
-            {
-                btnTypeDown = User32.MOUSEEVENTF.MOUSEEVENTF_MIDDLEDOWN;
-                btnTypeUp = User32.MOUSEEVENTF.MOUSEEVENTF_MIDDLEUP;
-            }
-            else
-            {
-                throw new InvalidOperationException("unknow button:" + button);
             }
         }
 
         public override void MouseDown(int? x = null, int? y = null, MouseButtonType button = MouseButtonType.Left)
         {
-            CheckXandY(x, y);
-            User32.MOUSEEVENTF btnTypeDown;
-            ToMouseEvent(button, out btnTypeDown, out _);
-            User32.mouse_event(btnTypeDown, 0, 0, 0, IntPtr.Zero);
+            TryMoveTo(x, y);
+            var mouse = inputSimulator.Mouse;
+            if (button == MouseButtonType.Left)
+            {
+                mouse.LeftButtonDown();
+            }
+            else if (button == MouseButtonType.Middle)
+            {
+                mouse.MiddleButtonDown();
+            }
+            else if (button == MouseButtonType.Right)
+            {
+                mouse.RightButtonDown();
+            }
         }
 
         public override void MouseUp(int? x = null, int? y = null, MouseButtonType button = MouseButtonType.Left)
         {
-            CheckXandY(x, y);
-            User32.MOUSEEVENTF btnTypeUp;
-            ToMouseEvent(button, out _, out btnTypeUp);
-            User32.mouse_event(btnTypeUp, 0, 0, 0, IntPtr.Zero);
+            TryMoveTo(x, y);
+            var mouse = inputSimulator.Mouse;
+            if (button == MouseButtonType.Left)
+            {
+                mouse.LeftButtonUp();
+            }
+            else if (button == MouseButtonType.Middle)
+            {
+                mouse.MiddleButtonUp();
+            }
+            else if (button == MouseButtonType.Right)
+            {
+                mouse.RightButtonUp();
+            }
+        }
+
+        private void TryMoveTo(int? x, int? y)
+        {
+            int destX, destY;
+            if (x == null && y == null)
+            {
+                (destX, destY) = Position();                
+            }
+            else if(x!=null&&y!=null)
+            {
+                (destX, destY) = (x.Value, y.Value);
+            }
+            else
+            {
+                throw new ArgumentException("Either x or y are all null or none of them are null");
+            }
+            MoveTo(destX, destY);
         }
 
         public override void MoveTo(int x, int y)
@@ -90,7 +105,8 @@ namespace NetAutoGUI.Windows
 
         public override void Scroll(int value)
         {
-            User32.mouse_event(User32.MOUSEEVENTF.MOUSEEVENTF_WHEEL, 0,0,value,IntPtr.Zero);
+            var mouse = inputSimulator.Mouse;
+            mouse.VerticalScroll(value);
         }
 
         public override Size Size()

@@ -41,7 +41,15 @@ GUI.Screenshot.Screenshot("d:/1.jpeg",region:new Rectangle(10,10,250,250));
 GUI.Screenshot.Screenshot("d:/1.png");
 var d= GUI.Screenshot.Screenshot();
 Console.WriteLine(d);*/
+/*
 var loc = GUI.Screenshot.LocateOnScreen("1.png").Center;
-Console.WriteLine(loc);
-GUI.Mouse.MoveTo(loc.X, loc.Y);
-GUI.Mouse.Click();
+GUI.Mouse.Click(loc.X, loc.Y);
+loc = GUI.Screenshot.LocateOnScreen("2.png").Center;
+GUI.Mouse.Click(loc.X, loc.Y);*/
+/*
+var loc = GUI.Screenshot.LocateOnScreen("1.png").Center;
+GUI.Mouse.Click(loc.X, loc.Y);*/
+var loc = GUI.Screenshot.LocateCenterOnScreen("1.png");
+GUI.Mouse.Click(loc.X,loc.Y);
+(int x, int y) = GUI.Screenshot.LocateCenterOnScreen("2.png");
+GUI.Mouse.Click(x, y);

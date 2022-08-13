@@ -2,22 +2,11 @@
 
 namespace NetAutoGUI
 {
-    public class BitmapData
+    public record BitmapData(byte[] Data,int Width,int Height)
     {
-        private byte[] data;
-
-        public BitmapData(byte[] data)
-        {
-            this.data = data;
-        }
-        public byte[] Data
-        {
-            get { return data; }
-        }
-
         internal Mat ToMat()
         {
-            return Cv2.ImDecode(data,ImreadModes.Unchanged);
+            return Cv2.ImDecode(Data,ImreadModes.Unchanged);
         }
     }
 }
