@@ -1,4 +1,6 @@
-﻿namespace NetAutoGUI
+﻿using System;
+
+namespace NetAutoGUI
 {
     public record Rectangle(int X,int Y, int Width, int Height)
     {

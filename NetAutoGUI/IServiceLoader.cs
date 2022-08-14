@@ -6,5 +6,6 @@
         public IKeyboardController LoadKeyboardController();
         public IMessageBoxController LoadMessageBoxController();
         public IScreenshotController LoadScreenshotController();
+        public IApplicationController LoadApplicationController();
     }
 }

@@ -10,6 +10,7 @@ namespace NetAutoGUI
         public static readonly IKeyboardController Keyboard;
         public static readonly IMessageBoxController MessageBox;
         public static readonly IScreenshotController Screenshot;
+        public static readonly IApplicationController Application;
 
         static GUI()
         {
@@ -30,6 +31,7 @@ namespace NetAutoGUI
                 Keyboard = serviceLoader.LoadKeyboardController();
                 MessageBox = serviceLoader.LoadMessageBoxController();
                 Screenshot = serviceLoader.LoadScreenshotController();
+                Application = serviceLoader.LoadApplicationController();
             }
             else
             {

@@ -21,5 +21,10 @@
         {
             return new WindowsScreenshotController();
         }
+
+        public IApplicationController LoadApplicationController()
+        {
+            return new WindowsApplicationController();
+        }
     }
 }

@@ -49,7 +49,14 @@ GUI.Mouse.Click(loc.X, loc.Y);*/
 /*
 var loc = GUI.Screenshot.LocateOnScreen("1.png").Center;
 GUI.Mouse.Click(loc.X, loc.Y);*/
-var loc = GUI.Screenshot.LocateCenterOnScreen("1.png");
+/*
+var loc = GUI.Screenshot.LocateCenterOnScreen("1.png",0.5);
 GUI.Mouse.Click(loc.X,loc.Y);
 (int x, int y) = GUI.Screenshot.LocateCenterOnScreen("2.png");
-GUI.Mouse.Click(x, y);
+GUI.Mouse.Click(x, y);*/
+
+var items = GUI.Screenshot.LocateAllCentersOnScreen("4.png",0.99);
+foreach (var item in items)
+{
+    Console.WriteLine(item);
+}
