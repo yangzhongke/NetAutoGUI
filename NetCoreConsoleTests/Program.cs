@@ -54,9 +54,27 @@ var loc = GUI.Screenshot.LocateCenterOnScreen("1.png",0.5);
 GUI.Mouse.Click(loc.X,loc.Y);
 (int x, int y) = GUI.Screenshot.LocateCenterOnScreen("2.png");
 GUI.Mouse.Click(x, y);*/
-
+/*
 var items = GUI.Screenshot.LocateAllCentersOnScreen("4.png",0.99);
 foreach (var item in items)
 {
     Console.WriteLine(item);
-}
+}*/
+/*
+Thread.Sleep(1000);
+GUI.Application.ActivateWindowByTitle(t=>t.Contains("info.txt"));*/
+GUI.Application.KillProcesses("Calculator");
+GUI.Application.LaunchApplication("calc.exe");
+GUI.Application.WaitForWindowByTitle("Calculator");
+GUI.Application.ActivateWindowByTitle("Calculator");
+Thread.Sleep(2000);
+/*
+GUI.Keyboard.HotKey(KeyBoardKey.CONTROL, KeyBoardKey.VK_V);*/
+(int x1,int y1)=GUI.Screenshot.LocateCenterOnScreen("calc/1.png",0.99);
+(int xPlus, int yPlus) = GUI.Screenshot.LocateCenterOnScreen("calc/plus.png", 0.6);
+(int x2, int y2) = GUI.Screenshot.LocateCenterOnScreen("calc/2.png", 0.6);
+(int xEqual, int yEqual) = GUI.Screenshot.LocateCenterOnScreen("calc/equal.png", 0.6);
+GUI.Mouse.Click(x1, x1);
+GUI.Mouse.Click(xPlus, yPlus);
+GUI.Mouse.Click(x2, y2);
+GUI.Mouse.Click(xEqual, yEqual);

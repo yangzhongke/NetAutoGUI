@@ -1,5 +1,8 @@
 ﻿using System;
+using System.Diagnostics;
+using System.Linq;
 using System.Text;
+using System.Threading;
 using Vanara.PInvoke;
 
 namespace NetAutoGUI.Windows
@@ -12,45 +15,111 @@ namespace NetAutoGUI.Windows
             User32.GetWindowText(hwnd,sb, sb.Capacity);
             return sb.ToString();
         }
-        public void ActivateWindowByTitle(string title, bool throwExceptionWhenMulti = true)
+        public void ActivateWindowByTitle(string title)
         {
+            ActivateWindowByTitle(t => t == title);
+        }
+
+        public void ActivateWindowByTitle(Func<string, bool> predict)
+        {
+            bool found = false;
             User32.EnumWindows((hwnd, _) => {
                 string text = GetWindowText((IntPtr)hwnd);
-                if(text==title)
+                if (predict(text))
                 {
-                    User32.BringWindowToTop(hwnd);
+                    //https://stackoverflow.com/questions/2636721/bring-another-processes-window-to-foreground-when-it-has-showintaskbar-false
+                    if (User32.IsIconic(hwnd))
+                    {
+                        User32.ShowWindow(hwnd, ShowWindowCommand.SW_RESTORE);
+                    }
+                    User32.SetForegroundWindow(hwnd);
+                    found = true;
                     return false;//stop the enumeration
                 }
                 else
                 {
                     return true;// continue the enumeration
                 }
-            },IntPtr.Zero);
+            }, IntPtr.Zero);
+            if(!found)
+            {
+                throw new InvalidOperationException("cannot find the window");
+            }
         }
 
-        public void ActivateWindowByTitle(Func<string, bool> predict, bool throwExceptionWhenMulti = true)
+        public bool IsApplicationRunning(string processName)
         {
-            throw new NotImplementedException();
-        }
-
-        public bool IsApplicationRunning(string appPath)
-        {
-            throw new NotImplementedException();
+            return Process.GetProcesses().Any(p=>p.ProcessName==processName);
         }
 
         public void LaunchApplication(string appPath, params string[] arguments)
         {
-            throw new NotImplementedException();
+            Process.Start(appPath,arguments);
         }
 
-        public void WindowExistsByTitle(string title, bool throwExceptionWhenMulti)
+        public bool WindowExistsByTitle(string title)
         {
-            throw new NotImplementedException();
+            return WindowExistsByTitle(t => title == t);
         }
 
-        public void WindowExistsByTitle(Func<string, bool> predict, bool throwExceptionWhenMulti = true)
+        public bool WindowExistsByTitle(Func<string, bool> predict)
         {
-            throw new NotImplementedException();
+            bool found = false;
+            User32.EnumWindows((hwnd, _) => {
+                string text = GetWindowText((IntPtr)hwnd);
+                if (predict(text))
+                {
+                    found = true;
+                    return false;//stop the enumeration
+                }
+                else
+                {
+                    return true;// continue the enumeration
+                }
+            }, IntPtr.Zero);
+            return found;
+        }
+
+        public void WaitForApplication(string processName, double timeoutSeconds = 2)
+        {
+            Stopwatch stopwatch = new Stopwatch();
+            stopwatch.Start();
+            while(!Process.GetProcesses().Any(p => p.ProcessName == processName))
+            {
+                if(stopwatch.ElapsedMilliseconds>timeoutSeconds*1000)
+                {
+                    throw new TimeoutException("wait for application timeout:"+processName);
+                }
+                Thread.Sleep(50);
+            }
+        }
+
+        public void WaitForWindowByTitle(string title, double timeoutSeconds = 2)
+        {
+            WaitForWindowByTitle(t => title == t, timeoutSeconds);
+        }
+
+        public void WaitForWindowByTitle(Func<string, bool> predict, double timeoutSeconds = 2)
+        {
+            Stopwatch stopwatch = new Stopwatch();
+            stopwatch.Start();
+            while (!WindowExistsByTitle(predict))
+            {
+                if (stopwatch.ElapsedMilliseconds > timeoutSeconds * 1000)
+                {
+                    throw new TimeoutException("wait for Window timeout");
+                }
+                Thread.Sleep(50);
+            }
+        }
+
+        public void KillProcesses(string processName)
+        {
+            var items = Process.GetProcesses().Where(p => p.ProcessName == processName);
+            foreach(var p in items)
+            {
+                p.Kill();
+            }
         }
     }
 }

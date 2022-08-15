@@ -59,6 +59,7 @@ namespace NetAutoGUI.Internals
                             break;
                         }
                         matScreen.Rectangle(new Rect(match.X, match.Y, match.Width, match.Height), Scalar.Blue, -1);
+                        matScreen.SaveImage("d:/1.png");
                     }
                     else
                     {
