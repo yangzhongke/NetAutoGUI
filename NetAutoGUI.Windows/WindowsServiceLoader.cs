@@ -1,5 +1,8 @@
-﻿namespace NetAutoGUI.Windows
+﻿using System.Runtime.Versioning;
+
+namespace NetAutoGUI.Windows
 {
+    [SupportedOSPlatform("windows")]
     public class WindowsServiceLoader : IServiceLoader
     {
         public IKeyboardController LoadKeyboardController()

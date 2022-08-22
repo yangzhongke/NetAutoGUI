@@ -1,8 +1,10 @@
-﻿using System.Windows.Forms;
+﻿using System.Runtime.Versioning;
+using System.Windows.Forms;
 using Vanara.PInvoke;
 
 namespace NetAutoGUI.Windows
 {
+    [SupportedOSPlatform("windows")]
     internal class WinFormMessageBoxController : IMessageBoxController
     {
         public void Alert(string text, string title = " ")

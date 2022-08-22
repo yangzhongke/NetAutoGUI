@@ -36,39 +36,7 @@ namespace NetAutoGUI.Internals
             {
                 return new(rect.X,rect.Y);
             }
-        }
-
-        public Rectangle[] LocateAllOnScreen(string imgFileToBeFound, double confidence = 0.5, int maxCount = 10)
-        {
-            BitmapData bitmapToBeFound = LoadImageFromFile(imgFileToBeFound);
-            BitmapData bitmapScreen = Screenshot();
-            using Mat matToBeFound = bitmapToBeFound.ToMat();
-            using Mat matScreen = bitmapScreen.ToMat();
-            var rectangles = new List<Rectangle>();
-            while (true)
-            {
-                using (var result = matScreen.MatchTemplate(matToBeFound, TemplateMatchModes.CCoeffNormed))
-                {
-                    result.MinMaxLoc(out _, out double maxValues, out _, out Point maxLocations);
-                    if (maxValues >= confidence)
-                    {
-                        Rectangle match = new(maxLocations.X, maxLocations.Y, bitmapToBeFound.Width, bitmapToBeFound.Height);
-                        rectangles.Add(match);
-                        if(rectangles.Count>=maxCount)
-                        {
-                            break;
-                        }
-                        matScreen.Rectangle(new Rect(match.X, match.Y, match.Width, match.Height), Scalar.Blue, -1);
-                        matScreen.SaveImage("d:/1.png");
-                    }
-                    else
-                    {
-                        break;
-                    }
-                }
-            }
-            return rectangles.Distinct().ToArray();
-        }
+        }        
 
         public Location[] LocateAllCentersOnScreen(string imgFileToBeFound, double confidence = 0.5, int maxCount = 10)
         {
@@ -79,5 +47,7 @@ namespace NetAutoGUI.Internals
             }
             return list.ToArray();
         }
+
+        public abstract Rectangle[] LocateAllOnScreen(string imgFileToBeFound, double confidence = 0.5, int maxCount = 10);
     }
 }

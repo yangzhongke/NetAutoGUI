@@ -67,7 +67,7 @@ GUI.Application.KillProcesses("Calculator");
 GUI.Application.LaunchApplication("calc.exe");
 GUI.Application.WaitForWindowByTitle("Calculator");
 GUI.Application.ActivateWindowByTitle("Calculator");
-Thread.Sleep(2000);
+Thread.Sleep(1000);
 /*
 GUI.Keyboard.HotKey(KeyBoardKey.CONTROL, KeyBoardKey.VK_V);*/
 (int x1,int y1)=GUI.Screenshot.LocateCenterOnScreen("calc/1.png",0.99);

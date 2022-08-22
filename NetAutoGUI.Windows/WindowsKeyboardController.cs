@@ -2,10 +2,12 @@
 using InputSimulatorStandard.Native;
 using NetAutoGUI.Internals;
 using System;
+using System.Runtime.Versioning;
 using System.Threading;
 
 namespace NetAutoGUI.Windows
 {
+    [SupportedOSPlatform("windows")]
     internal class WindowsKeyboardController : IKeyboardController
     {
         private IInputSimulator inputSimulator = new InputSimulator();

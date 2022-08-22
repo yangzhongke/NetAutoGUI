@@ -1,11 +1,13 @@
 ﻿using InputSimulatorStandard;
 using NetAutoGUI.Internals;
 using System;
+using System.Runtime.Versioning;
 using System.Threading;
 using Vanara.PInvoke;
 
 namespace NetAutoGUI.Windows
 {
+    [SupportedOSPlatform("windows")]
     internal class WindowsMouseController : AbstractMouseController
     {
         private IInputSimulator inputSimulator = new InputSimulator();

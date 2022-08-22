@@ -1,12 +1,14 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Linq;
+using System.Runtime.Versioning;
 using System.Text;
 using System.Threading;
 using Vanara.PInvoke;
 
 namespace NetAutoGUI.Windows
 {
+    [SupportedOSPlatform("windows")]
     internal class WindowsApplicationController : IApplicationController
     {
         private string GetWindowText(IntPtr hwnd)
