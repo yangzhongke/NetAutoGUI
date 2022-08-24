@@ -1,16 +1,15 @@
-﻿using NetAutoGUI.Internals;
-using OpenCvSharp;
-using System.Collections.Generic;
+﻿using InputSimulatorStandard;
+using NetAutoGUI.Internals;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
-using System.Linq;
 using System.Windows.Forms;
 
 namespace NetAutoGUI.Windows
 {
     internal class WindowsScreenshotController : AbstractScreenshotController
     {
+        private IInputSimulator inputSimulator = new InputSimulator();
         public override BitmapData Screenshot(Rectangle? region = null)
         {
             using Bitmap bitmap = TakeScreenShot(region);
@@ -52,43 +51,10 @@ namespace NetAutoGUI.Windows
             return new BitmapData(data, bitmap.Width, bitmap.Height);
         }
 
-        private Bitmap ToBitmap(BitmapData data)
+        protected override void Click(int x, int y)
         {
-            using MemoryStream ms = new MemoryStream(data.Data);
-            Bitmap bitmap = new Bitmap(ms);
-            return bitmap;
-        }
-
-        public override Rectangle[] LocateAllOnScreen(string imgFileToBeFound, double confidence = 0.5, int maxCount = 10)
-        {
-            var bitmapScreen = Screenshot();
-            var bitmapToBeFound = this.LoadImageFromFile(imgFileToBeFound);
-            using Mat matToBeFound = bitmapToBeFound.ToMat();
-            using Mat matScreen = bitmapScreen.ToMat();
-            var rectangles = new List<(Rectangle Rect,double Confidence)>();
-
-            while (true)
-            {
-                using (var result = matScreen.MatchTemplate(matToBeFound, TemplateMatchModes.CCoeffNormed))
-                {
-                    result.MinMaxLoc(out _, out double maxValue, out _, out OpenCvSharp.Point maxLocations);
-                    if (maxValue >= confidence)
-                    {
-                        Rectangle match = new(maxLocations.X, maxLocations.Y, bitmapToBeFound.Width, bitmapToBeFound.Height);
-                        rectangles.Add(new (match, maxValue));
-                        if (rectangles.Count >= maxCount)
-                        {
-                            break;
-                        }
-                        matScreen.Rectangle(new Rect(match.X, match.Y, match.Width, match.Height), Scalar.Blue, -1);
-                    }
-                    else
-                    {
-                        break;
-                    }
-                }
-            }
-            return rectangles.OrderByDescending(e=>e.Confidence).Select(e=>e.Rect).ToArray();
+            inputSimulator.Mouse.MoveMouseTo(x, y);
+            inputSimulator.Mouse.LeftButtonClick();
         }
     }
 }

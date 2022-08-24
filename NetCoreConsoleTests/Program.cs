@@ -70,11 +70,17 @@ GUI.Application.ActivateWindowByTitle("Calculator");
 Thread.Sleep(1000);
 /*
 GUI.Keyboard.HotKey(KeyBoardKey.CONTROL, KeyBoardKey.VK_V);*/
-(int x1,int y1)=GUI.Screenshot.LocateCenterOnScreen("calc/1.png",0.99);
-(int xPlus, int yPlus) = GUI.Screenshot.LocateCenterOnScreen("calc/plus.png", 0.6);
-(int x2, int y2) = GUI.Screenshot.LocateCenterOnScreen("calc/2.png", 0.6);
-(int xEqual, int yEqual) = GUI.Screenshot.LocateCenterOnScreen("calc/equal.png", 0.6);
-GUI.Mouse.Click(x1, x1);
+/*
+(int x1,int y1)=GUI.Screenshot.LocateCenterOnScreen("calc/1.png");
+(int xPlus, int yPlus) = GUI.Screenshot.LocateCenterOnScreen("calc/plus.png");
+(int x2, int y2) = GUI.Screenshot.LocateCenterOnScreen("calc/2.png");
+(int xEqual, int yEqual) = GUI.Screenshot.LocateCenterOnScreen("calc/equal.png");
+GUI.Mouse.Click(x1, y1);
 GUI.Mouse.Click(xPlus, yPlus);
 GUI.Mouse.Click(x2, y2);
-GUI.Mouse.Click(xEqual, yEqual);
+GUI.Mouse.Click(xEqual, yEqual);*/
+
+GUI.Screenshot.ClickOnScreen("calc/1.png");
+GUI.Screenshot.ClickOnScreen("calc/plus.png");
+GUI.Screenshot.ClickOnScreen("calc/2.png");
+GUI.Screenshot.ClickOnScreen("calc/equal.png");
