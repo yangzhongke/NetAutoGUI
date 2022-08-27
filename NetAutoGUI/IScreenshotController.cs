@@ -9,5 +9,7 @@
         public Location? LocateCenterOnScreen(string imgFileToBeFound, double confidence = 0.99);
         public Rectangle[] LocateAllOnScreen(string imgFileToBeFound, double confidence = 0.99, int maxCount=5);
         public Location[] LocateAllCentersOnScreen(string imgFileToBeFound, double confidence = 0.99, int maxCount = 5);
+        public void Highlight(params Rectangle[] rectangles);
+        public void Highlight(string imgFileToBeFound, double confidence = 0.99, int maxCount = 5);
     }
 }

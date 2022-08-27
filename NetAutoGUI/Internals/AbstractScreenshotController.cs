@@ -92,5 +92,13 @@ namespace NetAutoGUI.Internals
                 Click(x, y);
             }
         }
+
+        public abstract void Highlight(params Rectangle[] rectangles);
+
+        public void Highlight(string imgFileToBeFound, double confidence = 0.99, int maxCount = 5)
+        {
+            var rects = LocateAllOnScreen(imgFileToBeFound, confidence, maxCount);
+            Highlight(rects);
+        }
     }
 }

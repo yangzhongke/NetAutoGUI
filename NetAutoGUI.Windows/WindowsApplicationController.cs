@@ -5,6 +5,7 @@ using System.Runtime.Versioning;
 using System.Text;
 using System.Threading;
 using Vanara.PInvoke;
+using static Vanara.PInvoke.Kernel32;
 
 namespace NetAutoGUI.Windows
 {
@@ -54,9 +55,15 @@ namespace NetAutoGUI.Windows
             return Process.GetProcesses().Any(p=>p.ProcessName==processName);
         }
 
-        public void LaunchApplication(string appPath, params string[] arguments)
+        public void LaunchApplication(string appPath, string arguments)
         {
-            Process.Start(appPath,arguments);
+            var startInfo = new ProcessStartInfo
+            {
+                FileName = appPath,
+                Arguments = arguments,
+                UseShellExecute = true,//这样就可以用"chrome.exe"这个相对路径启动，而不用全路径
+            };
+            Process.Start(startInfo);
         }
 
         public bool WindowExistsByTitle(string title)

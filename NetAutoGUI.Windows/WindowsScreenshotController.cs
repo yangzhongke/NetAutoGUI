@@ -1,9 +1,13 @@
 ﻿using InputSimulatorStandard;
 using NetAutoGUI.Internals;
+using OpenCvSharp;
+using System;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
+using System.Threading;
 using System.Windows.Forms;
+using Vanara.PInvoke;
 
 namespace NetAutoGUI.Windows
 {
@@ -55,6 +59,27 @@ namespace NetAutoGUI.Windows
         {
             inputSimulator.Mouse.MoveMouseTo(x, y);
             inputSimulator.Mouse.LeftButtonClick();
+        }
+
+        private static PRECT ToPRECT(Rectangle r)
+        {
+            return new PRECT(r.X, r.Y, r.X + r.Width, r.Y + r.Height);
+        }
+        public override void Highlight(params Rectangle[] rectangles)
+        {
+            HDC hDC_Desktop = User32.GetDC(HWND.NULL);
+            foreach(var rect in rectangles)
+            {   
+                HBRUSH blueBrush = User32.GetSysColorBrush(SystemColorIndex.COLOR_ACTIVEBORDER);
+                User32.FillRect(hDC_Desktop, new RECT(rect.X,rect.Y,rect.X+rect.Width, rect.Y+rect.Height), blueBrush);
+            }
+            
+            Thread.Sleep(1000);
+            foreach (var rect in rectangles)
+            {
+                User32.InvalidateRect(HWND.NULL, ToPRECT(rect), true);
+            }
+            Thread.Sleep(1000);
         }
     }
 }

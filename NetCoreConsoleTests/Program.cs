@@ -63,11 +63,12 @@ foreach (var item in items)
 /*
 Thread.Sleep(1000);
 GUI.Application.ActivateWindowByTitle(t=>t.Contains("info.txt"));*/
+/*
 GUI.Application.KillProcesses("Calculator");
 GUI.Application.LaunchApplication("calc.exe");
 GUI.Application.WaitForWindowByTitle("Calculator");
 GUI.Application.ActivateWindowByTitle("Calculator");
-Thread.Sleep(1000);
+Thread.Sleep(1000);*/
 /*
 GUI.Keyboard.HotKey(KeyBoardKey.CONTROL, KeyBoardKey.VK_V);*/
 /*
@@ -78,9 +79,18 @@ GUI.Keyboard.HotKey(KeyBoardKey.CONTROL, KeyBoardKey.VK_V);*/
 GUI.Mouse.Click(x1, y1);
 GUI.Mouse.Click(xPlus, yPlus);
 GUI.Mouse.Click(x2, y2);
-GUI.Mouse.Click(xEqual, yEqual);*/
-
+GUI.Mouse.Click(xEqual, yEqual);
+GUI.Screenshot.Highlight(new Rectangle(x1, y1, 100, 100));*/
+/*
 GUI.Screenshot.ClickOnScreen("calc/1.png");
 GUI.Screenshot.ClickOnScreen("calc/plus.png");
 GUI.Screenshot.ClickOnScreen("calc/2.png");
-GUI.Screenshot.ClickOnScreen("calc/equal.png");
+GUI.Screenshot.ClickOnScreen("calc/equal.png");*/
+GUI.Application.LaunchApplication("chrome.exe", "https://www.baidu.com");
+GUI.Application.WaitForWindowByTitle(s => s.Contains("百度一下"),timeoutSeconds:5);
+Thread.Sleep(3000);
+GUI.Screenshot.ClickOnScreen("baidu/input.png");
+GUI.Keyboard.Write("youzack");
+Thread.Sleep(500);
+GUI.Screenshot.Highlight("baidu/searchbtn.png");
+GUI.Screenshot.ClickOnScreen("baidu/searchbtn.png");

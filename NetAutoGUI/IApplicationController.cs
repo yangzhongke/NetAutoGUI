@@ -4,7 +4,7 @@ namespace NetAutoGUI
 {
     public interface IApplicationController
     {
-        public void LaunchApplication(string appPath, params string[] arguments);
+        public void LaunchApplication(string appPath, string arguments);
         public bool IsApplicationRunning(string processName);
         public void KillProcesses(string processName);
         public bool WindowExistsByTitle(string title);

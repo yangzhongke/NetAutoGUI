@@ -28,6 +28,12 @@
     <None Update="5.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Update="baidu\input.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="baidu\searchbtn.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="calc\0.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -74,6 +80,7 @@
 
   <ItemGroup>
     <Folder Include="calc\" />
+    <Folder Include="baidu\" />
   </ItemGroup>
 
 </Project>
