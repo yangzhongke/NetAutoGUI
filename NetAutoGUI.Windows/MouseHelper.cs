@@ -59,5 +59,10 @@ namespace NetAutoGUI.Windows
             MiddleButtonDown();
             MiddleButtonUp();
         }
+
+        public static void Scroll(int delta)
+        {
+            User32.mouse_event(User32.MOUSEEVENTF.MOUSEEVENTF_WHEEL, 0, 0,delta, IntPtr.Zero);
+        }
     }
 }

@@ -1,5 +1,4 @@
-﻿using InputSimulatorStandard;
-using NetAutoGUI.Internals;
+﻿using NetAutoGUI.Internals;
 using System;
 using System.Runtime.Versioning;
 using System.Threading;
@@ -10,8 +9,6 @@ namespace NetAutoGUI.Windows
     [SupportedOSPlatform("windows")]
     internal class WindowsMouseController : AbstractMouseController
     {
-        private IInputSimulator inputSimulator = new InputSimulator();
-
         public override void Click(int? x = null, int? y = null, MouseButtonType button = MouseButtonType.Left, int clicks = 1, double interval = 0)
         {
             if(clicks<=0)
@@ -19,20 +16,19 @@ namespace NetAutoGUI.Windows
                 throw new ArgumentOutOfRangeException(nameof(clicks), "clicks should be positive.");
             }
             TryMoveTo(x, y);
-            var mouse = inputSimulator.Mouse;
             for (int i = 0; i < clicks;i++)
             {                
                 if(button == MouseButtonType.Left)
                 {
-                    mouse.LeftButtonClick();
+                    MouseHelper.LeftButtonClick();
                 }
                 else if(button== MouseButtonType.Middle)
                 {
-                    mouse.MiddleButtonClick();
+                    MouseHelper.MiddleButtonClick();
                 }
                 else if(button== MouseButtonType.Right)
                 {
-                    mouse.RightButtonClick();
+                    MouseHelper.RightButtonClick();
                 }
                 Thread.Sleep((int)(interval * 1000));
             }
@@ -41,36 +37,34 @@ namespace NetAutoGUI.Windows
         public override void MouseDown(int? x = null, int? y = null, MouseButtonType button = MouseButtonType.Left)
         {
             TryMoveTo(x, y);
-            var mouse = inputSimulator.Mouse;
             if (button == MouseButtonType.Left)
             {
-                mouse.LeftButtonDown();
+                MouseHelper.LeftButtonDown();
             }
             else if (button == MouseButtonType.Middle)
             {
-                mouse.MiddleButtonDown();
+                MouseHelper.MiddleButtonDown();
             }
             else if (button == MouseButtonType.Right)
             {
-                mouse.RightButtonDown();
+                MouseHelper.RightButtonDown();
             }
         }
 
         public override void MouseUp(int? x = null, int? y = null, MouseButtonType button = MouseButtonType.Left)
         {
             TryMoveTo(x, y);
-            var mouse = inputSimulator.Mouse;
             if (button == MouseButtonType.Left)
             {
-                mouse.LeftButtonUp();
+                MouseHelper.LeftButtonUp();
             }
             else if (button == MouseButtonType.Middle)
             {
-                mouse.MiddleButtonUp();
+                MouseHelper.MiddleButtonUp();
             }
             else if (button == MouseButtonType.Right)
             {
-                mouse.RightButtonUp();
+                MouseHelper.RightButtonUp();
             }
         }
 
@@ -94,8 +88,7 @@ namespace NetAutoGUI.Windows
 
         public override void MoveTo(int x, int y)
         {
-            User32.SetCursorPos(x, y)
-                .CheckReturn(nameof(User32.SetCursorPos));
+            MouseHelper.MoveTo(x, y);
         }
 
         public override Location Position()
@@ -107,8 +100,7 @@ namespace NetAutoGUI.Windows
 
         public override void Scroll(int value)
         {
-            var mouse = inputSimulator.Mouse;
-            mouse.VerticalScroll(value);
+            MouseHelper.Scroll(value);
         }
 
         public override Size Size()
