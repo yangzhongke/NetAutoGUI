@@ -1,6 +1,5 @@
 ﻿using InputSimulatorStandard;
 using NetAutoGUI.Internals;
-using OpenCvSharp;
 using System;
 using System.Drawing;
 using System.Drawing.Imaging;
@@ -57,8 +56,14 @@ namespace NetAutoGUI.Windows
 
         protected override void Click(int x, int y)
         {
-            inputSimulator.Mouse.MoveMouseTo(x, y);
-            inputSimulator.Mouse.LeftButtonClick();
+            /*
+             inputSimulator.Mouse.MoveMouseTo(x, y);
+              inputSimulator.Mouse.LeftButtonClick();*/
+            
+            User32.SetCursorPos(x, y)
+                 .CheckReturn(nameof(User32.SetCursorPos));
+            User32.mouse_event(User32.MOUSEEVENTF.MOUSEEVENTF_LEFTDOWN, x, y, 0, IntPtr.Zero);
+            User32.mouse_event(User32.MOUSEEVENTF.MOUSEEVENTF_LEFTUP, x, y, 0, IntPtr.Zero);
         }
 
         private static PRECT ToPRECT(Rectangle r)

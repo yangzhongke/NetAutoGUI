@@ -92,5 +92,6 @@ Thread.Sleep(3000);
 GUI.Screenshot.ClickOnScreen("baidu/input.png");
 GUI.Keyboard.Write("youzack");
 Thread.Sleep(500);
+
 GUI.Screenshot.Highlight("baidu/searchbtn.png");
 GUI.Screenshot.ClickOnScreen("baidu/searchbtn.png");

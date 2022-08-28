@@ -34,7 +34,7 @@ namespace NetAutoGUI.Internals
             }
             else
             {
-                return new(rect.X,rect.Y);
+                return new(rect.X+rect.Width/2,rect.Y + rect.Height / 2);
             }
         }        
 
