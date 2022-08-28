@@ -1,6 +1,4 @@
-﻿using InputSimulatorStandard;
-using NetAutoGUI.Internals;
-using System;
+﻿using NetAutoGUI.Internals;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
@@ -12,7 +10,6 @@ namespace NetAutoGUI.Windows
 {
     internal class WindowsScreenshotController : AbstractScreenshotController
     {
-        private IInputSimulator inputSimulator = new InputSimulator();
         public override BitmapData Screenshot(Rectangle? region = null)
         {
             using Bitmap bitmap = TakeScreenShot(region);
@@ -56,14 +53,8 @@ namespace NetAutoGUI.Windows
 
         protected override void Click(int x, int y)
         {
-            /*
-             inputSimulator.Mouse.MoveMouseTo(x, y);
-              inputSimulator.Mouse.LeftButtonClick();*/
-            
-            User32.SetCursorPos(x, y)
-                 .CheckReturn(nameof(User32.SetCursorPos));
-            User32.mouse_event(User32.MOUSEEVENTF.MOUSEEVENTF_LEFTDOWN, x, y, 0, IntPtr.Zero);
-            User32.mouse_event(User32.MOUSEEVENTF.MOUSEEVENTF_LEFTUP, x, y, 0, IntPtr.Zero);
+            MouseHelper.MoveTo(x, y);
+            MouseHelper.LeftButtonClick();
         }
 
         private static PRECT ToPRECT(Rectangle r)
