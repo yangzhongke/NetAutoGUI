@@ -4,10 +4,10 @@ namespace NetAutoGUI.Internals
 {
     public class KeyHoldContext : IDisposable
     {
-        private KeyBoardKey holdedKey;
+        private VirtualKeyCode holdedKey;
         private IKeyboardController keyboardController;
 
-        public KeyHoldContext(KeyBoardKey holdedKey, IKeyboardController keyboardController)
+        public KeyHoldContext(VirtualKeyCode holdedKey, IKeyboardController keyboardController)
         {
             this.holdedKey = holdedKey;
             this.keyboardController = keyboardController;

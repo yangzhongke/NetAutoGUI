@@ -1,7 +1,9 @@
 ﻿using OpenCvSharp;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
+using System.Threading;
 
 namespace NetAutoGUI.Internals
 {
@@ -93,12 +95,32 @@ namespace NetAutoGUI.Internals
             }
         }
 
-        public abstract void Highlight(params Rectangle[] rectangles);
+        public abstract void Highlight(double waitSeconds = 0.5, params Rectangle[] rectangles);
 
-        public void Highlight(string imgFileToBeFound, double confidence = 0.99, int maxCount = 5)
+        public void Highlight(string imgFileToBeFound, double confidence = 0.99, int maxCount = 5, double waitSeconds = 0.5)
         {
             var rects = LocateAllOnScreen(imgFileToBeFound, confidence, maxCount);
-            Highlight(rects);
+            Highlight(waitSeconds,rects);
+        }
+
+        public void WaitAndClickOnScreen(string imgFileToBeFound, double confidence = 0.99, double timeoutSeconds = 5)
+        {
+            Stopwatch sw = new Stopwatch();
+            sw.Start();
+            Location ptr=null;
+            while(sw.ElapsedMilliseconds<timeoutSeconds*1000&&ptr==null)
+            {
+                ptr = LocateCenterOnScreen(imgFileToBeFound, confidence);
+            }            
+            if (ptr == null)
+            {
+                throw new InvalidOperationException($"image {imgFileToBeFound} not found on the screen");
+            }
+            else
+            {
+                (int x, int y) = ptr;
+                Click(x, y);
+            }
         }
     }
 }

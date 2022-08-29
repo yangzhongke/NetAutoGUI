@@ -5,7 +5,6 @@ using System.Runtime.Versioning;
 using System.Text;
 using System.Threading;
 using Vanara.PInvoke;
-using static Vanara.PInvoke.Kernel32;
 
 namespace NetAutoGUI.Windows
 {
@@ -55,7 +54,7 @@ namespace NetAutoGUI.Windows
             return Process.GetProcesses().Any(p=>p.ProcessName==processName);
         }
 
-        public void LaunchApplication(string appPath, string arguments)
+        public void LaunchApplication(string appPath, string? arguments=null)
         {
             var startInfo = new ProcessStartInfo
             {

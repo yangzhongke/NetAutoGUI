@@ -63,7 +63,7 @@ namespace NetAutoGUI.Windows
         {
             return new PRECT(r.X, r.Y, r.X + r.Width, r.Y + r.Height);
         }
-        public override void Highlight(params Rectangle[] rectangles)
+        public override void Highlight(double waitSeconds=0.5,params Rectangle[] rectangles)
         {
             HDC hDC_Desktop = User32.GetDC(HWND.NULL);
             foreach(var rect in rectangles)
@@ -71,13 +71,11 @@ namespace NetAutoGUI.Windows
                 HBRUSH blueBrush = User32.GetSysColorBrush(SystemColorIndex.COLOR_ACTIVEBORDER);
                 User32.FillRect(hDC_Desktop, new RECT(rect.X,rect.Y,rect.X+rect.Width, rect.Y+rect.Height), blueBrush);
             }
-            
-            Thread.Sleep(1000);
+            Thread.Sleep((int)(waitSeconds * 1000));
             foreach (var rect in rectangles)
             {
                 User32.InvalidateRect(HWND.NULL, ToPRECT(rect), true);
-            }
-            Thread.Sleep(1000);
+            }            
         }
     }
 }

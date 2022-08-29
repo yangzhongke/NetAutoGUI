@@ -5,10 +5,14 @@
     <TargetFramework>net6.0-windows</TargetFramework>
     <UseWindowsForms>true</UseWindowsForms>
 	<Nullable>enable</Nullable>
+	<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+	<Title>.NET version of pyAutoGUI</Title>
+	<PackageProjectUrl>https://github.com/yangzhongke/NetAutoGUI</PackageProjectUrl>
+	<RepositoryUrl>https://github.com/yangzhongke/NetAutoGUI</RepositoryUrl>
+	<AssemblyVersion>1.0.0</AssemblyVersion>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="InputSimulatorStandard" Version="1.0.0" />
     <PackageReference Include="OpenCvSharp4.runtime.win" Version="4.6.0.20220608" />
     <PackageReference Include="System.Drawing.Common" Version="6.0.0" />
     <PackageReference Include="Vanara.PInvoke.User32" Version="3.4.6" />

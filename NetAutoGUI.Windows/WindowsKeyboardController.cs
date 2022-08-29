@@ -1,46 +1,47 @@
-﻿using InputSimulatorStandard;
-using InputSimulatorStandard.Native;
-using NetAutoGUI.Internals;
+﻿using NetAutoGUI.Internals;
 using System;
+using System.Runtime.InteropServices;
 using System.Runtime.Versioning;
 using System.Threading;
+using Vanara.PInvoke;
 
 namespace NetAutoGUI.Windows
 {
     [SupportedOSPlatform("windows")]
     internal class WindowsKeyboardController : IKeyboardController
     {
-        private IInputSimulator inputSimulator = new InputSimulator();
-
-        public void KeyDown(KeyBoardKey key)
+        public void KeyDown(VirtualKeyCode key)
         {
-            inputSimulator.Keyboard.KeyDown(ToVirtualKeyCode(key));
+            var inputBuilder = new InputBuilder().AddKeyDown(key);
+            SendInputs(inputBuilder);
         }
 
-        private static VirtualKeyCode ToVirtualKeyCode(KeyBoardKey key)
+        public void KeyUp(VirtualKeyCode key)
         {
-            int iKey = (int)key;
-            return (VirtualKeyCode)iKey;
+            var inputBuilder = new InputBuilder().AddKeyUp(key);
+            SendInputs(inputBuilder);
         }
 
-        public void KeyUp(KeyBoardKey key)
+        public void Press(params VirtualKeyCode[] keys)
         {
-            inputSimulator.Keyboard.KeyUp(ToVirtualKeyCode(key));
-        }
-
-        public void Press(params KeyBoardKey[] keys)
-        {
-            foreach(var key in keys)
+            var inputBuilder = new InputBuilder();
+            foreach (var key in keys)
             {
-                var vKey = ToVirtualKeyCode(key);
-                inputSimulator.Keyboard.KeyPress(vKey);
+                inputBuilder.AddKeyPress(key);
             }
+            SendInputs(inputBuilder);
         }
 
+        public void Write(char c)
+        {
+            var inputBuilder = new InputBuilder().AddCharacter(c);
+            SendInputs(inputBuilder);
+        }
 
         public void Write(string s)
         {
-            inputSimulator.Keyboard.TextEntry(s);
+            var inputBuilder = new InputBuilder().AddCharacters(s);
+            SendInputs(inputBuilder);
         }
 
         public void Write(string s, double interval)
@@ -48,17 +49,17 @@ namespace NetAutoGUI.Windows
             ValidationHelpers.NotNegative(interval,nameof(interval));
             foreach(char c in s)
             {
-                inputSimulator.Keyboard.TextEntry(c);
+                Write(c);
                 Thread.Sleep((int)(interval * 1000));
             }
         }
 
-        public IDisposable Hold(KeyBoardKey key)
+        public IDisposable Hold(VirtualKeyCode key)
         {
             return new KeyHoldContext(key, this);
         }
 
-        public void HotKey(params KeyBoardKey[] keys)
+        public void HotKey(params VirtualKeyCode[] keys)
         {
             foreach (var key in keys)
             {
@@ -68,6 +69,16 @@ namespace NetAutoGUI.Windows
             {
                 var key = keys[i];
                 KeyUp(key);
+            }
+        }
+
+        private void SendInputs(InputBuilder inputBuilder)
+        {
+            var inputs = inputBuilder.ToArray();
+            var ret = User32.SendInput((uint)inputs.Length, inputs, Marshal.SizeOf(typeof(User32.INPUT)));
+            if (ret != inputs.Length)
+            {
+                throw new Exception("Some simulated input commands were not sent successfully. The most common reason for this happening are the security features of Windows including User Interface Privacy Isolation (UIPI). Your application can only send commands to applications of the same or lower elevation. Similarly certain commands are restricted to Accessibility/UIAutomation applications. Refer to the project home page and the code samples for more information.");
             }
         }
     }
