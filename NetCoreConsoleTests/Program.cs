@@ -1,7 +1,7 @@
 ﻿using NetAutoGUI;
 
 //GUI.Mouse.MoveTo(1000, 1000, 3, TweeningType.BounceInOut);
-GUI.Mouse.MoveTo(1000, 800);
+//GUI.Mouse.MoveTo(1000, 800);
 /*
 for(int i=0;i<1;i++)
 {
@@ -64,7 +64,7 @@ foreach (var item in items)
 Thread.Sleep(1000);
 GUI.Application.ActivateWindowByTitle(t=>t.Contains("info.txt"));*/
 
-
+/*
 GUI.Application.KillProcesses("Calculator");
 GUI.Application.LaunchApplication("calc.exe");
 GUI.Application.WaitForWindowByTitle("Calculator");
@@ -73,7 +73,7 @@ GUI.Application.ActivateWindowByTitle("Calculator");
 GUI.Screenshot.WaitAndClickOnScreen("calc/1.png");
 GUI.Screenshot.WaitAndClickOnScreen("calc/plus.png");
 GUI.Screenshot.WaitAndClickOnScreen("calc/2.png");
-GUI.Screenshot.WaitAndClickOnScreen("calc/equal.png",confidence:0.6);
+GUI.Screenshot.WaitAndClickOnScreen("calc/equal.png",confidence:0.6);*/
 
 /*
 GUI.Application.LaunchApplication("chrome.exe", "https://www.baidu.com");
@@ -83,3 +83,17 @@ GUI.Keyboard.Write("youzack");
 Thread.Sleep(500);
 GUI.Screenshot.Highlight("baidu/searchbtn.png");
 GUI.Screenshot.WaitAndClickOnScreen("baidu/searchbtn.png");*/
+
+/*
+GUI.Application.LaunchApplication("notepad.exe");
+GUI.Application.WaitForWindowByTitle(t => t.Contains("记事本"));
+GUI.Application.ActivateWindowByTitle(t=>t.Contains("记事本"));
+GUI.Keyboard.Write("你好，我是杨中科");*/
+GUI.Application.LaunchApplication("wordpad.exe");
+GUI.Application.WaitForWindowLikeTitle("*WordPad");
+GUI.Application.ActivateWindowLikeTitle("*WordPad");
+GUI.Keyboard.Write("你好，我是杨中科");
+using (GUI.Keyboard.Hold(VirtualKeyCode.CONTROL))
+{
+    GUI.Keyboard.Press(VirtualKeyCode.VK_S);
+}

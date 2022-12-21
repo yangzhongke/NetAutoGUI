@@ -5,6 +5,7 @@ using System.Runtime.Versioning;
 using System.Text;
 using System.Threading;
 using Vanara.PInvoke;
+using WildcardMatch;
 
 namespace NetAutoGUI.Windows
 {
@@ -49,6 +50,11 @@ namespace NetAutoGUI.Windows
             }
         }
 
+        public void ActivateWindowLikeTitle(string wildcard)
+        {
+            ActivateWindowByTitle(f => wildcard.WildcardMatch(f, true));
+        }
+
         public bool IsApplicationRunning(string processName)
         {
             return Process.GetProcesses().Any(p=>p.ProcessName==processName);
@@ -88,6 +94,11 @@ namespace NetAutoGUI.Windows
             return found;
         }
 
+        public bool WindowExistsLikeTitle(string wildcard)
+        {
+            return WindowExistsByTitle(f=>wildcard.WildcardMatch(f,true));
+        }
+
         public void WaitForApplication(string processName, double timeoutSeconds = 2)
         {
             Stopwatch stopwatch = new Stopwatch();
@@ -119,6 +130,11 @@ namespace NetAutoGUI.Windows
                 }
                 Thread.Sleep(50);
             }
+        }
+
+        public void WaitForWindowLikeTitle(string wildcard, double timeoutSeconds = 2)
+        {
+            WaitForWindowByTitle(f => wildcard.WildcardMatch(f, true), timeoutSeconds);
         }
 
         public void KillProcesses(string processName)

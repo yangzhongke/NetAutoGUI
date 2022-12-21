@@ -8,12 +8,13 @@
 	<PackageProjectUrl>https://github.com/yangzhongke/NetAutoGUI</PackageProjectUrl>
 	<RepositoryUrl>https://github.com/yangzhongke/NetAutoGUI</RepositoryUrl>
 	<Description>.NET version of pyAutoGUI</Description>
-	<AssemblyVersion>1.0.0</AssemblyVersion>
+	<Version>1.0.1</Version>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="MonoGame.Extended.Tweening" Version="3.8.0" />
     <PackageReference Include="OpenCvSharp4" Version="4.6.0.20220608" />
+    <PackageReference Include="WildcardMatch" Version="1.0.7" />
   </ItemGroup>
 
 </Project>
