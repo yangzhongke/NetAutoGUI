@@ -14,8 +14,9 @@ namespace NetAutoGUI
         public Window? ActivateWindowByTitle(Func<string, bool> predict);
         public Window? ActivateWindowLikeTitle(string wildcard);
         public void WaitForApplication(string processName, double timeoutSeconds=2);
-        public Window? WaitForWindowByTitle(string title, double timeoutSeconds = 2);
-        public Window? WaitForWindowByTitle(Func<string, bool> predict, double timeoutSeconds = 2);
-        public Window? WaitForWindowLikeTitle(string wildcard, double timeoutSeconds = 2);
+
+        public Window WaitForWindowByTitle(string title, double timeoutSeconds = 2);
+        public Window WaitForWindowByTitle(Func<string, bool> predict, double timeoutSeconds = 2);
+        public Window WaitForWindowLikeTitle(string wildcard, double timeoutSeconds = 2);
     }
 }

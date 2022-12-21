@@ -132,12 +132,12 @@ namespace NetAutoGUI.Windows
             }
         }
 
-        public Window? WaitForWindowByTitle(string title, double timeoutSeconds = 2)
+        public Window WaitForWindowByTitle(string title, double timeoutSeconds = 2)
         {
             return WaitForWindowByTitle(t => title == t, timeoutSeconds);
         }
 
-        public Window? WaitForWindowByTitle(Func<string, bool> predict, double timeoutSeconds = 2)
+        public Window WaitForWindowByTitle(Func<string, bool> predict, double timeoutSeconds = 2)
         {
             Stopwatch stopwatch = new Stopwatch();
             stopwatch.Start();
@@ -153,7 +153,7 @@ namespace NetAutoGUI.Windows
             return window;
         }
 
-        public Window? WaitForWindowLikeTitle(string wildcard, double timeoutSeconds = 2)
+        public Window WaitForWindowLikeTitle(string wildcard, double timeoutSeconds = 2)
         {
             return WaitForWindowByTitle(f => wildcard.WildcardMatch(f, true), timeoutSeconds);
         }
