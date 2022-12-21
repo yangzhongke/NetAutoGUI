@@ -12,22 +12,39 @@ namespace NetAutoGUI.Windows
     [SupportedOSPlatform("windows")]
     internal class WindowsApplicationController : IApplicationController
     {
-        private string GetWindowText(IntPtr hwnd)
+        private string GetWindowText(HWND hwnd)
         {
             StringBuilder sb = new StringBuilder(1024);
             User32.GetWindowText(hwnd,sb, sb.Capacity);
             return sb.ToString();
         }
-        public void ActivateWindowByTitle(string title)
+
+        private Rectangle GetWindowRect(HWND hwnd)
         {
-            ActivateWindowByTitle(t => t == title);
+            User32.GetWindowRect(hwnd, out RECT rect);
+            return new Rectangle(rect.X,rect.Y,rect.Width,rect.Height);
         }
 
-        public void ActivateWindowByTitle(Func<string, bool> predict)
+        private Window GetWindowDetail(HWND hwnd)
+        {
+            string title = GetWindowText(hwnd);
+            Rectangle rect = GetWindowRect(hwnd);
+            IntPtr intPtr = (IntPtr)hwnd;
+            Window window = new Window(title, intPtr.ToInt64(), rect);
+            return window;
+        }
+
+        public Window? ActivateWindowByTitle(string title)
+        {
+            return ActivateWindowByTitle(t => t == title);
+        }
+
+        public Window? ActivateWindowByTitle(Func<string, bool> predict)
         {
             bool found = false;
+            Window? window = null;
             User32.EnumWindows((hwnd, _) => {
-                string text = GetWindowText((IntPtr)hwnd);
+                string text = GetWindowText(hwnd);
                 if (predict(text))
                 {
                     //https://stackoverflow.com/questions/2636721/bring-another-processes-window-to-foreground-when-it-has-showintaskbar-false
@@ -37,6 +54,7 @@ namespace NetAutoGUI.Windows
                     }
                     User32.SetForegroundWindow(hwnd);
                     found = true;
+                    window = GetWindowDetail(hwnd);
                     return false;//stop the enumeration
                 }
                 else
@@ -48,11 +66,12 @@ namespace NetAutoGUI.Windows
             {
                 throw new InvalidOperationException("cannot find the window");
             }
+            return window;
         }
 
-        public void ActivateWindowLikeTitle(string wildcard)
+        public Window? ActivateWindowLikeTitle(string wildcard)
         {
-            ActivateWindowByTitle(f => wildcard.WildcardMatch(f, true));
+            return ActivateWindowByTitle(f => wildcard.WildcardMatch(f, true));
         }
 
         public bool IsApplicationRunning(string processName)
@@ -71,19 +90,19 @@ namespace NetAutoGUI.Windows
             Process.Start(startInfo);
         }
 
-        public bool WindowExistsByTitle(string title)
+        public Window? FindWindowByTitle(string title)
         {
-            return WindowExistsByTitle(t => title == t);
+            return FindWindowByTitle(t => title == t);
         }
 
-        public bool WindowExistsByTitle(Func<string, bool> predict)
+        public Window? FindWindowByTitle(Func<string, bool> predict)
         {
-            bool found = false;
+            Window? window = null;
             User32.EnumWindows((hwnd, _) => {
-                string text = GetWindowText((IntPtr)hwnd);
+                string text = GetWindowText(hwnd);
                 if (predict(text))
                 {
-                    found = true;
+                    window = GetWindowDetail(hwnd);
                     return false;//stop the enumeration
                 }
                 else
@@ -91,12 +110,12 @@ namespace NetAutoGUI.Windows
                     return true;// continue the enumeration
                 }
             }, IntPtr.Zero);
-            return found;
+            return window;
         }
 
-        public bool WindowExistsLikeTitle(string wildcard)
+        public Window? FindWindowLikeTitle(string wildcard)
         {
-            return WindowExistsByTitle(f=>wildcard.WildcardMatch(f,true));
+            return FindWindowByTitle(f=>wildcard.WildcardMatch(f,true));
         }
 
         public void WaitForApplication(string processName, double timeoutSeconds = 2)
@@ -113,16 +132,17 @@ namespace NetAutoGUI.Windows
             }
         }
 
-        public void WaitForWindowByTitle(string title, double timeoutSeconds = 2)
+        public Window? WaitForWindowByTitle(string title, double timeoutSeconds = 2)
         {
-            WaitForWindowByTitle(t => title == t, timeoutSeconds);
+            return WaitForWindowByTitle(t => title == t, timeoutSeconds);
         }
 
-        public void WaitForWindowByTitle(Func<string, bool> predict, double timeoutSeconds = 2)
+        public Window? WaitForWindowByTitle(Func<string, bool> predict, double timeoutSeconds = 2)
         {
             Stopwatch stopwatch = new Stopwatch();
             stopwatch.Start();
-            while (!WindowExistsByTitle(predict))
+            Window? window = null;
+            while ((window = FindWindowByTitle(predict))==null)
             {
                 if (stopwatch.ElapsedMilliseconds > timeoutSeconds * 1000)
                 {
@@ -130,11 +150,12 @@ namespace NetAutoGUI.Windows
                 }
                 Thread.Sleep(50);
             }
+            return window;
         }
 
-        public void WaitForWindowLikeTitle(string wildcard, double timeoutSeconds = 2)
+        public Window? WaitForWindowLikeTitle(string wildcard, double timeoutSeconds = 2)
         {
-            WaitForWindowByTitle(f => wildcard.WildcardMatch(f, true), timeoutSeconds);
+            return WaitForWindowByTitle(f => wildcard.WildcardMatch(f, true), timeoutSeconds);
         }
 
         public void KillProcesses(string processName)
