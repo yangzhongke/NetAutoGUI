@@ -1,15 +1,11 @@
-﻿using System.Runtime.Versioning;
+﻿using NetAutoGUI.Internals;
+using System.Runtime.Versioning;
 
 namespace NetAutoGUI.Windows
 {
     [SupportedOSPlatform("windows")]
     public class WindowsServiceLoader : IServiceLoader
     {
-        public IKeyboardController LoadKeyboardController()
-        {
-            return new WindowsKeyboardController();
-        }
-
         public IMessageBoxController LoadMessageBoxController()
         {
             return new WinFormMessageBoxController();
@@ -28,6 +24,16 @@ namespace NetAutoGUI.Windows
         public IApplicationController LoadApplicationController()
         {
             return new WindowsApplicationController();
+        }
+
+        public IKeyboardController LoadKeyboardController()
+        {
+            return new WindowsKeyboardController();
+        }
+
+        public IOCRController LoadOCRController()
+        {
+            return new DefaultOCRController();
         }
     }
 }

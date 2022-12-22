@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Runtime.Versioning;
@@ -36,32 +37,29 @@ namespace NetAutoGUI.Windows
 
         public Window? ActivateWindowByTitle(string title)
         {
-            return ActivateWindowByTitle(t => t == title);
+            return ActivateWindow(t => t.Title == title);
         }
 
-        public Window? ActivateWindowByTitle(Func<string, bool> predict)
+        public Window? ActivateWindow(Func<Window, bool> predict)
         {
             bool found = false;
             Window? window = null;
             User32.EnumWindows((hwnd, _) => {
-                string text = GetWindowText(hwnd);
-                if (predict(text))
+                //skip invisible windows
+                if (!User32.IsWindowVisible(hwnd)) return true;
+                Window window = GetWindowDetail(hwnd);
+                if (predict(window))
                 {
-                    //https://stackoverflow.com/questions/2636721/bring-another-processes-window-to-foreground-when-it-has-showintaskbar-false
-                    if (User32.IsIconic(hwnd))
-                    {
-                        User32.ShowWindow(hwnd, ShowWindowCommand.SW_RESTORE);
-                    }
-                    User32.SetForegroundWindow(hwnd);
+                    ActiveWindow(((IntPtr)hwnd).ToInt64());                   
                     found = true;
-                    window = GetWindowDetail(hwnd);
+                    
                     return false;//stop the enumeration
                 }
                 else
                 {
                     return true;// continue the enumeration
                 }
-            }, IntPtr.Zero);
+            },IntPtr.Zero);
             if(!found)
             {
                 throw new InvalidOperationException("cannot find the window");
@@ -71,7 +69,7 @@ namespace NetAutoGUI.Windows
 
         public Window? ActivateWindowLikeTitle(string wildcard)
         {
-            return ActivateWindowByTitle(f => wildcard.WildcardMatch(f, true));
+            return ActivateWindow(f => wildcard.WildcardMatch(f.Title, true));
         }
 
         public bool IsApplicationRunning(string processName)
@@ -92,17 +90,16 @@ namespace NetAutoGUI.Windows
 
         public Window? FindWindowByTitle(string title)
         {
-            return FindWindowByTitle(t => title == t);
+            return FindWindow(t => title == t.Title);
         }
 
-        public Window? FindWindowByTitle(Func<string, bool> predict)
+        public Window? FindWindow(Func<Window, bool> predict)
         {
             Window? window = null;
             User32.EnumWindows((hwnd, _) => {
-                string text = GetWindowText(hwnd);
-                if (predict(text))
-                {
-                    window = GetWindowDetail(hwnd);
+                var window = GetWindowDetail(hwnd);
+                if (predict(window))
+                {                    
                     return false;//stop the enumeration
                 }
                 else
@@ -115,7 +112,7 @@ namespace NetAutoGUI.Windows
 
         public Window? FindWindowLikeTitle(string wildcard)
         {
-            return FindWindowByTitle(f=>wildcard.WildcardMatch(f,true));
+            return FindWindow(f=>wildcard.WildcardMatch(f.Title,true));
         }
 
         public void WaitForApplication(string processName, double timeoutSeconds = 2)
@@ -134,15 +131,15 @@ namespace NetAutoGUI.Windows
 
         public Window WaitForWindowByTitle(string title, double timeoutSeconds = 2)
         {
-            return WaitForWindowByTitle(t => title == t, timeoutSeconds);
+            return WaitForWindow(t => title == t.Title, timeoutSeconds);
         }
 
-        public Window WaitForWindowByTitle(Func<string, bool> predict, double timeoutSeconds = 2)
+        public Window WaitForWindow(Func<Window, bool> predict, double timeoutSeconds = 2)
         {
             Stopwatch stopwatch = new Stopwatch();
             stopwatch.Start();
             Window? window = null;
-            while ((window = FindWindowByTitle(predict))==null)
+            while ((window = GetAllWindows().FirstOrDefault(predict))==null)
             {
                 if (stopwatch.ElapsedMilliseconds > timeoutSeconds * 1000)
                 {
@@ -155,7 +152,7 @@ namespace NetAutoGUI.Windows
 
         public Window WaitForWindowLikeTitle(string wildcard, double timeoutSeconds = 2)
         {
-            return WaitForWindowByTitle(f => wildcard.WildcardMatch(f, true), timeoutSeconds);
+            return WaitForWindow(f => wildcard.WildcardMatch(f.Title, true), timeoutSeconds);
         }
 
         public void KillProcesses(string processName)
@@ -165,6 +162,28 @@ namespace NetAutoGUI.Windows
             {
                 p.Kill();
             }
+        }
+
+        public Window[] GetAllWindows()
+        {
+            List<Window> list = new List<Window>(); 
+            User32.EnumWindows((hwnd, _) => {
+                var window = GetWindowDetail(hwnd);
+                list.Add(window);
+                return true;// continue the enumeration
+            }, IntPtr.Zero);
+            return list.ToArray();
+        }
+
+        public void ActiveWindow(long windowId)
+        {
+            //https://stackoverflow.com/questions/2636721/bring-another-processes-window-to-foreground-when-it-has-showintaskbar-false
+            HWND hwnd = new HWND((IntPtr)windowId);
+            if (User32.IsIconic(hwnd))
+            {
+                User32.ShowWindow(hwnd, ShowWindowCommand.SW_RESTORE);
+            }
+            User32.SetForegroundWindow(hwnd);
         }
     }
 }

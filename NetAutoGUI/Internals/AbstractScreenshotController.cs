@@ -25,8 +25,6 @@ namespace NetAutoGUI.Internals
 
         public abstract BitmapData Screenshot(Rectangle? region = null);
 
-        public abstract void Screenshot(string filename,Rectangle? region = null);
-
         public Location? LocateCenterOnScreen(string imgFileToBeFound, double confidence = 0.99)
         {
             var rect = LocateOnScreen(imgFileToBeFound, confidence);
@@ -122,5 +120,7 @@ namespace NetAutoGUI.Internals
                 Click(x, y);
             }
         }
+
+        public abstract BitmapData Screenshot(Window window);
     }
 }

@@ -14,6 +14,8 @@
   <ItemGroup>
     <PackageReference Include="MonoGame.Extended.Tweening" Version="3.8.0" />
     <PackageReference Include="OpenCvSharp4" Version="4.6.0.20220608" />
+    <PackageReference Include="PaddleOCRSharp" Version="2.2.0" />
+    <PackageReference Include="SkiaSharp" Version="2.88.3" />
     <PackageReference Include="WildcardMatch" Version="1.0.7" />
   </ItemGroup>
 

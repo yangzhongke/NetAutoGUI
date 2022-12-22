@@ -89,6 +89,7 @@ GUI.Application.LaunchApplication("notepad.exe");
 GUI.Application.WaitForWindowByTitle(t => t.Contains("记事本"));
 GUI.Application.ActivateWindowByTitle(t=>t.Contains("记事本"));
 GUI.Keyboard.Write("你好，我是杨中科");*/
+/*
 GUI.Application.LaunchApplication("wordpad.exe");
 GUI.Application.WaitForWindowLikeTitle("*WordPad");
 GUI.Application.ActivateWindowLikeTitle("*WordPad");
@@ -96,4 +97,8 @@ GUI.Keyboard.Write("你好，我是杨中科");
 using (GUI.Keyboard.Hold(VirtualKeyCode.CONTROL))
 {
     GUI.Keyboard.Press(VirtualKeyCode.VK_S);
-}
+}*/
+GUI.Application.ActivateWindowLikeTitle("*微信*");
+var bmp = GUI.Screenshot.Screenshot();
+var r = GUI.OCR.DetectText(bmp);
+Console.WriteLine(r);

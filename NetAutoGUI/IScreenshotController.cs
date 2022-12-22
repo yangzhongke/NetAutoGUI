@@ -3,7 +3,7 @@
     public interface IScreenshotController
     {
         public BitmapData Screenshot(Rectangle? region=null);
-        public void Screenshot(string filename,Rectangle? region = null);
+        public BitmapData Screenshot(Window window);
         public Rectangle? LocateOnScreen(string imgFileToBeFound, double confidence= 0.99);
         public void ClickOnScreen(string imgFileToBeFound, double confidence = 0.99);
         public void WaitAndClickOnScreen(string imgFileToBeFound, double confidence = 0.99, double timeoutSeconds = 5);
