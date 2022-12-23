@@ -1,61 +1,22 @@
 ﻿using OpenCvSharp;
-using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 
 namespace NetAutoGUI.Internals
 {
     public abstract class AbstractScreenshotController : IScreenshotController
     {
-        public Rectangle? LocateOnScreen(string imgFileToBeFound, double confidence = 0.99)
-        {
-            var items = LocateAllOnScreen(imgFileToBeFound, confidence);
-            if(items.Length<=0)
-            {
-                return null;
-            }
-            else
-            {
-                return items[0];
-            }
-        }
         protected abstract BitmapData LoadImageFromFile(string imageFile);
 
         public abstract BitmapData Screenshot(Rectangle? region = null);
 
-        public Location? LocateCenterOnScreen(string imgFileToBeFound, double confidence = 0.99)
+        public Rectangle[] LocateAll(BitmapData basePicture, string imgFileToBeFound, double confidence = 0.99)
         {
-            var rect = LocateOnScreen(imgFileToBeFound, confidence);
-            if(rect==null)
-            {
-                return null;
-            }
-            else
-            {
-                return new(rect.X+rect.Width/2,rect.Y + rect.Height / 2);
-            }
-        }        
-
-        public Location[] LocateAllCentersOnScreen(string imgFileToBeFound, double confidence = 0.99)
-        {
-            List<Location> list = new List<Location>();
-            foreach (var rect in LocateAllOnScreen(imgFileToBeFound,confidence))
-            {
-                list.Add(rect.Center);
-            }
-            return list.ToArray();
-        }
-
-
-        public Rectangle[] LocateAllOnScreen(string imgFileToBeFound, double confidence = 0.99)
-        {
-            var bitmapScreen = Screenshot();
             var bitmapToBeFound = this.LoadImageFromFile(imgFileToBeFound);
             using Mat matToBeFound = bitmapToBeFound.ToMat();
-            using Mat matScreen = bitmapScreen.ToMat();
+            using Mat matBasePicture = basePicture.ToMat();
             var rectangles = new List<(Rectangle Rect, double Confidence)>();
-            using (var result = matScreen.MatchTemplate(matToBeFound, TemplateMatchModes.CCoeffNormed))
+            using (var result = matBasePicture.MatchTemplate(matToBeFound, TemplateMatchModes.CCoeffNormed))
             {
                 var indexer = result.GetGenericIndexer<float>();
                 int width = bitmapToBeFound.Width;
@@ -75,48 +36,6 @@ namespace NetAutoGUI.Internals
             return rectangles.OrderBy(e => e.Rect.Y).Select(e => e.Rect).ToArray();
         }
 
-        protected abstract void Click(int x, int y);
-
-        public void ClickOnScreen(string imgFileToBeFound, double confidence = 0.99)
-        {
-            var ptr = LocateCenterOnScreen(imgFileToBeFound, confidence);
-            if(ptr==null)
-            {
-                throw new InvalidOperationException($"image {imgFileToBeFound} not found on the screen");
-            }
-            else
-            {
-                (int x, int y) = ptr;
-                Click(x, y);
-            }
-        }
-
         public abstract void Highlight(double waitSeconds = 0.5, params Rectangle[] rectangles);
-
-        public void Highlight(string imgFileToBeFound, double confidence = 0.99, double waitSeconds = 0.5)
-        {
-            var rects = LocateAllOnScreen(imgFileToBeFound, confidence);
-            Highlight(waitSeconds,rects);
-        }
-
-        public void WaitAndClickOnScreen(string imgFileToBeFound, double confidence = 0.99, double timeoutSeconds = 5)
-        {
-            Stopwatch sw = new Stopwatch();
-            sw.Start();
-            Location ptr=null;
-            while(sw.ElapsedMilliseconds<timeoutSeconds*1000&&ptr==null)
-            {
-                ptr = LocateCenterOnScreen(imgFileToBeFound, confidence);
-            }            
-            if (ptr == null)
-            {
-                throw new InvalidOperationException($"image {imgFileToBeFound} not found on the screen");
-            }
-            else
-            {
-                (int x, int y) = ptr;
-                Click(x, y);
-            }
-        }
     }
 }

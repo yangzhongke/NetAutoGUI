@@ -137,8 +137,10 @@ while(true)
     lastWord = clipTxt;
 }*/
 
+/*
 Window win = GUI.Application.FindWindowLikeTitle("*微信小号*");
 win.Activate();
+win.Maximize();
 string lastWord = "";
 while (true)
 {
@@ -167,6 +169,42 @@ while (true)
         }
         var rectEmoji = GUI.Screenshot.LocateOnScreen("emoji.png");
         GUI.Mouse.Click(rectEmoji.X, rectEmoji.Y + 50);
+        GUI.Keyboard.Write(response);
+        GUI.Keyboard.Press(VirtualKeyCode.RETURN);
+    }
+    lastWord = clipTxt;
+}*/
+
+Window win = GUI.Application.FindWindowLikeTitle("*微信小号*");
+win.Activate();
+string lastWord = "";
+while (true)
+{
+    //获取按照纵坐标排序最后一个元素
+    var lastZack = win.LocateAll("zack.png").LastOrDefault();
+    if (lastZack == null) break;
+    var lastSentenseX = lastZack.X + 60;
+    var lastSentenseY = lastZack.Y + 10;
+    win.DoubleClick(lastSentenseX, lastSentenseY);
+    GUI.Keyboard.Ctrl_C();
+    var clipTxt = ClipboardHelpers.GetClipboardText();
+    if (clipTxt != lastWord)
+    {
+        string response = "你说啥？";
+        if (clipTxt.Contains("是谁") || clipTxt.Contains("名字"))
+        {
+            response = "我是杨中科";
+        }
+        else if (clipTxt.Contains("天气"))
+        {
+            response = "今天天气晴朗";
+        }
+        else if (clipTxt.Contains("岁") || clipTxt.Contains("年龄"))
+        {
+            response = "我18岁了";
+        }
+        var rectEmoji = win.Locate("emoji.png");
+        win.Click(rectEmoji.X, rectEmoji.Y + 50);
         GUI.Keyboard.Write(response);
         GUI.Keyboard.Press(VirtualKeyCode.RETURN);
     }

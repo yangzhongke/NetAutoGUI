@@ -1,4 +1,8 @@
-﻿namespace NetAutoGUI
+﻿using System;
+using System.Diagnostics;
+using System.Linq;
+
+namespace NetAutoGUI
 {
     public static class WindowExtensions
     {
@@ -91,6 +95,60 @@
             else
             {
                 GUI.Mouse.MouseUp(button: button);
+            }
+        }
+
+        public static Rectangle[] LocateAll(this Window window, string imgFileToBeFound, double confidence = 0.99)
+        {
+            var winScreenshot = GUI.Screenshot.Screenshot(window);
+            return GUI.Screenshot.LocateAll(winScreenshot, imgFileToBeFound, confidence);
+        }
+
+        public static Rectangle WindowRectToScreen(this Window window, Rectangle relativeRect)
+        {
+            var winRect = window.Rectangle;
+            return new Rectangle(winRect.X+ relativeRect.X, winRect.Y+ relativeRect.Y, winRect.Width, winRect.Height);
+        }
+
+        public static Rectangle[] WindowRectsToScreen(this Window window, Rectangle[] relativeRects)
+        {
+            return relativeRects.Select(r=> WindowRectToScreen(window,r)).ToArray();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="window"></param>
+        /// <param name="waitSeconds"></param>
+        /// <param name="rectangles">Relative to window</param>
+        public static void Highlight(this Window window, double waitSeconds = 0.5, params Rectangle[] relativeRects)
+        {
+            Rectangle[] rectsToScreen = WindowRectsToScreen(window, relativeRects);
+            GUI.Screenshot.Highlight(waitSeconds, rectsToScreen);
+        }
+
+        public static Rectangle? Locate(this Window window, string imgFileToBeFound, double confidence = 0.99)
+        {
+            var winBitmap = GUI.Screenshot.Screenshot(window);
+            return GUI.Screenshot.LocateAll(winBitmap, imgFileToBeFound, confidence).FirstOrDefault();
+        }
+
+        public static Rectangle Wait(this Window window, string imgFileToBeFound, double confidence = 0.99, double timeoutSeconds = 5)
+        {
+            Stopwatch sw = new Stopwatch();
+            sw.Start();
+            Rectangle? rect = null;
+            while (sw.ElapsedMilliseconds < timeoutSeconds * 1000 && rect == null)
+            {
+                rect = Locate(window, imgFileToBeFound, confidence);
+            }
+            if (rect == null)
+            {
+                throw new InvalidOperationException($"image {imgFileToBeFound} not found on the screen");
+            }
+            else
+            {
+                return rect;
             }
         }
     }

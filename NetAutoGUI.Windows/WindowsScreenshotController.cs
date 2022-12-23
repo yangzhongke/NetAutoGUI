@@ -45,12 +45,6 @@ namespace NetAutoGUI.Windows
             return new BitmapData(data, bitmap.Width, bitmap.Height);
         }
 
-        protected override void Click(int x, int y)
-        {
-            MouseHelper.MoveTo(x, y);
-            MouseHelper.LeftButtonClick();
-        }
-
         private static PRECT ToPRECT(Rectangle r)
         {
             return new PRECT(r.X, r.Y, r.X + r.Width, r.Y + r.Height);
