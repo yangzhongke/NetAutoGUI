@@ -35,44 +35,6 @@ namespace NetAutoGUI.Windows
             return window;
         }
 
-        public Window? ActivateWindowByTitle(string title)
-        {
-            return ActivateWindow(t => t.Title == title);
-        }
-
-        public Window? ActivateWindow(Func<Window, bool> predict)
-        {
-            bool found = false;
-            Window? window = null;
-            User32.EnumWindows((hwnd, _) => {
-                //skip invisible windows
-                if (!User32.IsWindowVisible(hwnd)) return true;
-                var currentWin = GetWindowDetail(hwnd);
-                if (predict(currentWin))
-                {
-                    ActiveWindow(((IntPtr)hwnd).ToInt64());
-                    Thread.Sleep(100);
-                    found = true;
-                    window = currentWin;
-                    return false;//stop the enumeration
-                }
-                else
-                {
-                    return true;// continue the enumeration
-                }
-            },IntPtr.Zero);
-            if(!found)
-            {
-                throw new InvalidOperationException("cannot find the window");
-            }
-            return window;
-        }
-
-        public Window? ActivateWindowLikeTitle(string wildcard)
-        {
-            return ActivateWindow(f => wildcard.WildcardMatch(f.Title, true));
-        }
-
         public bool IsApplicationRunning(string processName)
         {
             return Process.GetProcesses().Any(p=>p.ProcessName==processName);
@@ -98,9 +60,12 @@ namespace NetAutoGUI.Windows
         {
             Window? window = null;
             User32.EnumWindows((hwnd, _) => {
-                var window = GetWindowDetail(hwnd);
-                if (predict(window))
-                {                    
+                bool visible = User32.IsWindowVisible(hwnd);
+                if (!visible) return true;
+                var currentWin = GetWindowDetail(hwnd);
+                if (predict(currentWin))
+                {
+                    window = currentWin;
                     return false;//stop the enumeration
                 }
                 else
@@ -174,17 +139,6 @@ namespace NetAutoGUI.Windows
                 return true;// continue the enumeration
             }, IntPtr.Zero);
             return list.ToArray();
-        }
-
-        public void ActiveWindow(long windowId)
-        {
-            //https://stackoverflow.com/questions/2636721/bring-another-processes-window-to-foreground-when-it-has-showintaskbar-false
-            HWND hwnd = new HWND((IntPtr)windowId);
-            if (User32.IsIconic(hwnd))
-            {
-                User32.ShowWindow(hwnd, ShowWindowCommand.SW_RESTORE);
-            }
-            User32.SetForegroundWindow(hwnd);
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Drawing;
 using System.Threading;
 using System.Windows.Forms;
 
@@ -38,6 +39,13 @@ namespace NetAutoGUI.Windows
         {
             return RunInSTAThread(() => {
                 return Clipboard.GetText();
+            });
+        }
+
+        public static Image GetImage()
+        {
+            return RunInSTAThread(() => {
+                return Clipboard.GetImage();
             });
         }
     }

@@ -122,12 +122,15 @@ var point = blockMS.BoxPoints[0];
 GUI.Mouse.DoubleClick(x, y);
 Thread.Sleep(500);*/
 
-var winWX = GUI.Application.ActivateWindowLikeTitle("*王卡微信小号*");
+Window win = GUI.Application.FindWindowLikeTitle("*微信小号*");
+win.Activate();
+win.Maximize();
 string lastWord = "";
 while(true)
 {
     //获取按照纵坐标排序最后一个元素
-    var lastZack = GUI.Screenshot.LocateAllOnScreen("zack.png").Last();
+    var lastZack = GUI.Screenshot.LocateAllOnScreen("zack.png").LastOrDefault();
+    if (lastZack == null) break;
     var lastSentenseX = lastZack.X + 60;
     var lastSentenseY = lastZack.Y + 10;
     GUI.Mouse.DoubleClick(lastSentenseX, lastSentenseY);
@@ -155,6 +158,3 @@ while(true)
     }
     lastWord = clipTxt;
 }
-
-
-
