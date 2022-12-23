@@ -11,7 +11,6 @@ namespace NetAutoGUI
         public static readonly IMessageBoxController MessageBox;
         public static readonly IScreenshotController Screenshot;
         public static readonly IApplicationController Application;
-        public static readonly IOCRController OCR;
 
         static GUI()
         {
@@ -33,7 +32,6 @@ namespace NetAutoGUI
                 MessageBox = serviceLoader.LoadMessageBoxController();
                 Screenshot = serviceLoader.LoadScreenshotController();
                 Application = serviceLoader.LoadApplicationController();
-                OCR = serviceLoader.LoadOCRController();
             }
             else
             {

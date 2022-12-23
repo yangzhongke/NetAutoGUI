@@ -30,10 +30,5 @@ namespace NetAutoGUI.Windows
         {
             return new WindowsKeyboardController();
         }
-
-        public IOCRController LoadOCRController()
-        {
-            return new DefaultOCRController();
-        }
     }
 }

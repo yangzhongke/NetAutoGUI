@@ -7,6 +7,5 @@
         public IMessageBoxController LoadMessageBoxController();
         public IScreenshotController LoadScreenshotController();
         public IApplicationController LoadApplicationController();
-        public IOCRController LoadOCRController();
     }
 }
