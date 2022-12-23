@@ -1,15 +1,26 @@
 ﻿using PaddleOCRSharp;
+using System;
 
 namespace NetAutoGUI.Internals
 {
     public class DefaultOCRController : IOCRController
     {
-        public OCRResult? DetectText(BitmapData bitmapData)
+        private PaddleOCREngine engine;
+        public DefaultOCRController()
         {
-            //使用默认中英文V3模型
             OCRModelConfig config = null;//default model(v3) for Chinese/English
             OCRParameter oCRParameter = new OCRParameter();
-            using PaddleOCREngine engine = new PaddleOCREngine(config, oCRParameter);
+            this.engine = new PaddleOCREngine(config, oCRParameter);
+            AppDomain.CurrentDomain.ProcessExit += CurrentDomain_ProcessExit;
+        }
+
+        private void CurrentDomain_ProcessExit(object sender, EventArgs e)
+        {
+            this.engine.Dispose();
+        }
+
+        public OCRResult? DetectText(BitmapData bitmapData)
+        {
             return engine.DetectText(bitmapData.Data);
         }
     }

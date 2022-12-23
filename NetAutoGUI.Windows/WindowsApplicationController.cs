@@ -47,12 +47,13 @@ namespace NetAutoGUI.Windows
             User32.EnumWindows((hwnd, _) => {
                 //skip invisible windows
                 if (!User32.IsWindowVisible(hwnd)) return true;
-                Window window = GetWindowDetail(hwnd);
-                if (predict(window))
+                var currentWin = GetWindowDetail(hwnd);
+                if (predict(currentWin))
                 {
-                    ActiveWindow(((IntPtr)hwnd).ToInt64());                   
+                    ActiveWindow(((IntPtr)hwnd).ToInt64());
+                    Thread.Sleep(100);
                     found = true;
-                    
+                    window = currentWin;
                     return false;//stop the enumeration
                 }
                 else
@@ -77,7 +78,7 @@ namespace NetAutoGUI.Windows
             return Process.GetProcesses().Any(p=>p.ProcessName==processName);
         }
 
-        public void LaunchApplication(string appPath, string? arguments=null)
+        public Process LaunchApplication(string appPath, string? arguments=null)
         {
             var startInfo = new ProcessStartInfo
             {
@@ -85,7 +86,7 @@ namespace NetAutoGUI.Windows
                 Arguments = arguments,
                 UseShellExecute = true,//这样就可以用"chrome.exe"这个相对路径启动，而不用全路径
             };
-            Process.Start(startInfo);
+            return Process.Start(startInfo);
         }
 
         public Window? FindWindowByTitle(string title)

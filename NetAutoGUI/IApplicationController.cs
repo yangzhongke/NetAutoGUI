@@ -1,10 +1,11 @@
 ﻿using System;
+using System.Diagnostics;
 
 namespace NetAutoGUI
 {
     public interface IApplicationController
     {
-        public void LaunchApplication(string appPath, string? arguments=null);
+        public Process LaunchApplication(string appPath, string? arguments=null);
         public bool IsApplicationRunning(string processName);
         public void KillProcesses(string processName);
         public Window[] GetAllWindows();

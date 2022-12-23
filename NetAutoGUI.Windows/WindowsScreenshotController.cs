@@ -34,14 +34,6 @@ namespace NetAutoGUI.Windows
             return new BitmapData(data, bitmap.Width, bitmap.Height);
         }
 
-        public override BitmapData Screenshot(Window window)
-        {
-            var rect = window.Rectangle;
-            return Screenshot(rect);
-            //todo: enable the screenshot of invisible window by IGraphicsCaptureItemInterop 
-            //https://blogs.windows.com/windowsdeveloper/2019/09/16/new-ways-to-do-screen-capture/
-        }
-
         protected override BitmapData LoadImageFromFile(string imageFile)
         {
             using var image = Image.FromFile(imageFile);

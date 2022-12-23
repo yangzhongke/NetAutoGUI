@@ -32,6 +32,7 @@ namespace NetAutoGUI.Windows
                 }
                 Thread.Sleep((int)(interval * 1000));
             }
+            Thread.Sleep(100);
         }
 
         public override void MouseDown(int? x = null, int? y = null, MouseButtonType button = MouseButtonType.Left)

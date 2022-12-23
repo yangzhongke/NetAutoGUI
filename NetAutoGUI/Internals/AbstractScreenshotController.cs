@@ -3,7 +3,6 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using System.Threading;
 
 namespace NetAutoGUI.Internals
 {
@@ -11,7 +10,7 @@ namespace NetAutoGUI.Internals
     {
         public Rectangle? LocateOnScreen(string imgFileToBeFound, double confidence = 0.99)
         {
-            var items = LocateAllOnScreen(imgFileToBeFound, confidence, maxCount:1);
+            var items = LocateAllOnScreen(imgFileToBeFound, confidence);
             if(items.Length<=0)
             {
                 return null;
@@ -38,10 +37,10 @@ namespace NetAutoGUI.Internals
             }
         }        
 
-        public Location[] LocateAllCentersOnScreen(string imgFileToBeFound, double confidence = 0.99, int maxCount = 10)
+        public Location[] LocateAllCentersOnScreen(string imgFileToBeFound, double confidence = 0.99)
         {
             List<Location> list = new List<Location>();
-            foreach (var rect in LocateAllOnScreen(imgFileToBeFound,confidence,maxCount))
+            foreach (var rect in LocateAllOnScreen(imgFileToBeFound,confidence))
             {
                 list.Add(rect.Center);
             }
@@ -49,7 +48,7 @@ namespace NetAutoGUI.Internals
         }
 
 
-        public Rectangle[] LocateAllOnScreen(string imgFileToBeFound, double confidence = 0.99, int maxCount = 5)
+        public Rectangle[] LocateAllOnScreen(string imgFileToBeFound, double confidence = 0.99)
         {
             var bitmapScreen = Screenshot();
             var bitmapToBeFound = this.LoadImageFromFile(imgFileToBeFound);
@@ -69,12 +68,11 @@ namespace NetAutoGUI.Internals
                         if (similarity > confidence)
                         {
                             rectangles.Add(new(new(c, r, width, height), similarity));
-                            if (rectangles.Count >= maxCount) break;
                         }
                     }
                 }
             }
-            return rectangles.OrderByDescending(e => e.Confidence).Select(e => e.Rect).ToArray();
+            return rectangles.OrderBy(e => e.Rect.Y).Select(e => e.Rect).ToArray();
         }
 
         protected abstract void Click(int x, int y);
@@ -95,9 +93,9 @@ namespace NetAutoGUI.Internals
 
         public abstract void Highlight(double waitSeconds = 0.5, params Rectangle[] rectangles);
 
-        public void Highlight(string imgFileToBeFound, double confidence = 0.99, int maxCount = 5, double waitSeconds = 0.5)
+        public void Highlight(string imgFileToBeFound, double confidence = 0.99, double waitSeconds = 0.5)
         {
-            var rects = LocateAllOnScreen(imgFileToBeFound, confidence, maxCount);
+            var rects = LocateAllOnScreen(imgFileToBeFound, confidence);
             Highlight(waitSeconds,rects);
         }
 
@@ -120,7 +118,5 @@ namespace NetAutoGUI.Internals
                 Click(x, y);
             }
         }
-
-        public abstract BitmapData Screenshot(Window window);
     }
 }
