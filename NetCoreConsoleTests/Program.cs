@@ -100,28 +100,6 @@ using (GUI.Keyboard.Hold(VirtualKeyCode.CONTROL))
     GUI.Keyboard.Press(VirtualKeyCode.VK_S);
 }*/
 /*
-var winWX = GUI.Application.ActivateWindowLikeTitle("*微信*");
-var bmp = GUI.Screenshot.Screenshot(winWX);
-bmp.Save("d:/1.jpg",ImageType.Jpg);
-var r = GUI.OCR.DetectText(bmp);
-var blockMS = r.TextBlocks.First(b=>b.Text.Contains("王卡微信小号"));
-var point = blockMS.BoxPoints[0];
-(var x, var y) = GUI.Mouse.WindowPosToScreen(point.X,point.Y,winWX);
-GUI.Mouse.DoubleClick(x,y);
-Thread.Sleep(500);
-GUI.Keyboard.Write("Hello");
-GUI.Keyboard.Press(VirtualKeyCode.RETURN);*/
-
-/*
-var winWX = GUI.Application.ActivateWindowLikeTitle("*微信*");
-var bmp = GUI.Screenshot.Screenshot(winWX);
-var r = GUI.OCR.DetectText(bmp);
-var blockMS = r.TextBlocks.First(b => b.Text.Contains("王卡微信小号"));
-var point = blockMS.BoxPoints[0];
-(var x, var y) = winWX.WindowPosToScreen(point.X, point.Y);
-GUI.Mouse.DoubleClick(x, y);
-Thread.Sleep(500);*/
-
 Window win = GUI.Application.FindWindowLikeTitle("*微信小号*");
 win.Activate();
 win.Maximize();
@@ -148,6 +126,42 @@ while(true)
             response = "今天天气晴朗";
         }
         else if (clipTxt.Contains("岁")|| clipTxt.Contains("年龄"))
+        {
+            response = "我18岁了";
+        }
+        var rectEmoji = GUI.Screenshot.LocateOnScreen("emoji.png");
+        GUI.Mouse.Click(rectEmoji.X, rectEmoji.Y + 50);
+        GUI.Keyboard.Write(response);
+        GUI.Keyboard.Press(VirtualKeyCode.RETURN);
+    }
+    lastWord = clipTxt;
+}*/
+
+Window win = GUI.Application.FindWindowLikeTitle("*微信小号*");
+win.Activate();
+string lastWord = "";
+while (true)
+{
+    //获取按照纵坐标排序最后一个元素
+    var lastZack = GUI.Screenshot.LocateAllOnScreen("zack.png").LastOrDefault();
+    if (lastZack == null) break;
+    var lastSentenseX = lastZack.X + 60;
+    var lastSentenseY = lastZack.Y + 10;
+    GUI.Mouse.DoubleClick(lastSentenseX, lastSentenseY);
+    GUI.Keyboard.Ctrl_C();
+    var clipTxt = ClipboardHelpers.GetClipboardText();
+    if (clipTxt != lastWord)
+    {
+        string response = "你说啥？";
+        if (clipTxt.Contains("是谁") || clipTxt.Contains("名字"))
+        {
+            response = "我是杨中科";
+        }
+        else if (clipTxt.Contains("天气"))
+        {
+            response = "今天天气晴朗";
+        }
+        else if (clipTxt.Contains("岁") || clipTxt.Contains("年龄"))
         {
             response = "我18岁了";
         }
