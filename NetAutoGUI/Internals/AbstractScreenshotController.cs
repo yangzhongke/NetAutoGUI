@@ -16,20 +16,18 @@ namespace NetAutoGUI.Internals
             using Mat matToBeFound = bitmapToBeFound.ToMat();
             using Mat matBasePicture = basePicture.ToMat();
             var rectangles = new List<(Rectangle Rect, double Confidence)>();
-            using (var result = matBasePicture.MatchTemplate(matToBeFound, TemplateMatchModes.CCoeffNormed))
+            using var result = matBasePicture.MatchTemplate(matToBeFound, TemplateMatchModes.CCoeffNormed);
+            var indexer = result.GetGenericIndexer<float>();
+            int width = bitmapToBeFound.Width;
+            int height = bitmapToBeFound.Height;
+            for (int r = 0; r < result.Rows; r++)
             {
-                var indexer = result.GetGenericIndexer<float>();
-                int width = bitmapToBeFound.Width;
-                int height = bitmapToBeFound.Height;
-                for (int r = 0; r < result.Rows; r++)
+                for (int c = 0; c < result.Cols; c++)
                 {
-                    for (int c = 0; c < result.Cols; c++)
+                    float similarity = indexer[r, c];
+                    if (similarity > confidence)
                     {
-                        float similarity = indexer[r, c];
-                        if (similarity > confidence)
-                        {
-                            rectangles.Add(new(new(c, r, width, height), similarity));
-                        }
+                        rectangles.Add(new(new(c, r, width, height), similarity));
                     }
                 }
             }

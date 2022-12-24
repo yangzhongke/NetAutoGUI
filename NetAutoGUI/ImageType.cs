@@ -2,6 +2,6 @@
 {
     public enum ImageType
     {
-        Bmp,Jpg,Png
+        WebP,Jpg,Png
     }
 }

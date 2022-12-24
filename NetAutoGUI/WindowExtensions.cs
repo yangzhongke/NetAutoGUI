@@ -133,6 +133,12 @@ namespace NetAutoGUI
             return GUI.Screenshot.LocateAll(winBitmap, imgFileToBeFound, confidence).FirstOrDefault();
         }
 
+        public static void WaitAndClick(this Window window, string imgFileToBeFound, double confidence = 0.99, double timeoutSeconds = 5)
+        {
+            var rect = Wait(window, imgFileToBeFound, confidence, timeoutSeconds);
+            Click(window, rect.X, rect.Y);
+        }
+
         public static Rectangle Wait(this Window window, string imgFileToBeFound, double confidence = 0.99, double timeoutSeconds = 5)
         {
             Stopwatch sw = new Stopwatch();

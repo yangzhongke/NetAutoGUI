@@ -1,8 +1,8 @@
 ﻿using NetAutoGUI;
 using NetAutoGUI.Windows;
-
-//GUI.Mouse.MoveTo(1000, 1000, 3, TweeningType.BounceInOut);
-//GUI.Mouse.MoveTo(1000, 800);
+/*
+GUI.Mouse.MoveTo(1000, 1000, 3, TweeningType.BounceInOut);
+GUI.Mouse.MoveTo(1000, 800);*/
 /*
 for(int i=0;i<1;i++)
 {
@@ -15,15 +15,15 @@ for(int i=0;i<1;i++)
 }*/
 /*
 GUI.Mouse.Click();
-GUI.Keyboard.HotKey(KeyBoardKey.CONTROL,KeyBoardKey.F1);
-GUI.Keyboard.Press(KeyBoardKey.VK_A);
-using (GUI.Keyboard.Hold(KeyBoardKey.SHIFT))
+GUI.Keyboard.HotKey(VirtualKeyCode.CONTROL, VirtualKeyCode.F1);
+GUI.Keyboard.Press(VirtualKeyCode.VK_A);
+using (GUI.Keyboard.Hold(VirtualKeyCode.SHIFT))
 {
-    GUI.Keyboard.Press(KeyBoardKey.VK_A);
-    GUI.Keyboard.Press(KeyBoardKey.VK_A);
+    GUI.Keyboard.Press(VirtualKeyCode.VK_A);
+    GUI.Keyboard.Press(VirtualKeyCode.VK_A);
     Thread.Sleep(1000);
 }
-GUI.Keyboard.Press(KeyBoardKey.VK_A);*/
+GUI.Keyboard.Press(VirtualKeyCode.VK_A);*/
 /*
 GUI.MessageBox.Alert("Alert");
 GUI.MessageBox.Alert(GUI.MessageBox.Confirm("真的吗？").ToString());
@@ -36,55 +36,28 @@ if (s != null)
     GUI.MessageBox.Alert(pwd);
 }*/
 /*
-GUI.Screenshot.Screenshot("d:/1.jpg"); 
-GUI.Screenshot.Screenshot("d:/1.bmp");
-GUI.Screenshot.Screenshot("d:/1.jpeg",region:new Rectangle(10,10,250,250));
-GUI.Screenshot.Screenshot("d:/1.png");
-var d= GUI.Screenshot.Screenshot();
-Console.WriteLine(d);*/
-/*
-var loc = GUI.Screenshot.LocateOnScreen("1.png").Center;
-GUI.Mouse.Click(loc.X, loc.Y);
-loc = GUI.Screenshot.LocateOnScreen("2.png").Center;
-GUI.Mouse.Click(loc.X, loc.Y);*/
-/*
-var loc = GUI.Screenshot.LocateOnScreen("1.png").Center;
-GUI.Mouse.Click(loc.X, loc.Y);*/
-/*
-var loc = GUI.Screenshot.LocateCenterOnScreen("1.png",0.5);
-GUI.Mouse.Click(loc.X,loc.Y);
-(int x, int y) = GUI.Screenshot.LocateCenterOnScreen("2.png");
-GUI.Mouse.Click(x, y);*/
-/*
-var items = GUI.Screenshot.LocateAllCentersOnScreen("4.png",0.99);
-foreach (var item in items)
-{
-    Console.WriteLine(item);
-}*/
-/*
-Thread.Sleep(1000);
-GUI.Application.ActivateWindowByTitle(t=>t.Contains("info.txt"));*/
+GUI.Screenshot.Screenshot().Save("e:/temp/1.jpg"); 
+GUI.Screenshot.Screenshot().Save("d:/1.png");
+GUI.Screenshot.Screenshot(new Rectangle(10, 10, 250, 250)).Save("d:/1.jpeg");
+GUI.Screenshot.Screenshot().Save("d:/1.webp",ImageType.WebP);*/
 
 /*
 GUI.Application.KillProcesses("Calculator");
 GUI.Application.LaunchApplication("calc.exe");
-GUI.Application.WaitForWindowByTitle("Calculator");
-GUI.Application.ActivateWindowByTitle("Calculator");
+Window winCalc = GUI.Application.WaitForWindowByTitle("Calculator");
+winCalc.Activate();
+winCalc.WaitAndClick("calc/1.png",confidence:0.6);
+winCalc.WaitAndClick("calc/plus.png", confidence: 0.6);
+winCalc.WaitAndClick("calc/2.png", confidence: 0.6);
+winCalc.WaitAndClick("calc/equal.png",confidence:0.6);
+*/
 
-GUI.Screenshot.WaitAndClickOnScreen("calc/1.png");
-GUI.Screenshot.WaitAndClickOnScreen("calc/plus.png");
-GUI.Screenshot.WaitAndClickOnScreen("calc/2.png");
-GUI.Screenshot.WaitAndClickOnScreen("calc/equal.png",confidence:0.6);*/
 
-/*
 GUI.Application.LaunchApplication("chrome.exe", "https://www.baidu.com");
-GUI.Application.WaitForWindowByTitle(s => s.Contains("百度一下"),timeoutSeconds:5);
-GUI.Screenshot.WaitAndClickOnScreen("baidu/input.png");
+var winChrome = GUI.Application.WaitForWindowLikeTitle("*百度一下*", timeoutSeconds:5);
+Thread.Sleep(1000);
 GUI.Keyboard.Write("youzack");
-Thread.Sleep(500);
-GUI.Screenshot.Highlight("baidu/searchbtn.png");
-GUI.Screenshot.WaitAndClickOnScreen("baidu/searchbtn.png");*/
-
+GUI.Keyboard.Press(VirtualKeyCode.RETURN);
 /*
 GUI.Application.LaunchApplication("notepad.exe");
 GUI.Application.WaitForWindowByTitle(t => t.Contains("记事本"));
@@ -175,6 +148,7 @@ while (true)
     lastWord = clipTxt;
 }*/
 
+/*
 Window win = GUI.Application.FindWindowLikeTitle("*微信小号*");
 win.Activate();
 string lastWord = "";
@@ -209,4 +183,4 @@ while (true)
         GUI.Keyboard.Press(VirtualKeyCode.RETURN);
     }
     lastWord = clipTxt;
-}
+}*/

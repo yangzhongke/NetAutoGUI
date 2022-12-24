@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
+    <TargetFramework>net6.0</TargetFramework>
 	<LangVersion>Latest</LangVersion>
 	<Nullable>enable</Nullable>
 	<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
@@ -16,6 +16,7 @@
     <PackageReference Include="OpenCvSharp4" Version="4.6.0.20220608" />
     <PackageReference Include="SkiaSharp" Version="2.88.3" />
     <PackageReference Include="WildcardMatch" Version="1.0.7" />
+    <PackageReference Include="Zack.Commons" Version="1.1.11" />
   </ItemGroup>
 
 </Project>
