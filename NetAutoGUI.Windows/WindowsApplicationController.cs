@@ -140,5 +140,10 @@ namespace NetAutoGUI.Windows
             }, IntPtr.Zero);
             return list.ToArray();
         }
-    }
+
+		public Window FindWindowById(long id)
+		{
+			return GetWindowDetail(new HWND(new IntPtr(id)));
+		}
+	}
 }

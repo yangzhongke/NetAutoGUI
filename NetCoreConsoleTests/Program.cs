@@ -52,12 +52,12 @@ winCalc.WaitAndClick("calc/2.png", confidence: 0.6);
 winCalc.WaitAndClick("calc/equal.png",confidence:0.6);
 */
 
-
+/*
 GUI.Application.LaunchApplication("chrome.exe", "https://www.baidu.com");
 var winChrome = GUI.Application.WaitForWindowLikeTitle("*百度一下*", timeoutSeconds:5);
 Thread.Sleep(1000);
 GUI.Keyboard.Write("youzack");
-GUI.Keyboard.Press(VirtualKeyCode.RETURN);
+GUI.Keyboard.Press(VirtualKeyCode.RETURN);*/
 /*
 GUI.Application.LaunchApplication("notepad.exe");
 GUI.Application.WaitForWindowByTitle(t => t.Contains("记事本"));
@@ -184,3 +184,6 @@ while (true)
     }
     lastWord = clipTxt;
 }*/
+
+var win = GUI.Application.FindWindowById(0x00120290);
+win.GetMainMenu().File.Launch.SearchInFiles();

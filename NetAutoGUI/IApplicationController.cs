@@ -10,6 +10,7 @@ namespace NetAutoGUI
         public void KillProcesses(string processName);
         public Window[] GetAllWindows();
         public Window? FindWindowByTitle(string title);
+        public Window FindWindowById(long id);
         public Window? FindWindow(Func<Window, bool> predict);
         public Window? FindWindowLikeTitle(string wildcard);
         public void WaitForApplication(string processName, double timeoutSeconds=2);

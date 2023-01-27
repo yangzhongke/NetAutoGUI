@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NetAutoGUI.Windows;
+using System;
 using System.Threading;
 using Vanara.PInvoke;
 
@@ -29,5 +30,11 @@ namespace NetAutoGUI
             User32.ShowWindow(hwnd, ShowWindowCommand.SW_MAXIMIZE);
             Thread.Sleep(100);
         }
+
+        public static dynamic GetMainMenu(this Window window)
+        {
+			HWND hwnd = new HWND((IntPtr)window.Id);
+            return new DynamicMainMenu(hwnd);
+		}
     }
 }
