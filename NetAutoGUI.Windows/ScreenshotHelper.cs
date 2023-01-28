@@ -1,22 +1,22 @@
-﻿using static Vanara.PInvoke.Gdi32;
+﻿using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
 using Vanara.PInvoke;
-using System.Drawing;
+using static Vanara.PInvoke.Gdi32;
 
 namespace NetAutoGUI.Windows
 {
-    internal static class ScreenshotHelper
-    {
-        public static System.Drawing.Rectangle ToSysRect(NetAutoGUI.Rectangle rect)
-        {
-            return new(rect.X, rect.Y, rect.Width, rect.Height);
-        }
+	internal static class ScreenshotHelper
+	{
+		public static System.Drawing.Rectangle ToSysRect(NetAutoGUI.Rectangle rect)
+		{
+			return new(rect.X, rect.Y, rect.Width, rect.Height);
+		}
 
-        public static NetAutoGUI.Rectangle ToAutoRect(System.Drawing.Rectangle rect)
-        {
-            return new(rect.X, rect.Y, rect.Width, rect.Height);
-        }
+		public static NetAutoGUI.Rectangle ToAutoRect(System.Drawing.Rectangle rect)
+		{
+			return new(rect.X, rect.Y, rect.Width, rect.Height);
+		}
 
 		public static byte[] CaptureWindow(HWND hWnd, int width, int height)
 		{

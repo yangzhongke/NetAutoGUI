@@ -1,9 +1,9 @@
 ﻿namespace NetAutoGUI
 {
-    public enum MouseButtonType
-    {
-        Left,
-        Middle,
-        Right,
-    }
+	public enum MouseButtonType
+	{
+		Left,
+		Middle,
+		Right,
+	}
 }

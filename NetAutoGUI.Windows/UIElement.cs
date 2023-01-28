@@ -28,7 +28,7 @@ public class UIElement
 		}
 	}
 
-	public string ClassName 
+	public string ClassName
 	{
 		get
 		{
@@ -44,7 +44,7 @@ public class UIElement
 		{
 			int txtLen = User32.GetWindowTextLength(hwnd);
 			StringBuilder sbText = new StringBuilder(txtLen);
-			User32.GetWindowText(hwnd, sbText, txtLen+1);
+			User32.GetWindowText(hwnd, sbText, txtLen + 1);
 			return sbText.ToString();
 		}
 		set
@@ -82,10 +82,10 @@ public class UIElement
 		{
 			HWND prevChild = HWND.NULL;
 			HWND childHwnd;
-			while(true)
+			while (true)
 			{
 				childHwnd = User32.FindWindowEx(hwnd, prevChild, null, null);
-				if(childHwnd.IsNull)
+				if (childHwnd.IsNull)
 				{
 					break;
 				}
@@ -110,13 +110,13 @@ public class UIElement
 			}
 		}
 	}
-		
+
 	public Rectangle Rectangle
 	{
 		get
 		{
 			User32.GetWindowRect(hwnd, out RECT rect);
-			return new Rectangle(rect.X,rect.Y,rect.Width,rect.Height);
+			return new Rectangle(rect.X, rect.Y, rect.Width, rect.Height);
 		}
 	}
 
@@ -128,6 +128,26 @@ public class UIElement
 	public void Paste()
 	{
 		User32.SendMessage(hwnd, WindowMessage.WM_PASTE, 0);
+	}
+
+	public void SelectAll()
+	{
+		User32.SendMessage(hwnd, (uint)EditMessage.EM_SETSEL, IntPtr.Zero, new IntPtr(-1));
+	}
+
+	public void Copy()
+	{
+		User32.SendMessage(hwnd, WindowMessage.WM_COPY, 0);
+	}
+
+	public void Focus()
+	{
+		User32.SetFocus(hwnd);
+	}
+
+	public bool IsValid()
+	{
+		return User32.IsWindow(hwnd);
 	}
 
 	public BitmapData ToBitmap()
@@ -144,20 +164,20 @@ public class UIElement
 	}
 	public override bool Equals(object? obj)
 	{
-		if(obj is UIElement)
+		if (obj is UIElement)
 		{
-			return Equals(obj,this);
+			return Equals(obj, this);
 		}
 		return base.Equals(obj);
 	}
 
 	public static bool operator ==(UIElement? e1, UIElement? e2)
 	{
-		if((object?)e1!=null&& (object?)e2 !=null)
+		if ((object?)e1 != null && (object?)e2 != null)
 		{
-			return Equals(e1,e2);
+			return Equals(e1, e2);
 		}
-		else if((object?)e1 ==null&& (object?)e2 ==null)
+		else if ((object?)e1 == null && (object?)e2 == null)
 		{
 			return true;
 		}

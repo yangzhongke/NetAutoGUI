@@ -1,7 +1,5 @@
 ﻿using NetAutoGUI;
-using NetAutoGUI.Windows;
 using System.Windows.Forms;
-using Vanara.PInvoke;
 /*
 GUI.Mouse.MoveTo(1000, 1000, 3, TweeningType.BounceInOut);
 GUI.Mouse.MoveTo(1000, 800);*/
@@ -211,17 +209,16 @@ GUI.Application.LaunchApplication("d:/1.png");*/
 var win = GUI.Application.FindWindowLikeTitle("*Notepad3*");
 win.Activate();
 var ui = win.GetRoot().Descendents.Single(e => e.ClassName == "Scintilla");
-Console.WriteLine(ui.ClassName);
 ui.ToBitmap().Save("d:/1.png");
 //GUI.Application.LaunchApplication("d:/1.png");
 //win.GetMainMenu().File.Print();//sync
 win.GetMainMenu().File.Print.Click();//async
 Window winPrint = GUI.Application.WaitForWindowByTitle("Print");
-var btnOK = winPrint.GetRoot().Descendents.WaitSingle(e=>e.Text=="OK");
+var btnOK = winPrint.GetRoot().Descendents.WaitSingle(e => e.Text == "OK");
 btnOK.Click();
 Window winSavePrint = GUI.Application.WaitForWindowByTitle("Save Print Output As");
-var editFileName = winSavePrint.GetRoot().Descendents.WaitSingle(e=>e.ClassName=="ComboBox");
+var editFileName = winSavePrint.GetRoot().Descendents.WaitSingle(e => e.ClassName == "ComboBox");
 Clipboard.SetText("5.pdf");
 editFileName.Paste();
-var btnSave = winSavePrint.GetRoot().Descendents.Single(e=>e.Text== "&Save");
+var btnSave = winSavePrint.GetRoot().Descendents.WaitSingle(e => e.Text == "&Save");
 btnSave.Click();

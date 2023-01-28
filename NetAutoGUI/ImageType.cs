@@ -1,7 +1,7 @@
 ﻿namespace NetAutoGUI
 {
-    public enum ImageType
-    {
-        WebP,Jpg,Png
-    }
+	public enum ImageType
+	{
+		WebP, Jpg, Png
+	}
 }
