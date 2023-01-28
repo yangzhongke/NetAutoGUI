@@ -1,168 +1,195 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Text;
 using Vanara.PInvoke;
+using static Vanara.PInvoke.User32;
 
-namespace NetAutoGUI.Windows
+namespace NetAutoGUI.Windows;
+
+public class UIElement
 {
-	public class UIElement
+	private HWND hwnd;
+
+	public UIElement(long hwnd)
 	{
-		private HWND hwnd;
+		this.hwnd = hwnd.ToHWND();
+	}
 
-		public UIElement(long hwnd)
+	public UIElement(HWND hwnd)
+	{
+		this.hwnd = hwnd;
+	}
+
+	public HWND Handle
+	{
+		get
 		{
-			this.hwnd = hwnd.ToHWND();
+			return this.hwnd;
 		}
+	}
 
-		public UIElement(HWND hwnd)
+	public string ClassName 
+	{
+		get
 		{
-			this.hwnd = hwnd;
+			int len = 256;
+			StringBuilder sbClass = new StringBuilder(len);
+			User32.RealGetWindowClass(hwnd, sbClass, (uint)len);
+			return sbClass.ToString();
 		}
-
-		public HWND Handle
+	}
+	public string Text
+	{
+		get
 		{
-			get
+			int txtLen = User32.GetWindowTextLength(hwnd);
+			StringBuilder sbText = new StringBuilder(txtLen);
+			User32.GetWindowText(hwnd, sbText, txtLen+1);
+			return sbText.ToString();
+		}
+		set
+		{
+			User32.SetWindowText(hwnd, value);
+		}
+	}
+	public UIElement? Parent
+	{
+		get
+		{
+			var pHwnd = User32.GetParent(hwnd);
+			if (pHwnd.IsNull)
 			{
-				return this.hwnd;
+				return null;
+			}
+			return new UIElement(pHwnd);
+		}
+		set
+		{
+			if (value == null)
+			{
+				User32.SetParent(this.hwnd, HWND.NULL);
+			}
+			else
+			{
+				User32.SetParent(this.hwnd, value.hwnd);
 			}
 		}
+	}
 
-		public string ClassName 
+	public IEnumerable<UIElement> Children
+	{
+		get
 		{
-			get
+			HWND prevChild = HWND.NULL;
+			HWND childHwnd;
+			while(true)
 			{
-				int len = 256;
-				StringBuilder sbClass = new StringBuilder(len);
-				User32.RealGetWindowClass(hwnd, sbClass, (uint)len);
-				return sbClass.ToString();
-			}
-		}
-		public string Text
-		{
-			get
-			{
-				int txtLen = User32.GetWindowTextLength(hwnd);
-				StringBuilder sbText = new StringBuilder(txtLen);
-				User32.GetWindowText(hwnd, sbText, txtLen+1);
-				return sbText.ToString();
-			}
-			set
-			{
-				User32.SetWindowText(hwnd, value);
-			}
-		}
-		public UIElement? Parent
-		{
-			get
-			{
-				var pHwnd = User32.GetParent(hwnd);
-				if (pHwnd.IsNull)
+				childHwnd = User32.FindWindowEx(hwnd, prevChild, null, null);
+				if(childHwnd.IsNull)
 				{
-					return null;
-				}
-				return new UIElement(pHwnd);
-			}
-			set
-			{
-				if (value == null)
-				{
-					User32.SetParent(this.hwnd, HWND.NULL);
+					break;
 				}
 				else
 				{
-					User32.SetParent(this.hwnd, value.hwnd);
+					prevChild = childHwnd;
+					yield return new UIElement(childHwnd);
 				}
 			}
 		}
+	}
 
-		public IEnumerable<UIElement> Children
+	public IEnumerable<UIElement> Descendents
+	{
+		get
 		{
-			get
+			var childHWNDs = User32.EnumChildWindows(this.hwnd);
+			foreach (var childHWND in childHWNDs)
 			{
-				HWND prevChild = HWND.NULL;
-				HWND childHwnd;
-				while(true)
-				{
-					childHwnd = User32.FindWindowEx(hwnd, prevChild, null, null);
-					if(childHwnd.IsNull)
-					{
-						break;
-					}
-					else
-					{
-						prevChild = childHwnd;
-						yield return new UIElement(childHwnd);
-					}
-				}
+				UIElement child = new UIElement(childHWND);
+				yield return child;
 			}
 		}
-
-		public IEnumerable<UIElement> Descendents
+	}
+		
+	public Rectangle Rectangle
+	{
+		get
 		{
-			get
-			{
-				var childHWNDs = User32.EnumChildWindows(this.hwnd);
-				foreach (var childHWND in childHWNDs)
-				{
-					UIElement child = new UIElement(childHWND);
-					yield return child;
-				}
-			}
+			User32.GetWindowRect(hwnd, out RECT rect);
+			return new Rectangle(rect.X,rect.Y,rect.Width,rect.Height);
 		}
+	}
 
+	public void Click()
+	{
+		User32.SendMessage(hwnd, ButtonMessage.BM_CLICK, 0);
+	}
 
-		public bool Equals(UIElement obj)
-		{
-			return obj.hwnd == this.hwnd;
-		}
-		public override bool Equals(object? obj)
-		{
-			if(obj is UIElement)
-			{
-				return Equals(obj,this);
-			}
-			return base.Equals(obj);
-		}
+	public void Paste()
+	{
+		User32.SendMessage(hwnd, WindowMessage.WM_PASTE, 0);
+	}
 
-		public static bool operator ==(UIElement? e1, UIElement? e2)
-		{
-			if((object?)e1!=null&& (object?)e2 !=null)
-			{
-				return Equals(e1,e2);
-			}
-			else if((object?)e1 ==null&& (object?)e2 ==null)
-			{
-				return true;
-			}
-			else
-			{
-				return false;
-			}
-		}
+	public BitmapData ToBitmap()
+	{
+		int width = Rectangle.Width;
+		int height = Rectangle.Height;
+		byte[] data = ScreenshotHelper.CaptureWindow(hwnd, width, height);
+		return new BitmapData(data, width, height);
+	}
 
-		public static bool operator !=(UIElement? e1, UIElement? e2)
+	public bool Equals(UIElement obj)
+	{
+		return obj.hwnd == this.hwnd;
+	}
+	public override bool Equals(object? obj)
+	{
+		if(obj is UIElement)
 		{
-			if ((object?)e1 != null && (object?)e2 != null)
-			{
-				return !Equals(e1, e2);
-			}
-			else if ((object?)e1 == null && (object?)e2 == null)
-			{
-				return false;
-			}
-			else
-			{
-				return true;
-			}
+			return Equals(obj,this);
 		}
+		return base.Equals(obj);
+	}
 
-		public override int GetHashCode()
+	public static bool operator ==(UIElement? e1, UIElement? e2)
+	{
+		if((object?)e1!=null&& (object?)e2 !=null)
 		{
-			return this.hwnd.GetHashCode();
+			return Equals(e1,e2);
 		}
+		else if((object?)e1 ==null&& (object?)e2 ==null)
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
 
-		public override string ToString()
+	public static bool operator !=(UIElement? e1, UIElement? e2)
+	{
+		if ((object?)e1 != null && (object?)e2 != null)
 		{
-			return this.hwnd.ToInt64().ToString();
+			return !Equals(e1, e2);
 		}
+		else if ((object?)e1 == null && (object?)e2 == null)
+		{
+			return false;
+		}
+		else
+		{
+			return true;
+		}
+	}
+
+	public override int GetHashCode()
+	{
+		return this.hwnd.GetHashCode();
+	}
+
+	public override string ToString()
+	{
+		return this.hwnd.ToInt64().ToString();
 	}
 }

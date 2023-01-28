@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Dynamic;
 using System.Linq;
+using System.Reflection;
 using Vanara.PInvoke;
 using static Vanara.PInvoke.User32;
 
@@ -29,6 +30,21 @@ public class DynamicMenuItem : DynamicObject
 		return base.TryGetMember(binder, out result);
 	}
 
+	/// <summary>
+	/// asynchronous
+	/// </summary>
+	public void Click()
+	{
+		User32.PostMessage(hwnd, (uint)WindowMessage.WM_COMMAND, new IntPtr(this.menuId), IntPtr.Zero);
+	}
+
+	/// <summary>
+	/// synchronous
+	/// </summary>
+	/// <param name="binder"></param>
+	/// <param name="args"></param>
+	/// <param name="result"></param>
+	/// <returns></returns>
 	public override bool TryInvokeMember(InvokeMemberBinder binder, object?[]? args, out object? result)
 	{
 		DynamicMenuItem? menuItem = MenuHelpers.FindMenuItem(hwnd, menu, binder.Name);

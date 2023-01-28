@@ -1,5 +1,7 @@
 ﻿using NetAutoGUI;
 using NetAutoGUI.Windows;
+using System.Windows.Forms;
+using Vanara.PInvoke;
 /*
 GUI.Mouse.MoveTo(1000, 1000, 3, TweeningType.BounceInOut);
 GUI.Mouse.MoveTo(1000, 800);*/
@@ -186,9 +188,40 @@ while (true)
 }*/
 
 //var win = GUI.Application.FindWindowById(0x00120290);
-var win = GUI.Application.FindWindowLikeTitle("*temp*");
 //win.GetMainMenu().File.Launch.SearchInFiles();
+
+/*
 foreach (var c in win.GetRoot().Descendents)
 {
-    Console.WriteLine(c.ClassName+":"+c.Text+":"+c.Parent.ClassName);
+    Console.WriteLine(c.Text + "|" + c.ClassName+ "|" + c.Parent.ClassName);
 }
+var addr = win.GetRoot().Descendents.Single(e=>e.ClassName== "ToolbarWindow32"&&e.Text.StartsWith("Address:"));
+addr.Click();
+addr.ToBitmap().Save("d:/1.png");
+GUI.Application.LaunchApplication("d:/1.png");*/
+/*var btnUpBand = win.GetRoot().Descendents.Single(e=>e.ClassName== "UpBand");
+btnUpBand.Click();*/
+/*
+var win = GUI.Application.FindWindowLikeTitle("*Notepad3*");
+win.Activate();
+var txtScintilla = win.GetRoot().Descendents.Single(e=>e.ClassName== "Scintilla");
+txtScintilla.ToBitmap().Save("d:/1.png");
+GUI.Application.LaunchApplication("d:/1.png");*/
+//UIElement ui = new UIElement(User32.GetDesktopWindow());
+var win = GUI.Application.FindWindowLikeTitle("*Notepad3*");
+win.Activate();
+var ui = win.GetRoot().Descendents.Single(e => e.ClassName == "Scintilla");
+Console.WriteLine(ui.ClassName);
+ui.ToBitmap().Save("d:/1.png");
+//GUI.Application.LaunchApplication("d:/1.png");
+//win.GetMainMenu().File.Print();//sync
+win.GetMainMenu().File.Print.Click();//async
+Window winPrint = GUI.Application.WaitForWindowByTitle("Print");
+var btnOK = winPrint.GetRoot().Descendents.WaitSingle(e=>e.Text=="OK");
+btnOK.Click();
+Window winSavePrint = GUI.Application.WaitForWindowByTitle("Save Print Output As");
+var editFileName = winSavePrint.GetRoot().Descendents.WaitSingle(e=>e.ClassName=="ComboBox");
+Clipboard.SetText("5.pdf");
+editFileName.Paste();
+var btnSave = winSavePrint.GetRoot().Descendents.Single(e=>e.Text== "&Save");
+btnSave.Click();
