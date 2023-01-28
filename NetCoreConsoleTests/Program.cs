@@ -185,5 +185,10 @@ while (true)
     lastWord = clipTxt;
 }*/
 
-var win = GUI.Application.FindWindowById(0x00120290);
-win.GetMainMenu().File.Launch.SearchInFiles();
+//var win = GUI.Application.FindWindowById(0x00120290);
+var win = GUI.Application.FindWindowLikeTitle("*temp*");
+//win.GetMainMenu().File.Launch.SearchInFiles();
+foreach (var c in win.GetRoot().Descendents)
+{
+    Console.WriteLine(c.ClassName+":"+c.Text+":"+c.Parent.ClassName);
+}

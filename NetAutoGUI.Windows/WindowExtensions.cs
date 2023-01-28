@@ -1,5 +1,6 @@
 ﻿using NetAutoGUI.Windows;
 using System;
+using System.Collections.Generic;
 using System.Threading;
 using Vanara.PInvoke;
 
@@ -36,5 +37,10 @@ namespace NetAutoGUI
 			HWND hwnd = new HWND((IntPtr)window.Id);
             return new DynamicMainMenu(hwnd);
 		}
-    }
+        
+        public static UIElement GetRoot(this Window window)
+        {
+            return new UIElement(window.Id);
+		}
+	}
 }
