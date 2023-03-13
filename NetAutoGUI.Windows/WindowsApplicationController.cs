@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Runtime.Versioning;
 using System.Text;
@@ -37,7 +38,9 @@ namespace NetAutoGUI.Windows
 
 		public bool IsApplicationRunning(string processName)
 		{
-			return Process.GetProcesses().Any(p => p.ProcessName == processName);
+            //The ProcessName property does not include the .exe extension
+            string nameWithoutExtension = Path.GetFileNameWithoutExtension(processName);
+            return Process.GetProcesses().Any(p => nameWithoutExtension.Equals(p.ProcessName,StringComparison.OrdinalIgnoreCase));
 		}
 
 		public Process LaunchApplication(string appPath, string? arguments = null)
@@ -124,7 +127,9 @@ namespace NetAutoGUI.Windows
 
 		public void KillProcesses(string processName)
 		{
-			var items = Process.GetProcesses().Where(p => p.ProcessName == processName);
+            //The ProcessName property does not include the .exe extension
+            string nameWithoutExtension = Path.GetFileNameWithoutExtension(processName);
+			var items = Process.GetProcesses().Where(p => nameWithoutExtension.Equals(p.ProcessName, StringComparison.OrdinalIgnoreCase));
 			foreach (var p in items)
 			{
 				p.Kill();
