@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
+using System.Text.RegularExpressions;
 using Vanara.InteropServices;
 using Vanara.PInvoke;
 using static Vanara.PInvoke.User32;
@@ -24,7 +25,8 @@ internal static class MenuHelpers
 		menuItemText = menuItemText.Split('\t')[0];//remove accelerate key, like 'ctrl+s'
 		menuItemText = menuItemText.Replace(" ", "");//remove space
 		menuItemText = menuItemText.Replace(".", "");//remove "..."
-		return new MenuItemInfo(menuItemText, menuItemInfo.wID, menuItemInfo.hSubMenu);
+        menuItemText = Regex.Replace(menuItemText, @"\(.+\)", "");//remove "(F)"
+        return new MenuItemInfo(menuItemText, menuItemInfo.wID, menuItemInfo.hSubMenu);
 	}
 
 	public static IEnumerable<MenuItemInfo> GetSubMenuItems(HMENU menu)

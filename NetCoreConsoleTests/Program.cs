@@ -206,6 +206,7 @@ var txtScintilla = win.GetRoot().Descendents.Single(e=>e.ClassName== "Scintilla"
 txtScintilla.ToBitmap().Save("d:/1.png");
 GUI.Application.LaunchApplication("d:/1.png");*/
 //UIElement ui = new UIElement(User32.GetDesktopWindow());
+/*
 var win = GUI.Application.FindWindowLikeTitle("*Notepad3*");
 win.Activate();
 var ui = win.GetRoot().Descendents.Single(e => e.ClassName == "Scintilla");
@@ -221,4 +222,8 @@ var editFileName = winSavePrint.GetRoot().Descendents.WaitSingle(e => e.ClassNam
 Clipboard.SetText("5.pdf");
 editFileName.Paste();
 var btnSave = winSavePrint.GetRoot().Descendents.WaitSingle(e => e.Text == "&Save");
-btnSave.Click();
+btnSave.Click();*/
+Window w = GUI.Application.WaitForWindowLikeTitle("*记事本");
+w.Activate();
+dynamic menu = w.GetMainMenu();
+menu.文件.退出();
