@@ -30,27 +30,35 @@ public class DynamicMenuItem : DynamicObject
 	}
 
 	/// <summary>
-	/// asynchronous
+	/// asynchronously click
 	/// </summary>
 	public void Click()
 	{
 		User32.PostMessage(hwnd, (uint)WindowMessage.WM_COMMAND, new IntPtr(this.menuId), IntPtr.Zero);
 	}
 
-	/// <summary>
-	/// synchronous
-	/// </summary>
-	/// <param name="binder"></param>
-	/// <param name="args"></param>
-	/// <param name="result"></param>
-	/// <returns></returns>
-	public override bool TryInvokeMember(InvokeMemberBinder binder, object?[]? args, out object? result)
+    /// <summary>
+    /// synchronously click
+    /// </summary>
+    public void ClickAndWait()
+    {
+        User32.SendMessage(hwnd, (uint)WindowMessage.WM_COMMAND, new IntPtr(this.menuId), IntPtr.Zero);
+    }
+
+    /// <summary>
+    /// synchronous
+    /// </summary>
+    /// <param name="binder"></param>
+    /// <param name="args"></param>
+    /// <param name="result"></param>
+    /// <returns></returns>
+    public override bool TryInvokeMember(InvokeMemberBinder binder, object?[]? args, out object? result)
 	{
 		DynamicMenuItem? menuItem = MenuHelpers.FindMenuItem(hwnd, menu, binder.Name);
 		if (menuItem != null)
 		{
 			result = menuItem;
-			User32.SendMessage(hwnd, WindowMessage.WM_COMMAND, menuItem.menuId, IntPtr.Zero);
+			menuItem.Click();
 			return true;
 		}
 		return base.TryInvokeMember(binder, args, out result);
