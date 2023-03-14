@@ -14,29 +14,27 @@ namespace NetAutoGUI.Windows
 	[SupportedOSPlatform("windows")]
 	internal class WindowsApplicationController : IApplicationController
 	{
-		private string GetWindowText(HWND hwnd)
-		{
-			StringBuilder sb = new StringBuilder(1024);
-			User32.GetWindowText(hwnd, sb, sb.Capacity);
-			return sb.ToString();
-		}
+        private static string GetWindowText(long hwnd)
+        {
+            StringBuilder sb = new StringBuilder(1024);
+            User32.GetWindowText(new HWND(new IntPtr(hwnd)), sb, sb.Capacity);
+            return sb.ToString();
+        }
 
-		private Rectangle GetWindowRect(HWND hwnd)
-		{
-			User32.GetWindowRect(hwnd, out RECT rect);
-			return new Rectangle(rect.X, rect.Y, rect.Width, rect.Height);
-		}
+        private static Rectangle GetWindowRect(long hwnd)
+        {
+            User32.GetWindowRect(new HWND(new IntPtr(hwnd)), out RECT rect);
+            return new Rectangle(rect.X, rect.Y, rect.Width, rect.Height);
+        }
 
-		private Window GetWindowDetail(HWND hwnd)
-		{
-			string title = GetWindowText(hwnd);
-			Rectangle rect = GetWindowRect(hwnd);
-			IntPtr intPtr = (IntPtr)hwnd;
-			Window window = new Window(title, intPtr.ToInt64(), rect);
-			return window;
-		}
+        private static Window GetWindowDetail(HWND hwnd)
+        {
+            IntPtr intPtr = (IntPtr)hwnd;
+            Window window = new Window(intPtr.ToInt64(), GetWindowRect, GetWindowText);
+            return window;
+        }
 
-		public bool IsApplicationRunning(string processName)
+        public bool IsApplicationRunning(string processName)
 		{
             //The ProcessName property does not include the .exe extension
             string nameWithoutExtension = Path.GetFileNameWithoutExtension(processName);

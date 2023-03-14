@@ -223,7 +223,15 @@ Clipboard.SetText("5.pdf");
 editFileName.Paste();
 var btnSave = winSavePrint.GetRoot().Descendents.WaitSingle(e => e.Text == "&Save");
 btnSave.Click();*/
-Window w = GUI.Application.WaitForWindowLikeTitle("*记事本");
-w.Activate();
-dynamic menu = w.GetMainMenu();
-menu.文件.退出();
+
+Window win = GUI.Application.WaitForWindowLikeTitle("*记事本");
+win.Activate();
+//win.Id//PInvoke, Win32
+win.Maximize();
+for(int i=10;i<500;i++)
+{
+    win.MoveMouseTo(100, i);
+    //Thread.Sleep(10);
+}
+
+win.Click();

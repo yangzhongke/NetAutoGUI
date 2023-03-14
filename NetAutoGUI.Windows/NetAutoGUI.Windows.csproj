@@ -9,7 +9,7 @@
 	<Title>.NET version of pyAutoGUI</Title>
 	<PackageProjectUrl>https://github.com/yangzhongke/NetAutoGUI</PackageProjectUrl>
 	<RepositoryUrl>https://github.com/yangzhongke/NetAutoGUI</RepositoryUrl>
-	<Version>1.0.7</Version>
+	<Version>1.0.8</Version>
   </PropertyGroup>
 
   <ItemGroup>
