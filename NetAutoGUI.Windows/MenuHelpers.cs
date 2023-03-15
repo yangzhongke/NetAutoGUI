@@ -26,6 +26,7 @@ internal static class MenuHelpers
 		menuItemText = menuItemText.Replace(" ", "");//remove space
 		menuItemText = menuItemText.Replace(".", "");//remove "..."
         menuItemText = Regex.Replace(menuItemText, @"\(.+\)", "");//remove "(F)"
+        menuItemText = Regex.Replace(menuItemText, "!|\"|'|#|\\$|%|%|,|\\*|\\+|\\-|/|\\||:|;|<|>|\\?|\\{|\\}|\\[|\\]", "");//remove >,<,|,/,\, # !
         return new MenuItemInfo(menuItemText, menuItemInfo.wID, menuItemInfo.hSubMenu);
 	}
 

@@ -223,7 +223,7 @@ Clipboard.SetText("5.pdf");
 editFileName.Paste();
 var btnSave = winSavePrint.GetRoot().Descendents.WaitSingle(e => e.Text == "&Save");
 btnSave.Click();*/
-
+/*
 Window win = GUI.Application.WaitForWindowLikeTitle("*记事本");
 win.Activate();
 //win.Id//PInvoke, Win32
@@ -233,5 +233,17 @@ for(int i=10;i<500;i++)
     win.MoveMouseTo(100, i);
     //Thread.Sleep(10);
 }
-
-win.Click();
+win.Click();*/
+/*
+Window? win = GUI.Application.FindWindowByTitle("微信");
+if (win == null)
+{
+    Console.WriteLine("微信没启动");
+    return;
+}
+win.Activate();
+win.WaitAndClick("smile.png");*/
+Window win = GUI.Application.WaitForWindowLikeTitle("*记事本");
+win.Activate();
+win.GetMainMenu().编辑.时间日期();
+win.GetMainMenu().格式.字体();
