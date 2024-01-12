@@ -2,6 +2,7 @@
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
+using System.Linq;
 using System.Runtime.Versioning;
 using System.Threading;
 using System.Windows.Forms;
@@ -12,9 +13,9 @@ namespace NetAutoGUI.Windows
 	[SupportedOSPlatform("windows")]
 	internal class WindowsScreenshotController : AbstractScreenshotController
 	{
-		public override BitmapData Screenshot(Rectangle? region = null)
+		public override BitmapData Screenshot(Rectangle? region = null, uint screenIndex = 0)
 		{
-			Screen screen = Screen.PrimaryScreen;
+			Screen screen = Screen.AllScreens[screenIndex];
 			if (region == null)
 			{
 				region = ScreenshotHelper.ToAutoRect(screen.Bounds);

@@ -1,4 +1,5 @@
 ﻿using NetAutoGUI;
+using NetAutoGUI.Windows;
 using System.Windows.Forms;
 /*
 GUI.Mouse.MoveTo(1000, 1000, 3, TweeningType.BounceInOut);
@@ -36,10 +37,15 @@ if (s != null)
     GUI.MessageBox.Alert(pwd);
 }*/
 /*
-GUI.Screenshot.Screenshot().Save("e:/temp/1.jpg"); 
+GUI.Screenshot.Screenshot().Save("e:/temp/1.jpg");
 GUI.Screenshot.Screenshot().Save("d:/1.png");
 GUI.Screenshot.Screenshot(new Rectangle(10, 10, 250, 250)).Save("d:/1.jpeg");
-GUI.Screenshot.Screenshot().Save("d:/1.webp",ImageType.WebP);*/
+GUI.Screenshot.Screenshot().Save("d:/1.webp", ImageType.WebP);
+
+GUI.Screenshot.Screenshot(screenIndex:1).Save("e:/temp/2.jpg"); 
+GUI.Screenshot.Screenshot(screenIndex: 1).Save("d:/2.png");
+GUI.Screenshot.Screenshot(new Rectangle(10, 10, 250, 250),screenIndex: 1).Save("d:/2.jpeg");
+GUI.Screenshot.Screenshot(screenIndex: 1).Save("d:/2.webp",ImageType.WebP);*/
 
 /*
 GUI.Application.KillProcesses("Calculator");
@@ -72,8 +78,8 @@ using (GUI.Keyboard.Hold(VirtualKeyCode.CONTROL))
 {
     GUI.Keyboard.Press(VirtualKeyCode.VK_S);
 }*/
-/*
-Window win = GUI.Application.FindWindowLikeTitle("*微信小号*");
+
+Window win = GUI.Application.FindWindowLikeTitle("*微信*");
 win.Activate();
 win.Maximize();
 string lastWord = "";
@@ -108,7 +114,7 @@ while(true)
         GUI.Keyboard.Press(VirtualKeyCode.RETURN);
     }
     lastWord = clipTxt;
-}*/
+}
 
 /*
 Window win = GUI.Application.FindWindowLikeTitle("*微信小号*");
@@ -243,7 +249,8 @@ if (win == null)
 }
 win.Activate();
 win.WaitAndClick("smile.png");*/
+/*
 Window win = GUI.Application.WaitForWindowLikeTitle("*记事本");
 win.Activate();
 win.GetMainMenu().编辑.时间日期();
-win.GetMainMenu().格式.字体();
+win.GetMainMenu().格式.字体();*/

@@ -9,13 +9,13 @@
 	<Title>.NET version of pyAutoGUI</Title>
 	<PackageProjectUrl>https://github.com/yangzhongke/NetAutoGUI</PackageProjectUrl>
 	<RepositoryUrl>https://github.com/yangzhongke/NetAutoGUI</RepositoryUrl>
-	<Version>1.0.9</Version>
+	<Version>1.0.10</Version>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="OpenCvSharp4.runtime.win" Version="4.6.0.20220608" />
-    <PackageReference Include="System.Drawing.Common" Version="6.0.0" />
-    <PackageReference Include="Vanara.PInvoke.User32" Version="3.4.6" />
+    <PackageReference Include="OpenCvSharp4.runtime.win" Version="4.9.0.20240103" />
+    <PackageReference Include="System.Drawing.Common" Version="8.0.1" />
+    <PackageReference Include="Vanara.PInvoke.User32" Version="3.4.17" />
   </ItemGroup>
 
   <ItemGroup>

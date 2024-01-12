@@ -6,10 +6,10 @@ namespace NetAutoGUI
 {
 	public static class ScreenshotExtensions
 	{
-		public static BitmapData Screenshot(this IScreenshotController ctl, Window window)
+		public static BitmapData Screenshot(this IScreenshotController ctl, Window window, uint screenIndex = 0)
 		{
 			var rect = window.Rectangle;
-			return ctl.Screenshot(rect);
+			return ctl.Screenshot(rect, screenIndex);
 			//todo: enable the screenshot of invisible window by IGraphicsCaptureItemInterop 
 			//https://blogs.windows.com/windowsdeveloper/2019/09/16/new-ways-to-do-screen-capture/
 		}
@@ -46,9 +46,9 @@ namespace NetAutoGUI
 			}
 		}
 
-		public static Rectangle[] LocateAllOnScreen(this IScreenshotController ctrl, string imgFileToBeFound, double confidence = 0.99)
+		public static Rectangle[] LocateAllOnScreen(this IScreenshotController ctrl, string imgFileToBeFound, double confidence = 0.99, uint screenIndex = 0)
 		{
-			var bitmapScreen = ctrl.Screenshot();
+			var bitmapScreen = ctrl.Screenshot(screenIndex: screenIndex);
 			return ctrl.LocateAll(bitmapScreen, imgFileToBeFound, confidence);
 		}
 

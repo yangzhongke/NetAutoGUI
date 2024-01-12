@@ -2,7 +2,7 @@
 {
 	public interface IScreenshotController
 	{
-		public BitmapData Screenshot(Rectangle? region = null);
+		public BitmapData Screenshot(Rectangle? region = null, uint screenIndex = 0);
 
 		public Rectangle[] LocateAll(BitmapData basePicture, string imgFileToBeFound, double confidence = 0.99);
 
