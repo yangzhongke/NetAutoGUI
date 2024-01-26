@@ -1,6 +1,18 @@
 ﻿using NetAutoGUI;
 using NetAutoGUI.Windows;
 using System.Windows.Forms;
+
+Window win = GUI.Application.FindWindowLikeTitle("*Notepad*");
+win.Activate();
+win.Maximize();
+while (true)
+{
+    //获取按照纵坐标排序最后一个元素
+    var rect1 = GUI.Screenshot.LocateAllOnScreen("test1.png").First();    
+    GUI.Mouse.DoubleClick(rect1.X, rect1.Y);
+    Thread.Sleep(2000);
+}
+
 /*
 GUI.Mouse.MoveTo(1000, 1000, 3, TweeningType.BounceInOut);
 GUI.Mouse.MoveTo(1000, 800);*/
@@ -79,6 +91,7 @@ using (GUI.Keyboard.Hold(VirtualKeyCode.CONTROL))
     GUI.Keyboard.Press(VirtualKeyCode.VK_S);
 }*/
 
+/*
 Window win = GUI.Application.FindWindowLikeTitle("*微信*");
 win.Activate();
 win.Maximize();
@@ -114,7 +127,7 @@ while(true)
         GUI.Keyboard.Press(VirtualKeyCode.RETURN);
     }
     lastWord = clipTxt;
-}
+}*/
 
 /*
 Window win = GUI.Application.FindWindowLikeTitle("*微信小号*");
