@@ -41,5 +41,7 @@ namespace NetAutoGUI.Internals
             }
             return rectangles.ToArray();
         }
+
+        public abstract BitmapData ScreenshotAllScreens();
     }
 }

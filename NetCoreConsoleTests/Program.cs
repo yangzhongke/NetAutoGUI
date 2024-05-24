@@ -1,17 +1,143 @@
-﻿using NetAutoGUI;
-using NetAutoGUI.Windows;
+﻿
+using System;
+using System.Drawing;
 using System.Windows.Forms;
+using System.Runtime.InteropServices;
+using System.Drawing.Imaging;
+using NetAutoGUI;
+using NetAutoGUI.Windows;
 
 Window win = GUI.Application.FindWindowLikeTitle("*Notepad*");
 win.Activate();
 win.Maximize();
-while (true)
+var screenshot = GUI.Screenshot.ScreenshotAllScreens();
+var loc1 = GUI.Screenshot.LocateAll(screenshot, "test2.png").First().Center;
+GUI.Mouse.DoubleClick(loc1.X, loc1.Y);
+/*
+
+class Program
+{
+    [DllImport("user32.dll")]
+    public static extern IntPtr GetDC(IntPtr hwnd);
+    [DllImport("user32.dll")]
+    public static extern IntPtr GetWindowDC(IntPtr hwnd);
+    [DllImport("user32.dll")]
+    public static extern IntPtr ReleaseDC(IntPtr hwnd, IntPtr hdc);
+    [DllImport("gdi32.dll")]
+    public static extern IntPtr CreateCompatibleDC(IntPtr hdc);
+    [DllImport("gdi32.dll")]
+    public static extern IntPtr CreateCompatibleBitmap(IntPtr hdc, int nWidth, int nHeight);
+    [DllImport("gdi32.dll")]
+    public static extern IntPtr SelectObject(IntPtr hdc, IntPtr hgdiobj);
+    [DllImport("gdi32.dll")]
+    public static extern bool BitBlt(IntPtr hdcDest, int nXDest, int nYDest, int nWidth, int nHeight, IntPtr hdcSrc, int nXSrc, int nYSrc, int dwRop);
+    [DllImport("gdi32.dll")]
+    public static extern bool DeleteDC(IntPtr hdc);
+    [DllImport("user32.dll")]
+    public static extern bool EnumDisplayMonitors(IntPtr hdc, IntPtr lprcClip, MonitorEnumProc lpfnEnum, IntPtr dwData);
+
+    public delegate bool MonitorEnumProc(IntPtr hMonitor, IntPtr hdcMonitor, ref Rect lprcMonitor, IntPtr dwData);
+
+    [StructLayout(LayoutKind.Sequential)]
+    public struct Rect
+    {
+        public int left;
+        public int top;
+        public int right;
+        public int bottom;
+    }
+
+    static void Main()
+    {
+        // 获取所有显示器的截图
+        Bitmap screenshot = CaptureScreen();
+
+        // 显示截图
+        ShowScreenshot(screenshot);
+
+        // 保存截图
+        screenshot.Save("screenshots.jpg");
+    }
+
+    static Bitmap CaptureScreen()
+    {
+        // 获取所有显示器的大小
+        int width = SystemInformation.VirtualScreen.Width;
+        int height = SystemInformation.VirtualScreen.Height;
+
+        // 创建一个大图像
+        Bitmap screenshot = new Bitmap(width, height);
+
+        using (Graphics graphics = Graphics.FromImage(screenshot))
+        {
+            // 获取主屏幕的句柄
+            IntPtr hdcSrc = GetDC(IntPtr.Zero);
+
+            // 捕捉每个显示器的屏幕截图
+            EnumDisplayMonitors(hdcSrc, IntPtr.Zero, (IntPtr hMonitor, IntPtr hdcMonitor, ref Rect lprcMonitor, IntPtr dwData) =>
+            {
+                // 获取每个显示器的大小和位置
+                int monitorWidth = lprcMonitor.right - lprcMonitor.left;
+                int monitorHeight = lprcMonitor.bottom - lprcMonitor.top;
+                int x = lprcMonitor.left;
+                int y = lprcMonitor.top;
+
+                // 创建一个与显示器大小相同的临时图像
+                Bitmap monitorScreenshot = new Bitmap(monitorWidth, monitorHeight);
+
+                // 获取临时图像的句柄
+                IntPtr hdcDest = CreateCompatibleDC(hdcSrc);
+                IntPtr hBitmap = monitorScreenshot.GetHbitmap();
+
+                // 将临时图像与设备上下文相关联
+                SelectObject(hdcDest, hBitmap);
+
+                // 捕捉当前显示器的屏幕截图
+                BitBlt(hdcDest, 0, 0, monitorWidth, monitorHeight, hdcSrc, x, y, (int)CopyPixelOperation.SourceCopy);
+
+                // 将临时图像从设备上下文中解除关联
+                DeleteDC(hdcDest);
+
+                // 将当前显示器的屏幕截图绘制到大图像中的正确位置
+                graphics.DrawImage(monitorScreenshot, x, y);
+
+                // 释放临时图像
+                monitorScreenshot.Dispose();
+
+                return true;
+            }, IntPtr.Zero);
+
+            // 释放主屏幕的句柄
+            ReleaseDC(IntPtr.Zero, hdcSrc);
+        }
+
+        return screenshot;
+    }
+
+    static void ShowScreenshot(Bitmap screenshot)
+    {
+        // 创建一个窗口来显示截图
+        Form form = new Form();
+        PictureBox pictureBox = new PictureBox();
+        pictureBox.Dock = DockStyle.Fill;
+        pictureBox.Image = screenshot;
+        form.Controls.Add(pictureBox);
+        form.ShowDialog();
+    }
+}
+*/
+
+/*
+Window win = GUI.Application.FindWindowLikeTitle("*Notepad*");
+win.Activate();
+win.Maximize();
+//while (true)
 {
     //获取按照纵坐标排序最后一个元素
-    var rect1 = GUI.Screenshot.LocateAllOnScreen("test1.png").First();    
+    var rect1 = GUI.Screenshot.LocateAllOnScreen("test2.png",screenIndex:1).First();    
     GUI.Mouse.DoubleClick(rect1.X, rect1.Y);
     Thread.Sleep(2000);
-}
+}*/
 
 /*
 GUI.Mouse.MoveTo(1000, 1000, 3, TweeningType.BounceInOut);

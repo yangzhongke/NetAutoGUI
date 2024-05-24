@@ -7,6 +7,10 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <None Remove="Program.cs~RF15b12558.TMP" />
+  </ItemGroup>
+
   <ItemGroup>	 
     <ProjectReference Include="..\NetAutoGUI.Windows\NetAutoGUI.Windows.csproj" />	 
     <ProjectReference Include="..\NetAutoGUI\NetAutoGUI.csproj" />
@@ -83,6 +87,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="test1.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="test2.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="zack.png">
