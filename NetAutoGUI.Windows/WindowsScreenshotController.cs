@@ -64,6 +64,15 @@ namespace NetAutoGUI.Windows
 			}
 		}
 
-        
+        public override (int x, int y) ScreenshotLocationToRelativeLocation(int x, int y)
+        {
+            Rectangle virtualScreen = new Rectangle(
+                SystemInformation.VirtualScreen.Left,
+                SystemInformation.VirtualScreen.Top,
+                SystemInformation.VirtualScreen.Width,
+                SystemInformation.VirtualScreen.Height
+            );
+            return (x + virtualScreen.X, y + virtualScreen.Y);
+        }
     }
 }

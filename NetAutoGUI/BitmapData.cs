@@ -2,7 +2,6 @@
 using SkiaSharp;
 using System;
 using System.IO;
-using Zack.Commons;
 
 namespace NetAutoGUI
 {
@@ -15,7 +14,7 @@ namespace NetAutoGUI
 
 		private static void CreateDir(string filename)
 		{
-			IOHelper.CreateDir(new FileInfo(filename));
+            new FileInfo(filename).Directory!.Create();
 		}
 		public void Save(string filename, ImageType? imgType = null)
 		{

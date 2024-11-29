@@ -15,8 +15,6 @@
     <PackageReference Include="MonoGame.Extended" Version="4.0.0" />
     <PackageReference Include="OpenCvSharp4" Version="4.10.0.20241108" />
     <PackageReference Include="SkiaSharp" Version="2.88.9" />
-    <PackageReference Include="WildcardMatch" Version="1.0.7" />
-    <PackageReference Include="Zack.Commons" Version="1.1.11" />
   </ItemGroup>
 
 </Project>

@@ -20,6 +20,14 @@ namespace NetAutoGUI.Internals
 
 		public abstract void Highlight(double waitSeconds = 0.5, params Rectangle[] rectangles);
 
+        /// <summary>
+        /// Convert the location of the screenshot to the relative location to the primary screen.
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        /// <returns></returns>
+        public abstract (int x,int y) ScreenshotLocationToRelativeLocation(int x, int y);
+
         public RectangleWithConfidence[] LocateAllWithConfidence(BitmapData basePicture, string imgFileToBeFound, double confidence = 0.99)
         {
             var bitmapToBeFound = this.LoadImageFromFile(imgFileToBeFound);
@@ -37,7 +45,9 @@ namespace NetAutoGUI.Internals
                     float similarity = indexer[r, c];
                     if (similarity > confidence)
                     {
-                        rectangles.Add(new(new(c, r, width, height), similarity));
+                        (int relativeX, int relativeY) = ScreenshotLocationToRelativeLocation(c, r);
+                        Rectangle rectangle = new(relativeX, relativeY, width, height);
+                        rectangles.Add(new(rectangle, similarity));
                     }
                 }
             }
