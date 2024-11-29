@@ -154,9 +154,8 @@ public class UIElement
 	{
 		int width = Rectangle.Width;
 		int height = Rectangle.Height;
-		byte[] data = ScreenshotHelper.CaptureWindow(hwnd, width, height);
-		return new BitmapData(data, width, height);
-	}
+		return ScreenshotHelper.CaptureWindow(hwnd, width, height);
+    }
 
 	public bool Equals(UIElement obj)
 	{

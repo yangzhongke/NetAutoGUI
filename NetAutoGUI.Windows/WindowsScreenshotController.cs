@@ -1,8 +1,6 @@
 ﻿using NetAutoGUI.Internals;
 using System;
 using System.Drawing;
-using System.Drawing.Imaging;
-using System.IO;
 using System.Runtime.Versioning;
 using System.Threading;
 using System.Windows.Forms;
@@ -15,33 +13,23 @@ namespace NetAutoGUI.Windows
 	{
 		public override BitmapData Screenshot()
 		{
-			using Bitmap bitmap = ScreenshotHelper.CaptureVirtualScreen();
-			return ToBitmapData(bitmap);
-		}
+            return ScreenshotHelper.CaptureVirtualScreen();
+        }
 
         public override BitmapData Screenshot(Window window)
         {
 			var windowHandler = window.Id;
 			int width = window.Rectangle.Width;
             int height = window.Rectangle.Height;
-            var bytes = ScreenshotHelper.CaptureWindow(new HWND((IntPtr)windowHandler), width, height);
-            return new BitmapData(bytes, width, height);
-        }
-
-        private static BitmapData ToBitmapData(Bitmap bitmap)
-		{
-			using MemoryStream memSteam = new MemoryStream();
-			bitmap.Save(memSteam, ImageFormat.Bmp);
-			memSteam.Position = 0;
-			byte[] data = memSteam.ToArray();
-			return new BitmapData(data, bitmap.Width, bitmap.Height);
-		}
+			HWND hWND = new HWND((IntPtr)windowHandler);
+            return ScreenshotHelper.CaptureWindow(hWND, width, height);
+        }        
 
 		protected override BitmapData LoadImageFromFile(string imageFile)
 		{
 			using var image = Image.FromFile(imageFile);
 			using Bitmap bitmap = new Bitmap(image);
-			return ToBitmapData(bitmap);
+			return ScreenshotHelper.ToBitmapData(bitmap);
         }
 
 		private static PRECT ToPRECT(Rectangle r)
@@ -66,13 +54,7 @@ namespace NetAutoGUI.Windows
 
         public override (int x, int y) ScreenshotLocationToRelativeLocation(int x, int y)
         {
-            Rectangle virtualScreen = new Rectangle(
-                SystemInformation.VirtualScreen.Left,
-                SystemInformation.VirtualScreen.Top,
-                SystemInformation.VirtualScreen.Width,
-                SystemInformation.VirtualScreen.Height
-            );
-            return (x + virtualScreen.X, y + virtualScreen.Y);
+            return (x + SystemInformation.VirtualScreen.Left, y + SystemInformation.VirtualScreen.Top);
         }
     }
 }

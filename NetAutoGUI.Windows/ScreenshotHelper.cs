@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
+﻿using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
-using System.Runtime.InteropServices;
 using System.Windows.Forms;
 using Vanara.PInvoke;
 using static Vanara.PInvoke.Gdi32;
@@ -22,7 +19,7 @@ namespace NetAutoGUI.Windows
 			return new(rect.X, rect.Y, rect.Width, rect.Height);
 		}
 
-		public static byte[] CaptureWindow(HWND hWnd, int width, int height)
+		public static BitmapData CaptureWindow(HWND hWnd, int width, int height)
 		{
 			//https://blog.walterlv.com/post/win32-and-system-drawing-capture-window-to-bitmap.html
 
@@ -37,12 +34,8 @@ namespace NetAutoGUI.Windows
 			try
 			{
 				using var bmp = Image.FromHbitmap(hBitmap.DangerousGetHandle());
-				using var ms = new MemoryStream();
-				bmp.Save(ms, ImageFormat.Bmp);
-				ms.Seek(0, SeekOrigin.Begin);
-				var data = ms.ToArray();
-				return data;
-			}
+				return ToBitmapData(bmp);
+            }
 			finally
 			{
 				Gdi32.SelectObject(cdc, oldHBitmap);
@@ -52,7 +45,7 @@ namespace NetAutoGUI.Windows
 			}
 		}
 
-        public static Bitmap CaptureVirtualScreen()
+        public static BitmapData CaptureVirtualScreen()
         {
             Application.SetHighDpiMode(HighDpiMode.PerMonitorV2);
 
@@ -76,9 +69,23 @@ namespace NetAutoGUI.Windows
                     graphics.DrawImage(screenCapture, x, y);
                 }
             }
-            return finalImage;
+            return ToBitmapData(finalImage);
         }
 
+        public static BitmapData ToBitmapData(Bitmap bitmap)
+        {
+            using MemoryStream memSteam = new MemoryStream();
+            bitmap.Save(memSteam, ImageFormat.Bmp);
+            memSteam.Position = 0;
+            byte[] data = memSteam.ToArray();
+            return new BitmapData(data, bitmap.Width, bitmap.Height);
+        }
+
+        /// <summary>
+        /// Invoker should dispose the returned Bitmap
+        /// </summary>
+        /// <param name="screen"></param>
+        /// <returns></returns>
         static Bitmap CaptureScreen(Screen screen)
         {
             Bitmap bitmap = new Bitmap(screen.Bounds.Width, screen.Bounds.Height);
