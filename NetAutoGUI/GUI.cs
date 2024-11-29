@@ -14,7 +14,7 @@ namespace NetAutoGUI
 
 		static GUI()
 		{
-			if (Environment.OSVersion.Platform == PlatformID.Win32NT)
+            if (Environment.OSVersion.Platform == PlatformID.Win32NT)
 			{
 				Assembly asm;
 				try

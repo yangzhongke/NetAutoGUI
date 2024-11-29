@@ -6,11 +6,11 @@ using System.Runtime.InteropServices;
 using System.Drawing.Imaging;
 using NetAutoGUI;
 using NetAutoGUI.Windows;
-
-Window win = GUI.Application.FindWindowLikeTitle("*Notepad*");
+/*
+Window win = GUI.Application.FindWindowLikeTitle("*记事本*");
 win.Activate();
-win.Maximize();
-var screenshot = GUI.Screenshot.ScreenshotAllScreens();
+win.Maximize();*/
+var screenshot = GUI.Screenshot.Screenshot();
 var loc1 = GUI.Screenshot.LocateAll(screenshot, "test2.png").First().Center;
 GUI.Mouse.DoubleClick(loc1.X, loc1.Y);
 /*

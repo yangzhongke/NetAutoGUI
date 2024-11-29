@@ -8,9 +8,11 @@ namespace NetAutoGUI.Internals
 	{
 		protected abstract BitmapData LoadImageFromFile(string imageFile);
 
-		public abstract BitmapData Screenshot(Rectangle? region = null, uint screenIndex = 0);
+		public abstract BitmapData Screenshot();
 
-		public Rectangle[] LocateAll(BitmapData basePicture, string imgFileToBeFound, double confidence = 0.99)
+        public abstract BitmapData Screenshot(Window window);
+
+        public Rectangle[] LocateAll(BitmapData basePicture, string imgFileToBeFound, double confidence = 0.99)
 		{
             var rectangles = LocateAllWithConfidence(basePicture, imgFileToBeFound, confidence);
             return rectangles.OrderBy(e => e.Rectangle.Y).Select(e => e.Rectangle).ToArray();
@@ -40,8 +42,6 @@ namespace NetAutoGUI.Internals
                 }
             }
             return rectangles.ToArray();
-        }
-
-        public abstract BitmapData ScreenshotAllScreens();
+        }        
     }
 }

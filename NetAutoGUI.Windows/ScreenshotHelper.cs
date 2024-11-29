@@ -1,6 +1,9 @@
-﻿using System.Drawing;
+﻿using System;
+using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
+using System.Runtime.InteropServices;
+using System.Windows.Forms;
 using Vanara.PInvoke;
 using static Vanara.PInvoke.Gdi32;
 
@@ -47,5 +50,67 @@ namespace NetAutoGUI.Windows
 				User32.ReleaseDC(hWnd, wdc);
 			}
 		}
-	}
+
+        [DllImport("user32.dll")]
+        private static extern bool EnumDisplaySettings(string lpszDeviceName, int iModeNum, ref DEVMODE lpDevMode);
+
+        public static Bitmap CaptureVirtualScreen()
+        {
+            Application.SetHighDpiMode(HighDpiMode.PerMonitorV2);//Crucial for multi screen and multi scale
+
+            var screens = Screen.AllScreens;
+
+            Rectangle virtualScreen = new Rectangle(
+                SystemInformation.VirtualScreen.Left,
+                SystemInformation.VirtualScreen.Top,
+                SystemInformation.VirtualScreen.Width,
+                SystemInformation.VirtualScreen.Height
+            );
+
+            Bitmap finalImage = new Bitmap(virtualScreen.Width, virtualScreen.Height);
+            using (Graphics graphics = Graphics.FromImage(finalImage))
+            {
+                graphics.FillRectangle(Brushes.Black, 0, 0, finalImage.Width, finalImage.Height);
+
+                foreach (Screen screen in screens)
+                {
+                    float scaleX = GetScreenScaleFactor(screen, out float scaleY);
+
+                    using Bitmap screenCapture = CaptureScreen(screen, scaleX, scaleY);
+
+                    int x = screen.Bounds.Left - virtualScreen.X;
+                    int y = screen.Bounds.Top - virtualScreen.Y;
+
+                    graphics.DrawImage(screenCapture, x, y, screenCapture.Width, screenCapture.Height);
+                    screenCapture.Dispose();
+                }
+            }
+            return finalImage;
+        }
+
+        static float GetScreenScaleFactor(Screen screen, out float scaleY)
+        {
+            DEVMODE dm = new DEVMODE();
+            dm.dmSize = (ushort)Marshal.SizeOf(typeof(DEVMODE));
+            EnumDisplaySettings(screen.DeviceName, -1, ref dm);
+
+            var scalingFactorX = Math.Round(Decimal.Divide(dm.dmPelsWidth, screen.Bounds.Width), 2);
+            var scalingFactorY = Math.Round(Decimal.Divide(dm.dmPelsHeight, screen.Bounds.Height), 2);
+            scaleY = (float)scalingFactorY;
+            return (float)scalingFactorX;
+        }
+
+        static Bitmap CaptureScreen(Screen screen, float scaleX, float scaleY)
+        {
+            int width = (int)(screen.Bounds.Width * scaleX);
+            int height = (int)(screen.Bounds.Height * scaleY);
+
+            Bitmap bitmap = new Bitmap(width, height);
+            using (Graphics graphics = Graphics.FromImage(bitmap))
+            {
+                graphics.CopyFromScreen(screen.Bounds.Left, screen.Bounds.Top, 0, 0, new System.Drawing.Size(width, height));
+            }
+            return bitmap;
+        }
+    }
 }
