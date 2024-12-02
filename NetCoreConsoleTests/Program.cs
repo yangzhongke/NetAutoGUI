@@ -1,11 +1,4 @@
-﻿
-using System;
-using System.Drawing;
-using System.Windows.Forms;
-using System.Runtime.InteropServices;
-using System.Drawing.Imaging;
-using NetAutoGUI;
-using NetAutoGUI.Windows;
+﻿using NetAutoGUI;
 /*
 Window win = GUI.Application.FindWindowLikeTitle("*记事本*");
 win.Activate();

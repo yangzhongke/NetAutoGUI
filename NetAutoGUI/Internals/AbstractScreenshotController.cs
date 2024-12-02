@@ -4,21 +4,21 @@ using System.Linq;
 
 namespace NetAutoGUI.Internals
 {
-	public abstract class AbstractScreenshotController : IScreenshotController
-	{
-		protected abstract BitmapData LoadImageFromFile(string imageFile);
+    public abstract class AbstractScreenshotController : IScreenshotController
+    {
+        protected abstract BitmapData LoadImageFromFile(string imageFile);
 
-		public abstract BitmapData Screenshot();
+        public abstract BitmapData Screenshot();
 
         public abstract BitmapData Screenshot(Window window);
 
         public Rectangle[] LocateAll(BitmapData basePicture, string imgFileToBeFound, double confidence = 0.99)
-		{
+        {
             var rectangles = LocateAllWithConfidence(basePicture, imgFileToBeFound, confidence);
             return rectangles.OrderBy(e => e.Rectangle.Y).Select(e => e.Rectangle).ToArray();
-		}
+        }
 
-		public abstract void Highlight(double waitSeconds = 0.5, params Rectangle[] rectangles);
+        public abstract void Highlight(double waitSeconds = 0.5, params Rectangle[] rectangles);
 
         /// <summary>
         /// Convert the location of the screenshot to the relative location to the primary screen.
@@ -26,7 +26,7 @@ namespace NetAutoGUI.Internals
         /// <param name="x"></param>
         /// <param name="y"></param>
         /// <returns></returns>
-        public abstract (int x,int y) ScreenshotLocationToRelativeLocation(int x, int y);
+        public abstract (int x, int y) ScreenshotLocationToRelativeLocation(int x, int y);
 
         public RectangleWithConfidence[] LocateAllWithConfidence(BitmapData basePicture, string imgFileToBeFound, double confidence = 0.99)
         {
@@ -52,6 +52,6 @@ namespace NetAutoGUI.Internals
                 }
             }
             return rectangles.ToArray();
-        }        
+        }
     }
 }

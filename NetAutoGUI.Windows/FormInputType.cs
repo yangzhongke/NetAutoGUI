@@ -1,7 +1,7 @@
 ﻿namespace NetAutoGUI.Windows
 {
-	enum FormInputType
-	{
-		Plain, Password
-	}
+    enum FormInputType
+    {
+        Plain, Password
+    }
 }
