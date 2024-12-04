@@ -16,7 +16,7 @@ namespace NetAutoGUI
         public static void ActiveWindow(long windowId)
         {
             //https://stackoverflow.com/questions/2636721/bring-another-processes-window-to-foreground-when-it-has-showintaskbar-false
-            HWND hwnd = new HWND((IntPtr)windowId);
+            HWND hwnd = windowId.ToHWND();
             if (User32.IsIconic(hwnd))
             {
                 User32.ShowWindow(hwnd, ShowWindowCommand.SW_RESTORE);
@@ -26,14 +26,14 @@ namespace NetAutoGUI
 
         public static void Maximize(this Window window)
         {
-            HWND hwnd = new HWND((IntPtr)window.Id);
+            HWND hwnd = window.Id.ToHWND();
             User32.ShowWindow(hwnd, ShowWindowCommand.SW_MAXIMIZE);
             Thread.Sleep(100);
         }
 
         public static dynamic GetMainMenu(this Window window)
         {
-            HWND hwnd = new HWND((IntPtr)window.Id);
+            HWND hwnd = window.Id.ToHWND();
             return new DynamicMainMenu(hwnd);
         }
 

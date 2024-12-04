@@ -17,20 +17,19 @@ namespace NetAutoGUI.Windows
         private static string GetWindowText(long hwnd)
         {
             StringBuilder sb = new StringBuilder(1024);
-            User32.GetWindowText(new HWND(new IntPtr(hwnd)), sb, sb.Capacity);
+            User32.GetWindowText(hwnd.ToHWND(), sb, sb.Capacity);
             return sb.ToString();
         }
 
         private static Rectangle GetWindowRect(long hwnd)
         {
-            User32.GetWindowRect(new HWND(new IntPtr(hwnd)), out RECT rect);
+            User32.GetWindowRect(hwnd.ToHWND(), out RECT rect);
             return new Rectangle(rect.X, rect.Y, rect.Width, rect.Height);
         }
 
         private static Window GetWindowDetail(HWND hwnd)
         {
-            IntPtr intPtr = (IntPtr)hwnd;
-            Window window = new Window(intPtr.ToInt64(), GetWindowRect, GetWindowText);
+            Window window = new Window(hwnd.ToInt64(), GetWindowRect, GetWindowText);
             return window;
         }
 
@@ -148,7 +147,7 @@ namespace NetAutoGUI.Windows
 
         public Window FindWindowById(long id)
         {
-            return GetWindowDetail(new HWND(new IntPtr(id)));
+            return GetWindowDetail(id.ToHWND());
         }
     }
 }
