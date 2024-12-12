@@ -34,20 +34,6 @@ namespace NetAutoGUI
             encodedImg.SaveTo(outStream);
         }
 
-        public static BitmapData Load(Stream inStream)
-        {
-            using var image = SKBitmap.Decode(inStream);
-            using var encodedImg = image.Encode(SKEncodedImageFormat.Bmp, 100);
-            byte[] data = encodedImg.ToArray();
-            return new BitmapData(data, image.Width, image.Height);
-        }
-
-        public static BitmapData Load(string filename)
-        {
-            using var inStream = File.OpenRead(filename);
-            return Load(inStream);
-        }
-
         private static ImageType InferImageType(string filename)
         {
             string? ext = Path.GetExtension(filename);

@@ -14,7 +14,7 @@
   <ItemGroup>
     <PackageReference Include="MonoGame.Extended" Version="4.0.0" />
     <PackageReference Include="OpenCvSharp4" Version="4.10.0.20241108" />
-    <PackageReference Include="SkiaSharp" Version="2.88.9" />
+    <PackageReference Include="SkiaSharp" Version="3.116.1" />
   </ItemGroup>
 
 </Project>

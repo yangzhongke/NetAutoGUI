@@ -21,8 +21,7 @@ namespace NetAutoGUI.Windows
             var windowHandler = window.Id;
             int width = window.Rectangle.Width;
             int height = window.Rectangle.Height;
-            HWND hWND = new HWND((IntPtr)windowHandler);
-            return ScreenshotHelper.CaptureWindow(hWND, width, height);
+            return ScreenshotHelper.CaptureWindow(windowHandler.ToHWND(), width, height);
         }
 
         protected override BitmapData LoadImageFromFile(string imageFile)
