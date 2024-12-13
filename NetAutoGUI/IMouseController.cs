@@ -30,15 +30,6 @@
         public void MoveTo(int x, int y);
 
         /// <summary>
-        /// gradually move to the location, durationInSeconds is used for the duration (in seconds) the movement should take.
-        /// </summary>
-        /// <param name="x"></param>
-        /// <param name="y"></param>
-        /// <param name="durationInSeconds"></param>
-        /// <param name="tweeningType"></param>
-        public void MoveTo(int x, int y, double durationInSeconds, TweeningType tweeningType = TweeningType.Linear);
-
-        /// <summary>
         /// move the mouse cursor over a few pixels relative to its current position
         /// </summary>
         /// <param name="offsetX"></param>

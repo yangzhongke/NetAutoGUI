@@ -30,19 +30,6 @@ namespace NetAutoGUI
         }
 
         /// <summary>
-        /// gradually move to the location, durationInSeconds is used for the duration (in seconds) the movement should take.
-        /// </summary>
-        /// <param name="winX"></param>
-        /// <param name="winY"></param>
-        /// <param name="durationInSeconds"></param>
-        /// <param name="tweeningType"></param>
-        public static void MoveMouseTo(this Window window, int winX, int winY, double durationInSeconds, TweeningType tweeningType = TweeningType.Linear)
-        {
-            (int x, int y) = WindowPosToScreen(window, winX, winY);
-            GUI.Mouse.MoveTo(x, y, durationInSeconds, tweeningType);
-        }
-
-        /// <summary>
         ///  simulates a single, left-button mouse click at the mouse’s current position. 
         /// </summary>
         /// <param name="winX">move mouse to (x,y), then click the button</param>
