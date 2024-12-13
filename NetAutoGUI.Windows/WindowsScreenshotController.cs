@@ -1,5 +1,4 @@
 ﻿using NetAutoGUI.Internals;
-using System;
 using System.Drawing;
 using System.Runtime.Versioning;
 using System.Threading;
@@ -28,7 +27,7 @@ namespace NetAutoGUI.Windows
         {
             using var image = Image.FromFile(imageFile);
             using Bitmap bitmap = new Bitmap(image);
-            return ScreenshotHelper.ToBitmapData(bitmap);
+            return bitmap.ToBitmapData();
         }
 
         private static PRECT ToPRECT(Rectangle r)

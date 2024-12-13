@@ -1,6 +1,4 @@
 ﻿using System.Drawing;
-using System.Drawing.Imaging;
-using System.IO;
 using System.Windows.Forms;
 using Vanara.PInvoke;
 using static Vanara.PInvoke.Gdi32;
@@ -9,16 +7,6 @@ namespace NetAutoGUI.Windows
 {
     internal static class ScreenshotHelper
     {
-        public static System.Drawing.Rectangle ToSysRect(NetAutoGUI.Rectangle rect)
-        {
-            return new(rect.X, rect.Y, rect.Width, rect.Height);
-        }
-
-        public static NetAutoGUI.Rectangle ToAutoRect(System.Drawing.Rectangle rect)
-        {
-            return new(rect.X, rect.Y, rect.Width, rect.Height);
-        }
-
         public static BitmapData CaptureWindow(HWND hWnd, int width, int height)
         {
             //https://blog.walterlv.com/post/win32-and-system-drawing-capture-window-to-bitmap.html
@@ -34,7 +22,7 @@ namespace NetAutoGUI.Windows
             try
             {
                 using var bmp = Image.FromHbitmap(hBitmap.DangerousGetHandle());
-                return ToBitmapData(bmp);
+                return bmp.ToBitmapData();
             }
             finally
             {
@@ -69,16 +57,7 @@ namespace NetAutoGUI.Windows
                     graphics.DrawImage(screenCapture, x, y);
                 }
             }
-            return ToBitmapData(finalImage);
-        }
-
-        public static BitmapData ToBitmapData(Bitmap bitmap)
-        {
-            using MemoryStream memSteam = new MemoryStream();
-            bitmap.Save(memSteam, ImageFormat.Bmp);
-            memSteam.Position = 0;
-            byte[] data = memSteam.ToArray();
-            return new BitmapData(data, bitmap.Width, bitmap.Height);
+            return finalImage.ToBitmapData();
         }
 
         /// <summary>

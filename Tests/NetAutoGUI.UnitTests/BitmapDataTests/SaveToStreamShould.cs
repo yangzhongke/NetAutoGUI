@@ -1,7 +1,7 @@
 using FileSignatures;
-using FluentAssertions;
 using SkiaSharp;
 using System.Drawing;
+using NetAutoGUI.Windows;
 
 namespace NetAutoGUI.UnitTests.BitmapDataTests
 {
@@ -15,10 +15,9 @@ namespace NetAutoGUI.UnitTests.BitmapDataTests
         {
             //Arrange
             string bmpFilePath = Path.Combine("BitmapDataTests", "1.bmp");
-            byte[] bmpBytes = File.ReadAllBytes(bmpFilePath);
-            var bitmap = Bitmap.FromFile(bmpFilePath);
+            var bitmap = (Bitmap)Bitmap.FromFile(bmpFilePath);
             //Act
-            BitmapData sut =new BitmapData(bmpBytes, bitmap.Width, bitmap.Height);
+            BitmapData sut =bitmap.ToBitmapData();
             using MemoryStream memoryStream = new MemoryStream();
             Action action =()=> sut.Save(memoryStream, imgType);
             memoryStream.Position = 0;
