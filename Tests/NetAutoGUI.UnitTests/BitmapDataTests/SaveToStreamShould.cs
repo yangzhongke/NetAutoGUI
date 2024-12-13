@@ -1,7 +1,5 @@
 using FileSignatures;
 using SkiaSharp;
-using System.Drawing;
-using NetAutoGUI.Windows;
 
 namespace NetAutoGUI.UnitTests.BitmapDataTests
 {
@@ -15,9 +13,8 @@ namespace NetAutoGUI.UnitTests.BitmapDataTests
         {
             //Arrange
             string bmpFilePath = Path.Combine("BitmapDataTests", "1.bmp");
-            var bitmap = (Bitmap)Bitmap.FromFile(bmpFilePath);
+            BitmapData sut = TestHelpers.LoadBitmapDataFromBmpFile(bmpFilePath);
             //Act
-            BitmapData sut =bitmap.ToBitmapData();
             using MemoryStream memoryStream = new MemoryStream();
             Action action =()=> sut.Save(memoryStream, imgType);
             memoryStream.Position = 0;
@@ -27,9 +24,8 @@ namespace NetAutoGUI.UnitTests.BitmapDataTests
             format.Extension.Should().Be(expectedFileExtension);
             memoryStream.Position = 0;
             using SKBitmap skBitmap = SKBitmap.Decode(memoryStream);            
-            skBitmap.Width.Should().Be(bitmap.Width);
-            skBitmap.Height.Should().Be(bitmap.Height);
-            
+            skBitmap.Width.Should().Be(sut.Width);
+            skBitmap.Height.Should().Be(sut.Height);
         }
     }
 }
