@@ -1,5 +1,4 @@
-﻿using OpenCvSharp;
-using SkiaSharp;
+﻿using SkiaSharp;
 using System;
 using System.IO;
 
@@ -7,11 +6,6 @@ namespace NetAutoGUI
 {
     public record BitmapData(byte[] Data, int Width, int Height)
     {
-        public Mat ToMat(ImreadModes flags = ImreadModes.Unchanged)
-        {
-            return Cv2.ImDecode(Data, flags);
-        }
-
         private static void CreateDir(string filename)
         {
             new FileInfo(filename).Directory!.Create();
