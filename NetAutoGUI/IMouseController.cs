@@ -3,24 +3,10 @@
     public interface IMouseController
     {
         /// <summary>
-        /// Get resolution size of default screen.
-        /// </summary>
-        /// <returns></returns>
-        public Size Size();
-
-        /// <summary>
         /// Get current location of the mouse cursor 
         /// </summary>
         /// <returns></returns>
         public Location Position();
-
-        /// <summary>
-        /// Check if XY coordinates are on the screen
-        /// </summary>
-        /// <param name="x"></param>
-        /// <param name="y"></param>
-        /// <returns></returns>
-        public bool OnScreen(int x, int y);
 
         /// <summary>
         /// Move the mouse cursor to the specific location

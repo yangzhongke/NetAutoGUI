@@ -25,16 +25,8 @@ namespace NetAutoGUI.Internals
 
         public abstract void MoveTo(int x, int y);
 
-        public bool OnScreen(int x, int y)
-        {
-            (int width, int height) = Size();
-            return x >= 0 && x <= width && y >= 0 && y <= height;
-        }
-
         public abstract Location Position();
 
         public abstract void Scroll(int value);
-
-        public abstract Size Size();
     }
 }

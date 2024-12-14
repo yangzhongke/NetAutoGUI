@@ -1,13 +1,16 @@
 ﻿using NetAutoGUI;
+
+GUI.MessageBox.YesNoBox("cc");
 /*
 Window win = GUI.Application.FindWindowLikeTitle("*记事本*");
 win.Activate();
 win.Maximize();*/
+/*
 var screenshot = GUI.Screenshot.Screenshot();
 screenshot.Save("d:/1.png");
 var loc1 = GUI.Screenshot.LocateAll(screenshot, "test2.png").First().Center;
 Console.WriteLine(loc1);
-GUI.Mouse.DoubleClick(loc1.X, loc1.Y);
+GUI.Mouse.DoubleClick(loc1.X, loc1.Y);*/
 
 /*
 Window win = GUI.Application.FindWindowLikeTitle("*Notepad*");

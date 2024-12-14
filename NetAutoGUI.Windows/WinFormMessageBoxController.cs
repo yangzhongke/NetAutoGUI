@@ -1,4 +1,6 @@
-﻿using System.Runtime.Versioning;
+﻿using System;
+using System.Diagnostics;
+using System.Runtime.Versioning;
 using System.Windows.Forms;
 using Vanara.PInvoke;
 
@@ -7,14 +9,27 @@ namespace NetAutoGUI.Windows
     [SupportedOSPlatform("windows")]
     internal class WinFormMessageBoxController : IMessageBoxController
     {
+        private static HWND GetCurrentMainWindowHwnd()
+        {
+            var mainWindowHwnd = Process.GetCurrentProcess().MainWindowHandle;
+            if(mainWindowHwnd==IntPtr.Zero)
+            {
+                return HWND.NULL;
+            }
+            else
+            {
+                return new HWND(mainWindowHwnd);
+            }            
+        }
+
         public void Alert(string text, string title = " ")
         {
-            User32.MessageBox(HWND.NULL, text, title, User32.MB_FLAGS.MB_ICONINFORMATION | User32.MB_FLAGS.MB_OK);
+            User32.MessageBox(GetCurrentMainWindowHwnd(), text, title, User32.MB_FLAGS.MB_ICONINFORMATION | User32.MB_FLAGS.MB_OK);
         }
 
         public bool Confirm(string text, string title = " ")
         {
-            var result = User32.MessageBox(HWND.NULL, text, title, User32.MB_FLAGS.MB_ICONQUESTION | User32.MB_FLAGS.MB_OKCANCEL);
+            var result = User32.MessageBox(GetCurrentMainWindowHwnd(), text, title, User32.MB_FLAGS.MB_ICONQUESTION | User32.MB_FLAGS.MB_OKCANCEL);
             return result == User32.MB_RESULT.IDOK;
         }
 
@@ -41,7 +56,8 @@ namespace NetAutoGUI.Windows
             {
                 form.CancelText = cancelText;
             }
-            if (form.ShowDialog() == DialogResult.OK)
+            IWin32Window ownerWindow = NativeWindow.FromHandle(Process.GetCurrentProcess().MainWindowHandle);
+            if (form.ShowDialog(ownerWindow) == DialogResult.OK)
             {
                 return form.Value;
             }
@@ -53,7 +69,7 @@ namespace NetAutoGUI.Windows
 
         public bool YesNoBox(string text, string title = " ")
         {
-            var result = User32.MessageBox(HWND.NULL, text, title, User32.MB_FLAGS.MB_ICONQUESTION | User32.MB_FLAGS.MB_YESNO);
+            var result = User32.MessageBox(GetCurrentMainWindowHwnd(), text, title, User32.MB_FLAGS.MB_ICONQUESTION | User32.MB_FLAGS.MB_YESNO);
             return result == User32.MB_RESULT.IDYES;
         }
     }

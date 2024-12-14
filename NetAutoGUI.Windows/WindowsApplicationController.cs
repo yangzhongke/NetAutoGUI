@@ -46,9 +46,14 @@ namespace NetAutoGUI.Windows
             {
                 FileName = appPath,
                 Arguments = arguments,
-                UseShellExecute = true,//这样就可以用"chrome.exe"这个相对路径启动，而不用全路径
+                UseShellExecute = true,//This way you can start it with the relative path "chrome.exe" instead of the full path
             };
-            return Process.Start(startInfo);
+            var process = Process.Start(startInfo);
+            if(process == null)
+            {
+                throw new InvalidOperationException("Failed to start the application");
+            }
+            return process;
         }
 
         public Window? FindWindowByTitle(string title)
@@ -86,7 +91,9 @@ namespace NetAutoGUI.Windows
         {
             Stopwatch stopwatch = new Stopwatch();
             stopwatch.Start();
-            while (!Process.GetProcesses().Any(p => p.ProcessName == processName))
+            //The ProcessName property does not include the .exe extension
+            string nameWithoutExtension = Path.GetFileNameWithoutExtension(processName);
+            while (!Process.GetProcesses().Any(p => p.ProcessName == nameWithoutExtension))
             {
                 if (stopwatch.ElapsedMilliseconds > timeoutSeconds * 1000)
                 {

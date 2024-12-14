@@ -103,12 +103,5 @@ namespace NetAutoGUI.Windows
         {
             MouseHelper.Scroll(value);
         }
-
-        public override Size Size()
-        {
-            int w = User32.GetSystemMetrics(User32.SystemMetric.SM_CXSCREEN);
-            int h = User32.GetSystemMetrics(User32.SystemMetric.SM_CYSCREEN);
-            return new Size(w, h);
-        }
     }
 }
