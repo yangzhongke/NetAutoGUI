@@ -32,7 +32,11 @@ partial class FormMain
         components = new System.ComponentModel.Container();
         tabControl1 = new TabControl();
         tabPage1 = new TabPage();
+        groupBox4 = new GroupBox();
+        BtnDialog = new Button();
         groupBox3 = new GroupBox();
+        BtnHoldKey = new Button();
+        BtnHotKey = new Button();
         BtnKeyDownUp = new Button();
         BtnPress = new Button();
         BtnKeyboardWrite = new Button();
@@ -49,12 +53,15 @@ partial class FormMain
         BtnFindWindow = new Button();
         tabPage3 = new TabPage();
         timerMousePosition = new System.Windows.Forms.Timer(components);
-        BtnHotKey = new Button();
+        groupBox5 = new GroupBox();
+        BtnFullScreenShot = new Button();
         tabControl1.SuspendLayout();
         tabPage1.SuspendLayout();
+        groupBox4.SuspendLayout();
         groupBox3.SuspendLayout();
         groupBox2.SuspendLayout();
         groupBox1.SuspendLayout();
+        groupBox5.SuspendLayout();
         SuspendLayout();
         // 
         // tabControl1
@@ -70,6 +77,8 @@ partial class FormMain
         // 
         // tabPage1
         // 
+        tabPage1.Controls.Add(groupBox5);
+        tabPage1.Controls.Add(groupBox4);
         tabPage1.Controls.Add(groupBox3);
         tabPage1.Controls.Add(groupBox2);
         tabPage1.Controls.Add(groupBox1);
@@ -81,18 +90,59 @@ partial class FormMain
         tabPage1.Text = "Basic";
         tabPage1.UseVisualStyleBackColor = true;
         // 
+        // groupBox4
+        // 
+        groupBox4.Controls.Add(BtnDialog);
+        groupBox4.Location = new Point(6, 322);
+        groupBox4.Name = "groupBox4";
+        groupBox4.Size = new Size(764, 82);
+        groupBox4.TabIndex = 5;
+        groupBox4.TabStop = false;
+        groupBox4.Text = "Message";
+        // 
+        // BtnDialog
+        // 
+        BtnDialog.Location = new Point(6, 33);
+        BtnDialog.Name = "BtnDialog";
+        BtnDialog.Size = new Size(152, 32);
+        BtnDialog.TabIndex = 0;
+        BtnDialog.Text = "Dialog";
+        BtnDialog.UseVisualStyleBackColor = true;
+        BtnDialog.Click += BtnDialog_Click;
+        // 
         // groupBox3
         // 
+        groupBox3.Controls.Add(BtnHoldKey);
         groupBox3.Controls.Add(BtnHotKey);
         groupBox3.Controls.Add(BtnKeyDownUp);
         groupBox3.Controls.Add(BtnPress);
         groupBox3.Controls.Add(BtnKeyboardWrite);
         groupBox3.Location = new Point(4, 195);
         groupBox3.Name = "groupBox3";
-        groupBox3.Size = new Size(766, 75);
+        groupBox3.Size = new Size(766, 110);
         groupBox3.TabIndex = 4;
         groupBox3.TabStop = false;
         groupBox3.Text = "Keyboard";
+        // 
+        // BtnHoldKey
+        // 
+        BtnHoldKey.Location = new Point(8, 64);
+        BtnHoldKey.Name = "BtnHoldKey";
+        BtnHoldKey.Size = new Size(152, 31);
+        BtnHoldKey.TabIndex = 4;
+        BtnHoldKey.Text = "Hold";
+        BtnHoldKey.UseVisualStyleBackColor = true;
+        BtnHoldKey.Click += BtnHoldKey_Click;
+        // 
+        // BtnHotKey
+        // 
+        BtnHotKey.Location = new Point(552, 20);
+        BtnHotKey.Name = "BtnHotKey";
+        BtnHotKey.Size = new Size(144, 34);
+        BtnHotKey.TabIndex = 3;
+        BtnHotKey.Text = "HotKey";
+        BtnHotKey.UseVisualStyleBackColor = true;
+        BtnHotKey.Click += BtnHotKey_Click;
         // 
         // BtnKeyDownUp
         // 
@@ -253,15 +303,25 @@ partial class FormMain
         timerMousePosition.Enabled = true;
         timerMousePosition.Tick += timerMousePosition_Tick;
         // 
-        // BtnHotKey
+        // groupBox5
         // 
-        BtnHotKey.Location = new Point(552, 20);
-        BtnHotKey.Name = "BtnHotKey";
-        BtnHotKey.Size = new Size(144, 34);
-        BtnHotKey.TabIndex = 3;
-        BtnHotKey.Text = "HotKey";
-        BtnHotKey.UseVisualStyleBackColor = true;
-        BtnHotKey.Click += BtnHotKey_Click;
+        groupBox5.Controls.Add(BtnFullScreenShot);
+        groupBox5.Location = new Point(6, 410);
+        groupBox5.Name = "groupBox5";
+        groupBox5.Size = new Size(762, 100);
+        groupBox5.TabIndex = 6;
+        groupBox5.TabStop = false;
+        groupBox5.Text = "Screenshot";
+        // 
+        // BtnFullScreenShot
+        // 
+        BtnFullScreenShot.Location = new Point(6, 22);
+        BtnFullScreenShot.Name = "BtnFullScreenShot";
+        BtnFullScreenShot.Size = new Size(152, 34);
+        BtnFullScreenShot.TabIndex = 0;
+        BtnFullScreenShot.Text = "FullScreenShot";
+        BtnFullScreenShot.UseVisualStyleBackColor = true;
+        BtnFullScreenShot.Click += BtnFullScreenShot_Click;
         // 
         // FormMain
         // 
@@ -274,10 +334,12 @@ partial class FormMain
         Text = "NetAutoGUI Samples";
         tabControl1.ResumeLayout(false);
         tabPage1.ResumeLayout(false);
+        groupBox4.ResumeLayout(false);
         groupBox3.ResumeLayout(false);
         groupBox2.ResumeLayout(false);
         groupBox2.PerformLayout();
         groupBox1.ResumeLayout(false);
+        groupBox5.ResumeLayout(false);
         ResumeLayout(false);
     }
 
@@ -305,4 +367,9 @@ partial class FormMain
     private Button BtnPress;
     private Button BtnKeyDownUp;
     private Button BtnHotKey;
+    private Button BtnHoldKey;
+    private GroupBox groupBox4;
+    private Button BtnDialog;
+    private GroupBox groupBox5;
+    private Button BtnFullScreenShot;
 }

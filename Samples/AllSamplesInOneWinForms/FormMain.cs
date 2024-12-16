@@ -165,4 +165,51 @@ public partial class FormMain : Form
         GUI.Keyboard.HotKey(VirtualKeyCode.CONTROL, VirtualKeyCode.VK_V);
         GUI.Keyboard.HotKey(VirtualKeyCode.CONTROL, VirtualKeyCode.VK_V);
     }
+
+    private void BtnHoldKey_Click(object sender, EventArgs e)
+    {
+        GUI.Application.LaunchApplication("notepad");
+        Window window = GUI.Application.WaitForWindow(w => w.Title.Contains("Notepad"));
+        window.Activate();
+        GUI.Keyboard.Write("Hello, World!");
+        using (GUI.Keyboard.Hold(VirtualKeyCode.CONTROL))
+        {
+            GUI.Keyboard.Press(VirtualKeyCode.VK_A);
+        }
+    }
+
+    private void BtnDialog_Click(object sender, EventArgs e)
+    {
+        if (GUI.MessageBox.Confirm("Are you sure?"))
+        {
+            GUI.MessageBox.Alert("You clicked OK.");
+        }
+        else
+        {
+            GUI.MessageBox.Alert("You clicked Cancel.");
+        }
+        if (GUI.MessageBox.YesNoBox("Are you an alien?"))
+        {
+            GUI.MessageBox.Alert("Welcome to Earth.");
+        }
+        else
+        {
+            GUI.MessageBox.Alert("Welcome to New Zealand.");
+        }
+        string? name = GUI.MessageBox.Prompt("What's your name?");
+        if (name != null)
+        {
+            GUI.MessageBox.Alert($"Hello, {name}.");
+        }
+        string? password = GUI.MessageBox.Password("Enter your password");
+        if (password != null)
+        {
+            GUI.MessageBox.Alert($"Your password is {password}.");
+        }
+    }
+
+    private void BtnFullScreenShot_Click(object sender, EventArgs e)
+    {
+
+    }
 }
