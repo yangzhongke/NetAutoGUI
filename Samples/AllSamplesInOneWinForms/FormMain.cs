@@ -107,7 +107,7 @@ public partial class FormMain : Form
         window.Activate();
         Thread.Sleep(2000);
         GUI.Mouse.MoveTo(300, 300);
-        for(int i=0;i<5;i++)
+        for (int i = 0; i < 5; i++)
         {
             GUI.Mouse.Scroll(50);
             Thread.Sleep(500);
@@ -121,6 +121,48 @@ public partial class FormMain : Form
         Thread.Sleep(1000);
         GUI.Mouse.Click(button: MouseButtonType.Right);
         Thread.Sleep(1000);
-        GUI.Mouse.DoubleClick();        
+        GUI.Mouse.DoubleClick(500, 500);
+    }
+
+    private void BtnKeyboardWrite_Click(object sender, EventArgs e)
+    {
+        GUI.Application.LaunchApplication("notepad");
+        Window window = GUI.Application.WaitForWindow(w => w.Title.Contains("Notepad"));
+        window.Activate();
+
+        GUI.Keyboard.Write('a');
+        GUI.Keyboard.Write('\n');
+        GUI.Keyboard.Write("I'm Zack.\n");
+        GUI.Keyboard.Write("Hello, World!", interval: 0.1);
+    }
+
+    private void BtnPress_Click(object sender, EventArgs e)
+    {
+        GUI.Application.LaunchApplication("notepad");
+        Window window = GUI.Application.WaitForWindow(w => w.Title.Contains("Notepad"));
+        window.Activate();
+        GUI.Keyboard.Press(VirtualKeyCode.VK_0, VirtualKeyCode.VK_A);
+    }
+
+    private void BtnKeyDownUp_Click(object sender, EventArgs e)
+    {
+        GUI.Application.LaunchApplication("notepad");
+        Window window = GUI.Application.WaitForWindow(w => w.Title.Contains("Notepad"));
+        window.Activate();
+        GUI.Keyboard.KeyDown(VirtualKeyCode.VK_A);
+        GUI.Keyboard.KeyUp(VirtualKeyCode.VK_A);
+    }
+
+    private void BtnHotKey_Click(object sender, EventArgs e)
+    {
+        GUI.Application.LaunchApplication("notepad");
+        Window window = GUI.Application.WaitForWindow(w => w.Title.Contains("Notepad"));
+        window.Activate();
+        GUI.Keyboard.Write("Hello, World!");
+        GUI.Keyboard.HotKey(VirtualKeyCode.CONTROL, VirtualKeyCode.VK_A);
+        GUI.Keyboard.HotKey(VirtualKeyCode.CONTROL, VirtualKeyCode.VK_C);
+        GUI.Keyboard.Press(VirtualKeyCode.RIGHT);
+        GUI.Keyboard.HotKey(VirtualKeyCode.CONTROL, VirtualKeyCode.VK_V);
+        GUI.Keyboard.HotKey(VirtualKeyCode.CONTROL, VirtualKeyCode.VK_V);
     }
 }

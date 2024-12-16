@@ -32,27 +32,34 @@ partial class FormMain
         components = new System.ComponentModel.Container();
         tabControl1 = new TabControl();
         tabPage1 = new TabPage();
-        BtnFindWindow = new Button();
-        BtnClickNotepadMenu = new Button();
-        BtnStartNotePadThenKill = new Button();
-        tabPageMouse = new TabPage();
+        groupBox3 = new GroupBox();
+        BtnKeyDownUp = new Button();
+        BtnPress = new Button();
+        BtnKeyboardWrite = new Button();
+        groupBox2 = new GroupBox();
+        BtnMouseScrollAndClick = new Button();
         BtnDrawInPaint = new Button();
         BtnMouseDrawRect = new Button();
         TxtBoxMousePosition = new TextBox();
         label1 = new Label();
         BtnMoveMouseTo100_100 = new Button();
+        groupBox1 = new GroupBox();
+        BtnStartNotePadThenKill = new Button();
+        BtnClickNotepadMenu = new Button();
+        BtnFindWindow = new Button();
         tabPage3 = new TabPage();
         timerMousePosition = new System.Windows.Forms.Timer(components);
-        BtnMouseScrollAndClick = new Button();
+        BtnHotKey = new Button();
         tabControl1.SuspendLayout();
         tabPage1.SuspendLayout();
-        tabPageMouse.SuspendLayout();
+        groupBox3.SuspendLayout();
+        groupBox2.SuspendLayout();
+        groupBox1.SuspendLayout();
         SuspendLayout();
         // 
         // tabControl1
         // 
         tabControl1.Controls.Add(tabPage1);
-        tabControl1.Controls.Add(tabPageMouse);
         tabControl1.Controls.Add(tabPage3);
         tabControl1.Dock = DockStyle.Fill;
         tabControl1.Location = new Point(0, 0);
@@ -63,109 +70,173 @@ partial class FormMain
         // 
         // tabPage1
         // 
-        tabPage1.Controls.Add(BtnFindWindow);
-        tabPage1.Controls.Add(BtnClickNotepadMenu);
-        tabPage1.Controls.Add(BtnStartNotePadThenKill);
+        tabPage1.Controls.Add(groupBox3);
+        tabPage1.Controls.Add(groupBox2);
+        tabPage1.Controls.Add(groupBox1);
         tabPage1.Location = new Point(4, 24);
         tabPage1.Name = "tabPage1";
         tabPage1.Padding = new Padding(3);
         tabPage1.Size = new Size(776, 533);
         tabPage1.TabIndex = 0;
-        tabPage1.Text = "Application";
+        tabPage1.Text = "Basic";
         tabPage1.UseVisualStyleBackColor = true;
         // 
-        // BtnFindWindow
+        // groupBox3
         // 
-        BtnFindWindow.Location = new Point(176, 7);
-        BtnFindWindow.Name = "BtnFindWindow";
-        BtnFindWindow.Size = new Size(105, 34);
-        BtnFindWindow.TabIndex = 1;
-        BtnFindWindow.Text = "FindWindow";
-        BtnFindWindow.UseVisualStyleBackColor = true;
-        BtnFindWindow.Click += BtnFindWindow_Click;
+        groupBox3.Controls.Add(BtnHotKey);
+        groupBox3.Controls.Add(BtnKeyDownUp);
+        groupBox3.Controls.Add(BtnPress);
+        groupBox3.Controls.Add(BtnKeyboardWrite);
+        groupBox3.Location = new Point(4, 195);
+        groupBox3.Name = "groupBox3";
+        groupBox3.Size = new Size(766, 75);
+        groupBox3.TabIndex = 4;
+        groupBox3.TabStop = false;
+        groupBox3.Text = "Keyboard";
         // 
-        // BtnClickNotepadMenu
+        // BtnKeyDownUp
         // 
-        BtnClickNotepadMenu.Location = new Point(308, 6);
-        BtnClickNotepadMenu.Name = "BtnClickNotepadMenu";
-        BtnClickNotepadMenu.Size = new Size(156, 35);
-        BtnClickNotepadMenu.TabIndex = 1;
-        BtnClickNotepadMenu.Text = "Click Notepad Menu";
-        BtnClickNotepadMenu.UseVisualStyleBackColor = true;
-        BtnClickNotepadMenu.Click += BtnClickNotepadMenu_Click;
+        BtnKeyDownUp.Location = new Point(350, 21);
+        BtnKeyDownUp.Name = "BtnKeyDownUp";
+        BtnKeyDownUp.Size = new Size(156, 33);
+        BtnKeyDownUp.TabIndex = 2;
+        BtnKeyDownUp.Text = "KeyDown/Up";
+        BtnKeyDownUp.UseVisualStyleBackColor = true;
+        BtnKeyDownUp.Click += BtnKeyDownUp_Click;
         // 
-        // BtnStartNotePadThenKill
+        // BtnPress
         // 
-        BtnStartNotePadThenKill.Location = new Point(6, 6);
-        BtnStartNotePadThenKill.Name = "BtnStartNotePadThenKill";
-        BtnStartNotePadThenKill.Size = new Size(152, 35);
-        BtnStartNotePadThenKill.TabIndex = 0;
-        BtnStartNotePadThenKill.Text = "Start NotePad Then Kill";
-        BtnStartNotePadThenKill.UseVisualStyleBackColor = true;
-        BtnStartNotePadThenKill.Click += BtnStartNotePadThenKill_Click;
+        BtnPress.Location = new Point(178, 20);
+        BtnPress.Name = "BtnPress";
+        BtnPress.Size = new Size(138, 34);
+        BtnPress.TabIndex = 1;
+        BtnPress.Text = "Press";
+        BtnPress.UseVisualStyleBackColor = true;
+        BtnPress.Click += BtnPress_Click;
         // 
-        // tabPageMouse
+        // BtnKeyboardWrite
         // 
-        tabPageMouse.Controls.Add(BtnMouseScrollAndClick);
-        tabPageMouse.Controls.Add(BtnDrawInPaint);
-        tabPageMouse.Controls.Add(BtnMouseDrawRect);
-        tabPageMouse.Controls.Add(TxtBoxMousePosition);
-        tabPageMouse.Controls.Add(label1);
-        tabPageMouse.Controls.Add(BtnMoveMouseTo100_100);
-        tabPageMouse.Location = new Point(4, 24);
-        tabPageMouse.Name = "tabPageMouse";
-        tabPageMouse.Padding = new Padding(3);
-        tabPageMouse.Size = new Size(776, 533);
-        tabPageMouse.TabIndex = 1;
-        tabPageMouse.Text = "Mouse";
-        tabPageMouse.UseVisualStyleBackColor = true;
+        BtnKeyboardWrite.Location = new Point(8, 22);
+        BtnKeyboardWrite.Name = "BtnKeyboardWrite";
+        BtnKeyboardWrite.Size = new Size(152, 34);
+        BtnKeyboardWrite.TabIndex = 0;
+        BtnKeyboardWrite.Text = "Write";
+        BtnKeyboardWrite.UseVisualStyleBackColor = true;
+        BtnKeyboardWrite.Click += BtnKeyboardWrite_Click;
+        // 
+        // groupBox2
+        // 
+        groupBox2.Controls.Add(BtnMouseScrollAndClick);
+        groupBox2.Controls.Add(BtnDrawInPaint);
+        groupBox2.Controls.Add(BtnMouseDrawRect);
+        groupBox2.Controls.Add(TxtBoxMousePosition);
+        groupBox2.Controls.Add(label1);
+        groupBox2.Controls.Add(BtnMoveMouseTo100_100);
+        groupBox2.Location = new Point(3, 83);
+        groupBox2.Name = "groupBox2";
+        groupBox2.Size = new Size(767, 100);
+        groupBox2.TabIndex = 3;
+        groupBox2.TabStop = false;
+        groupBox2.Text = "Mouse";
+        // 
+        // BtnMouseScrollAndClick
+        // 
+        BtnMouseScrollAndClick.Location = new Point(553, 55);
+        BtnMouseScrollAndClick.Name = "BtnMouseScrollAndClick";
+        BtnMouseScrollAndClick.Size = new Size(144, 34);
+        BtnMouseScrollAndClick.TabIndex = 11;
+        BtnMouseScrollAndClick.Text = "Scroll and click";
+        BtnMouseScrollAndClick.UseVisualStyleBackColor = true;
+        BtnMouseScrollAndClick.Click += BtnMouseScrollAndClick_Click;
         // 
         // BtnDrawInPaint
         // 
-        BtnDrawInPaint.Location = new Point(304, 58);
+        BtnDrawInPaint.Location = new Point(351, 55);
         BtnDrawInPaint.Name = "BtnDrawInPaint";
-        BtnDrawInPaint.Size = new Size(103, 29);
-        BtnDrawInPaint.TabIndex = 4;
+        BtnDrawInPaint.Size = new Size(156, 34);
+        BtnDrawInPaint.TabIndex = 10;
         BtnDrawInPaint.Text = "Draw In Paint";
         BtnDrawInPaint.UseVisualStyleBackColor = true;
         BtnDrawInPaint.Click += BtnDrawInPaint_Click;
         // 
         // BtnMouseDrawRect
         // 
-        BtnMouseDrawRect.Location = new Point(143, 58);
+        BtnMouseDrawRect.Location = new Point(179, 55);
         BtnMouseDrawRect.Name = "BtnMouseDrawRect";
-        BtnMouseDrawRect.Size = new Size(138, 29);
-        BtnMouseDrawRect.TabIndex = 3;
+        BtnMouseDrawRect.Size = new Size(138, 34);
+        BtnMouseDrawRect.TabIndex = 9;
         BtnMouseDrawRect.Text = "Mouse Draw Rect";
         BtnMouseDrawRect.UseVisualStyleBackColor = true;
         BtnMouseDrawRect.Click += BtnMouseDrawRect_Click;
         // 
         // TxtBoxMousePosition
         // 
-        TxtBoxMousePosition.Location = new Point(125, 12);
+        TxtBoxMousePosition.Location = new Point(120, 14);
         TxtBoxMousePosition.Name = "TxtBoxMousePosition";
         TxtBoxMousePosition.ReadOnly = true;
         TxtBoxMousePosition.Size = new Size(156, 23);
-        TxtBoxMousePosition.TabIndex = 2;
+        TxtBoxMousePosition.TabIndex = 8;
         // 
         // label1
         // 
         label1.AutoSize = true;
-        label1.Location = new Point(8, 17);
+        label1.Location = new Point(3, 19);
         label1.Name = "label1";
         label1.Size = new Size(92, 15);
-        label1.TabIndex = 1;
+        label1.TabIndex = 7;
         label1.Text = "Mouse Position:";
         // 
         // BtnMoveMouseTo100_100
         // 
-        BtnMoveMouseTo100_100.Location = new Point(6, 58);
+        BtnMoveMouseTo100_100.Location = new Point(9, 55);
         BtnMoveMouseTo100_100.Name = "BtnMoveMouseTo100_100";
-        BtnMoveMouseTo100_100.Size = new Size(118, 29);
-        BtnMoveMouseTo100_100.TabIndex = 0;
+        BtnMoveMouseTo100_100.Size = new Size(152, 34);
+        BtnMoveMouseTo100_100.TabIndex = 6;
         BtnMoveMouseTo100_100.Text = "Move To 100,100";
         BtnMoveMouseTo100_100.UseVisualStyleBackColor = true;
         BtnMoveMouseTo100_100.Click += BtnMoveMouseTo100_100_Click;
+        // 
+        // groupBox1
+        // 
+        groupBox1.Controls.Add(BtnStartNotePadThenKill);
+        groupBox1.Controls.Add(BtnClickNotepadMenu);
+        groupBox1.Controls.Add(BtnFindWindow);
+        groupBox1.Location = new Point(4, 0);
+        groupBox1.Name = "groupBox1";
+        groupBox1.Size = new Size(766, 77);
+        groupBox1.TabIndex = 2;
+        groupBox1.TabStop = false;
+        groupBox1.Text = "Application";
+        // 
+        // BtnStartNotePadThenKill
+        // 
+        BtnStartNotePadThenKill.Location = new Point(8, 22);
+        BtnStartNotePadThenKill.Name = "BtnStartNotePadThenKill";
+        BtnStartNotePadThenKill.Size = new Size(152, 34);
+        BtnStartNotePadThenKill.TabIndex = 0;
+        BtnStartNotePadThenKill.Text = "Start NotePad Then Kill";
+        BtnStartNotePadThenKill.UseVisualStyleBackColor = true;
+        BtnStartNotePadThenKill.Click += BtnStartNotePadThenKill_Click;
+        // 
+        // BtnClickNotepadMenu
+        // 
+        BtnClickNotepadMenu.Location = new Point(350, 23);
+        BtnClickNotepadMenu.Name = "BtnClickNotepadMenu";
+        BtnClickNotepadMenu.Size = new Size(156, 34);
+        BtnClickNotepadMenu.TabIndex = 1;
+        BtnClickNotepadMenu.Text = "Click Notepad Menu";
+        BtnClickNotepadMenu.UseVisualStyleBackColor = true;
+        BtnClickNotepadMenu.Click += BtnClickNotepadMenu_Click;
+        // 
+        // BtnFindWindow
+        // 
+        BtnFindWindow.Location = new Point(178, 23);
+        BtnFindWindow.Name = "BtnFindWindow";
+        BtnFindWindow.Size = new Size(138, 34);
+        BtnFindWindow.TabIndex = 1;
+        BtnFindWindow.Text = "FindWindow";
+        BtnFindWindow.UseVisualStyleBackColor = true;
+        BtnFindWindow.Click += BtnFindWindow_Click;
         // 
         // tabPage3
         // 
@@ -174,7 +245,7 @@ partial class FormMain
         tabPage3.Padding = new Padding(3);
         tabPage3.Size = new Size(776, 533);
         tabPage3.TabIndex = 2;
-        tabPage3.Text = "tabPage3";
+        tabPage3.Text = "Advanced";
         tabPage3.UseVisualStyleBackColor = true;
         // 
         // timerMousePosition
@@ -182,15 +253,15 @@ partial class FormMain
         timerMousePosition.Enabled = true;
         timerMousePosition.Tick += timerMousePosition_Tick;
         // 
-        // BtnMouseScrollAndClick
+        // BtnHotKey
         // 
-        BtnMouseScrollAndClick.Location = new Point(425, 58);
-        BtnMouseScrollAndClick.Name = "BtnMouseScrollAndClick";
-        BtnMouseScrollAndClick.Size = new Size(144, 29);
-        BtnMouseScrollAndClick.TabIndex = 5;
-        BtnMouseScrollAndClick.Text = "Scroll and click";
-        BtnMouseScrollAndClick.UseVisualStyleBackColor = true;
-        BtnMouseScrollAndClick.Click += BtnMouseScrollAndClick_Click;
+        BtnHotKey.Location = new Point(552, 20);
+        BtnHotKey.Name = "BtnHotKey";
+        BtnHotKey.Size = new Size(144, 34);
+        BtnHotKey.TabIndex = 3;
+        BtnHotKey.Text = "HotKey";
+        BtnHotKey.UseVisualStyleBackColor = true;
+        BtnHotKey.Click += BtnHotKey_Click;
         // 
         // FormMain
         // 
@@ -203,8 +274,10 @@ partial class FormMain
         Text = "NetAutoGUI Samples";
         tabControl1.ResumeLayout(false);
         tabPage1.ResumeLayout(false);
-        tabPageMouse.ResumeLayout(false);
-        tabPageMouse.PerformLayout();
+        groupBox3.ResumeLayout(false);
+        groupBox2.ResumeLayout(false);
+        groupBox2.PerformLayout();
+        groupBox1.ResumeLayout(false);
         ResumeLayout(false);
     }
 
@@ -215,15 +288,21 @@ partial class FormMain
     #endregion
 
     private TabPage tabPage1;
-    private TabPage tabPageMouse;
     private TabPage tabPage3;
     private System.Windows.Forms.Button BtnStartNotePadThenKill;
     private Button BtnClickNotepadMenu;
-    private Button BtnMoveMouseTo100_100;
-    private Label label1;
-    private TextBox TxtBoxMousePosition;
     private System.Windows.Forms.Timer timerMousePosition;
-    private Button BtnMouseDrawRect;
-    private Button BtnDrawInPaint;
+    private GroupBox groupBox1;
+    private GroupBox groupBox2;
     private Button BtnMouseScrollAndClick;
+    private Button BtnDrawInPaint;
+    private Button BtnMouseDrawRect;
+    private TextBox TxtBoxMousePosition;
+    private Label label1;
+    private Button BtnMoveMouseTo100_100;
+    private GroupBox groupBox3;
+    private Button BtnKeyboardWrite;
+    private Button BtnPress;
+    private Button BtnKeyDownUp;
+    private Button BtnHotKey;
 }
