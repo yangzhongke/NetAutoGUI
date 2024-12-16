@@ -7,7 +7,7 @@ using Vanara.PInvoke;
 namespace NetAutoGUI.Windows
 {
     [SupportedOSPlatform("windows")]
-    internal class WinFormMessageBoxController : IMessageBoxController
+    internal class WinFormMessageBoxController : IDialogController
     {
         private static HWND GetCurrentMainWindowHwnd()
         {

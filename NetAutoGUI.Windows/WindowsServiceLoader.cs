@@ -12,7 +12,7 @@ namespace NetAutoGUI.Windows
             Application.SetHighDpiMode(HighDpiMode.PerMonitorV2);
         }
 
-        public IMessageBoxController LoadMessageBoxController()
+        public IDialogController LoadDialogController()
         {
             return new WinFormMessageBoxController();
         }

@@ -4,7 +4,7 @@
     {
         public IMouseController LoadMouseController();
         public IKeyboardController LoadKeyboardController();
-        public IMessageBoxController LoadMessageBoxController();
+        public IDialogController LoadDialogController();
         public IScreenshotController LoadScreenshotController();
         public IApplicationController LoadApplicationController();
     }

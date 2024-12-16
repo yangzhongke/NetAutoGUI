@@ -1,6 +1,6 @@
 ﻿using NetAutoGUI;
 
-GUI.MessageBox.YesNoBox("cc");
+GUI.Dialog.YesNoBox("cc");
 /*
 Window win = GUI.Application.FindWindowLikeTitle("*记事本*");
 win.Activate();

@@ -14,17 +14,17 @@ public partial class FormMain : Form
         GUI.Application.LaunchApplication("notepad.exe", "C:\\Windows\\system.ini");
         GUI.Application.WaitForApplication("notepad.exe");
         var isRunning = GUI.Application.IsApplicationRunning("notepad.exe");
-        if (isRunning && GUI.MessageBox.YesNoBox("Kill all notepad?")) GUI.Application.KillProcesses("notepad.exe");
+        if (isRunning && GUI.Dialog.YesNoBox("Kill all notepad?")) GUI.Application.KillProcesses("notepad.exe");
     }
 
     private void BtnFindWindow_Click(object sender, EventArgs e)
     {
         var window = GUI.Application.FindWindowLikeTitle("*Notepad*");
         if (window == null)
-            GUI.MessageBox.Alert("Notepad is not running.");
+            GUI.Dialog.Alert("Notepad is not running.");
         else
         {
-            GUI.MessageBox.Alert("Notepad is running:" + window.Title);
+            GUI.Dialog.Alert("Notepad is running:" + window.Title);
             window.Activate();
             window.Maximize();
         }
@@ -180,31 +180,31 @@ public partial class FormMain : Form
 
     private void BtnDialog_Click(object sender, EventArgs e)
     {
-        if (GUI.MessageBox.Confirm("Are you sure?"))
+        if (GUI.Dialog.Confirm("Are you sure?"))
         {
-            GUI.MessageBox.Alert("You clicked OK.");
+            GUI.Dialog.Alert("You clicked OK.");
         }
         else
         {
-            GUI.MessageBox.Alert("You clicked Cancel.");
+            GUI.Dialog.Alert("You clicked Cancel.");
         }
-        if (GUI.MessageBox.YesNoBox("Are you an alien?"))
+        if (GUI.Dialog.YesNoBox("Are you an alien?"))
         {
-            GUI.MessageBox.Alert("Welcome to Earth.");
+            GUI.Dialog.Alert("Welcome to Earth.");
         }
         else
         {
-            GUI.MessageBox.Alert("Welcome to New Zealand.");
+            GUI.Dialog.Alert("Welcome to New Zealand.");
         }
-        string? name = GUI.MessageBox.Prompt("What's your name?");
+        string? name = GUI.Dialog.Prompt("What's your name?");
         if (name != null)
         {
-            GUI.MessageBox.Alert($"Hello, {name}.");
+            GUI.Dialog.Alert($"Hello, {name}.");
         }
-        string? password = GUI.MessageBox.Password("Enter your password");
+        string? password = GUI.Dialog.Password("Enter your password");
         if (password != null)
         {
-            GUI.MessageBox.Alert($"Your password is {password}.");
+            GUI.Dialog.Alert($"Your password is {password}.");
         }
     }
 

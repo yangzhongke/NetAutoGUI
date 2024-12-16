@@ -8,7 +8,7 @@ namespace NetAutoGUI
     {
         public static readonly IMouseController Mouse;
         public static readonly IKeyboardController Keyboard;
-        public static readonly IMessageBoxController MessageBox;
+        public static readonly IDialogController Dialog;
         public static readonly IScreenshotController Screenshot;
         public static readonly IApplicationController Application;
 
@@ -29,7 +29,7 @@ namespace NetAutoGUI
                 IServiceLoader serviceLoader = (IServiceLoader)Activator.CreateInstance(serviceLoaderType);
                 Mouse = serviceLoader.LoadMouseController();
                 Keyboard = serviceLoader.LoadKeyboardController();
-                MessageBox = serviceLoader.LoadMessageBoxController();
+                Dialog = serviceLoader.LoadDialogController();
                 Screenshot = serviceLoader.LoadScreenshotController();
                 Application = serviceLoader.LoadApplicationController();
             }
