@@ -62,12 +62,12 @@ public partial class FormMain : Form
     {
         for (int i = 0; i < 50; i++)
         {
-            GUI.Mouse.Move(10,0);
+            GUI.Mouse.Move(10, 0);
             Thread.Sleep(10);
         }
         for (int i = 0; i < 20; i++)
         {
-            GUI.Mouse.Move(0,10);
+            GUI.Mouse.Move(0, 10);
             Thread.Sleep(10);
         }
         for (int i = 0; i < 50; i++)
@@ -80,5 +80,47 @@ public partial class FormMain : Form
             GUI.Mouse.Move(0, -10);
             Thread.Sleep(10);
         }
+    }
+
+    private void BtnDrawInPaint_Click(object sender, EventArgs e)
+    {
+        GUI.Application.LaunchApplication("mspaint.exe");
+        GUI.Application.WaitForApplication("mspaint.exe");
+        Window window = GUI.Application.WaitForWindow(w => w.Title.Contains("Paint"));
+        window.Activate();
+        window.Maximize();
+        GUI.Mouse.MoveTo(100, 300);
+        GUI.Mouse.MouseDown();
+        for (int i = 0; i < 50; i++)
+        {
+            GUI.Mouse.Move(10, 0);
+            Thread.Sleep(10);
+        }
+        GUI.Mouse.MouseUp();
+    }
+
+    private void BtnMouseScrollAndClick_Click(object sender, EventArgs e)
+    {
+        GUI.Application.LaunchApplication("chrome", "https://www.google.com/maps");
+        GUI.Application.WaitForApplication("chrome");
+        Window window = GUI.Application.WaitForWindow(w => w.Title.Contains("Google"));
+        window.Activate();
+        Thread.Sleep(2000);
+        GUI.Mouse.MoveTo(300, 300);
+        for(int i=0;i<5;i++)
+        {
+            GUI.Mouse.Scroll(50);
+            Thread.Sleep(500);
+        }
+        for (int i = 0; i < 5; i++)
+        {
+            GUI.Mouse.Scroll(-50);
+            Thread.Sleep(500);
+        }
+        GUI.Mouse.Click();
+        Thread.Sleep(1000);
+        GUI.Mouse.Click(button: MouseButtonType.Right);
+        Thread.Sleep(1000);
+        GUI.Mouse.DoubleClick();        
     }
 }

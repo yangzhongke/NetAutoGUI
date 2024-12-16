@@ -36,12 +36,14 @@ partial class FormMain
         BtnClickNotepadMenu = new Button();
         BtnStartNotePadThenKill = new Button();
         tabPageMouse = new TabPage();
+        BtnDrawInPaint = new Button();
+        BtnMouseDrawRect = new Button();
         TxtBoxMousePosition = new TextBox();
         label1 = new Label();
         BtnMoveMouseTo100_100 = new Button();
         tabPage3 = new TabPage();
         timerMousePosition = new System.Windows.Forms.Timer(components);
-        BtnMouseDrawRect = new Button();
+        BtnMouseScrollAndClick = new Button();
         tabControl1.SuspendLayout();
         tabPage1.SuspendLayout();
         tabPageMouse.SuspendLayout();
@@ -104,6 +106,8 @@ partial class FormMain
         // 
         // tabPageMouse
         // 
+        tabPageMouse.Controls.Add(BtnMouseScrollAndClick);
+        tabPageMouse.Controls.Add(BtnDrawInPaint);
         tabPageMouse.Controls.Add(BtnMouseDrawRect);
         tabPageMouse.Controls.Add(TxtBoxMousePosition);
         tabPageMouse.Controls.Add(label1);
@@ -115,6 +119,26 @@ partial class FormMain
         tabPageMouse.TabIndex = 1;
         tabPageMouse.Text = "Mouse";
         tabPageMouse.UseVisualStyleBackColor = true;
+        // 
+        // BtnDrawInPaint
+        // 
+        BtnDrawInPaint.Location = new Point(304, 58);
+        BtnDrawInPaint.Name = "BtnDrawInPaint";
+        BtnDrawInPaint.Size = new Size(103, 29);
+        BtnDrawInPaint.TabIndex = 4;
+        BtnDrawInPaint.Text = "Draw In Paint";
+        BtnDrawInPaint.UseVisualStyleBackColor = true;
+        BtnDrawInPaint.Click += BtnDrawInPaint_Click;
+        // 
+        // BtnMouseDrawRect
+        // 
+        BtnMouseDrawRect.Location = new Point(143, 58);
+        BtnMouseDrawRect.Name = "BtnMouseDrawRect";
+        BtnMouseDrawRect.Size = new Size(138, 29);
+        BtnMouseDrawRect.TabIndex = 3;
+        BtnMouseDrawRect.Text = "Mouse Draw Rect";
+        BtnMouseDrawRect.UseVisualStyleBackColor = true;
+        BtnMouseDrawRect.Click += BtnMouseDrawRect_Click;
         // 
         // TxtBoxMousePosition
         // 
@@ -158,15 +182,15 @@ partial class FormMain
         timerMousePosition.Enabled = true;
         timerMousePosition.Tick += timerMousePosition_Tick;
         // 
-        // BtnMouseDrawRect
+        // BtnMouseScrollAndClick
         // 
-        BtnMouseDrawRect.Location = new Point(143, 58);
-        BtnMouseDrawRect.Name = "BtnMouseDrawRect";
-        BtnMouseDrawRect.Size = new Size(138, 29);
-        BtnMouseDrawRect.TabIndex = 3;
-        BtnMouseDrawRect.Text = "Mouse Draw Rect";
-        BtnMouseDrawRect.UseVisualStyleBackColor = true;
-        BtnMouseDrawRect.Click += BtnMouseDrawRect_Click;
+        BtnMouseScrollAndClick.Location = new Point(425, 58);
+        BtnMouseScrollAndClick.Name = "BtnMouseScrollAndClick";
+        BtnMouseScrollAndClick.Size = new Size(144, 29);
+        BtnMouseScrollAndClick.TabIndex = 5;
+        BtnMouseScrollAndClick.Text = "Scroll and click";
+        BtnMouseScrollAndClick.UseVisualStyleBackColor = true;
+        BtnMouseScrollAndClick.Click += BtnMouseScrollAndClick_Click;
         // 
         // FormMain
         // 
@@ -200,4 +224,6 @@ partial class FormMain
     private TextBox TxtBoxMousePosition;
     private System.Windows.Forms.Timer timerMousePosition;
     private Button BtnMouseDrawRect;
+    private Button BtnDrawInPaint;
+    private Button BtnMouseScrollAndClick;
 }
