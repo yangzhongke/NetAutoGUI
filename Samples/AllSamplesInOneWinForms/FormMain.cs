@@ -212,4 +212,31 @@ public partial class FormMain : Form
     {
 
     }
+
+    private void BtnSelectFolder_Click(object sender, EventArgs e)
+    {
+        string? folder = GUI.Dialog.SelectFolder();
+        if (folder != null)
+        {
+            GUI.Dialog.Alert($"You selected folder: {folder}");
+        }
+    }
+
+    private void BtnOpenTextFile_Click(object sender, EventArgs e)
+    {
+        string? filePath = GUI.Dialog.SelectFileForLoad("Text files (*.txt)|*.txt|All files (*.*)|*.*");
+        if (filePath != null)
+        {
+            GUI.Dialog.Alert($"You selected file: {filePath}");
+        }
+    }
+
+    private void BtnSaveOfficeDocs_Click(object sender, EventArgs e)
+    {
+        string? filePath = GUI.Dialog.SelectFileForSave("Word files (*.docx)|*.docx|Excel files (*.xlsx)|*.xlsx|PowerPoint files (*.pptx)|*.pptx|All files (*.*)|*.*");
+        if (filePath != null)
+        {
+            GUI.Dialog.Alert($"You selected file: {filePath}");
+        }
+    }
 }

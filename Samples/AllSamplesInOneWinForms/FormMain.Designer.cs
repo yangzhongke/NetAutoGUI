@@ -32,7 +32,12 @@ partial class FormMain
         components = new System.ComponentModel.Container();
         tabControl1 = new TabControl();
         tabPage1 = new TabPage();
+        groupBox5 = new GroupBox();
+        button1 = new Button();
+        BtnFullScreenShot = new Button();
         groupBox4 = new GroupBox();
+        BtnOpenTextFile = new Button();
+        BtnSelectFolder = new Button();
         BtnDialog = new Button();
         groupBox3 = new GroupBox();
         BtnHoldKey = new Button();
@@ -53,15 +58,14 @@ partial class FormMain
         BtnFindWindow = new Button();
         tabPage3 = new TabPage();
         timerMousePosition = new System.Windows.Forms.Timer(components);
-        groupBox5 = new GroupBox();
-        BtnFullScreenShot = new Button();
+        BtnSaveOfficeDocs = new Button();
         tabControl1.SuspendLayout();
         tabPage1.SuspendLayout();
+        groupBox5.SuspendLayout();
         groupBox4.SuspendLayout();
         groupBox3.SuspendLayout();
         groupBox2.SuspendLayout();
         groupBox1.SuspendLayout();
-        groupBox5.SuspendLayout();
         SuspendLayout();
         // 
         // tabControl1
@@ -90,8 +94,41 @@ partial class FormMain
         tabPage1.Text = "Basic";
         tabPage1.UseVisualStyleBackColor = true;
         // 
+        // groupBox5
+        // 
+        groupBox5.Controls.Add(button1);
+        groupBox5.Controls.Add(BtnFullScreenShot);
+        groupBox5.Location = new Point(6, 410);
+        groupBox5.Name = "groupBox5";
+        groupBox5.Size = new Size(762, 100);
+        groupBox5.TabIndex = 6;
+        groupBox5.TabStop = false;
+        groupBox5.Text = "Screenshot";
+        // 
+        // button1
+        // 
+        button1.Location = new Point(192, 28);
+        button1.Name = "button1";
+        button1.Size = new Size(75, 23);
+        button1.TabIndex = 1;
+        button1.Text = "button1";
+        button1.UseVisualStyleBackColor = true;
+        // 
+        // BtnFullScreenShot
+        // 
+        BtnFullScreenShot.Location = new Point(6, 22);
+        BtnFullScreenShot.Name = "BtnFullScreenShot";
+        BtnFullScreenShot.Size = new Size(152, 34);
+        BtnFullScreenShot.TabIndex = 0;
+        BtnFullScreenShot.Text = "FullScreenShot";
+        BtnFullScreenShot.UseVisualStyleBackColor = true;
+        BtnFullScreenShot.Click += BtnFullScreenShot_Click;
+        // 
         // groupBox4
         // 
+        groupBox4.Controls.Add(BtnSaveOfficeDocs);
+        groupBox4.Controls.Add(BtnOpenTextFile);
+        groupBox4.Controls.Add(BtnSelectFolder);
         groupBox4.Controls.Add(BtnDialog);
         groupBox4.Location = new Point(6, 322);
         groupBox4.Name = "groupBox4";
@@ -100,13 +137,33 @@ partial class FormMain
         groupBox4.TabStop = false;
         groupBox4.Text = "Message";
         // 
+        // BtnOpenTextFile
+        // 
+        BtnOpenTextFile.Location = new Point(348, 36);
+        BtnOpenTextFile.Name = "BtnOpenTextFile";
+        BtnOpenTextFile.Size = new Size(156, 29);
+        BtnOpenTextFile.TabIndex = 2;
+        BtnOpenTextFile.Text = "Open Text File";
+        BtnOpenTextFile.UseVisualStyleBackColor = true;
+        BtnOpenTextFile.Click += BtnOpenTextFile_Click;
+        // 
+        // BtnSelectFolder
+        // 
+        BtnSelectFolder.Location = new Point(176, 33);
+        BtnSelectFolder.Name = "BtnSelectFolder";
+        BtnSelectFolder.Size = new Size(138, 32);
+        BtnSelectFolder.TabIndex = 1;
+        BtnSelectFolder.Text = "Select Folder";
+        BtnSelectFolder.UseVisualStyleBackColor = true;
+        BtnSelectFolder.Click += BtnSelectFolder_Click;
+        // 
         // BtnDialog
         // 
         BtnDialog.Location = new Point(6, 33);
         BtnDialog.Name = "BtnDialog";
         BtnDialog.Size = new Size(152, 32);
         BtnDialog.TabIndex = 0;
-        BtnDialog.Text = "Dialog";
+        BtnDialog.Text = "Message and Prompt";
         BtnDialog.UseVisualStyleBackColor = true;
         BtnDialog.Click += BtnDialog_Click;
         // 
@@ -303,25 +360,15 @@ partial class FormMain
         timerMousePosition.Enabled = true;
         timerMousePosition.Tick += timerMousePosition_Tick;
         // 
-        // groupBox5
+        // BtnSaveOfficeDocs
         // 
-        groupBox5.Controls.Add(BtnFullScreenShot);
-        groupBox5.Location = new Point(6, 410);
-        groupBox5.Name = "groupBox5";
-        groupBox5.Size = new Size(762, 100);
-        groupBox5.TabIndex = 6;
-        groupBox5.TabStop = false;
-        groupBox5.Text = "Screenshot";
-        // 
-        // BtnFullScreenShot
-        // 
-        BtnFullScreenShot.Location = new Point(6, 22);
-        BtnFullScreenShot.Name = "BtnFullScreenShot";
-        BtnFullScreenShot.Size = new Size(152, 34);
-        BtnFullScreenShot.TabIndex = 0;
-        BtnFullScreenShot.Text = "FullScreenShot";
-        BtnFullScreenShot.UseVisualStyleBackColor = true;
-        BtnFullScreenShot.Click += BtnFullScreenShot_Click;
+        BtnSaveOfficeDocs.Location = new Point(560, 37);
+        BtnSaveOfficeDocs.Name = "BtnSaveOfficeDocs";
+        BtnSaveOfficeDocs.Size = new Size(134, 28);
+        BtnSaveOfficeDocs.TabIndex = 3;
+        BtnSaveOfficeDocs.Text = "Save Office Docs";
+        BtnSaveOfficeDocs.UseVisualStyleBackColor = true;
+        BtnSaveOfficeDocs.Click += BtnSaveOfficeDocs_Click;
         // 
         // FormMain
         // 
@@ -334,12 +381,12 @@ partial class FormMain
         Text = "NetAutoGUI Samples";
         tabControl1.ResumeLayout(false);
         tabPage1.ResumeLayout(false);
+        groupBox5.ResumeLayout(false);
         groupBox4.ResumeLayout(false);
         groupBox3.ResumeLayout(false);
         groupBox2.ResumeLayout(false);
         groupBox2.PerformLayout();
         groupBox1.ResumeLayout(false);
-        groupBox5.ResumeLayout(false);
         ResumeLayout(false);
     }
 
@@ -372,4 +419,8 @@ partial class FormMain
     private Button BtnDialog;
     private GroupBox groupBox5;
     private Button BtnFullScreenShot;
+    private Button BtnSelectFolder;
+    private Button button1;
+    private Button BtnOpenTextFile;
+    private Button BtnSaveOfficeDocs;
 }

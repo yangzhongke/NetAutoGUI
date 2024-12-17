@@ -14,7 +14,7 @@ namespace NetAutoGUI.Windows
 
         public IDialogController LoadDialogController()
         {
-            return new WinFormMessageBoxController();
+            return new WinFormDialogController();
         }
 
         public IMouseController LoadMouseController()
