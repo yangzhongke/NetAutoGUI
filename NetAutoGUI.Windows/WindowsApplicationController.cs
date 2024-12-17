@@ -14,25 +14,6 @@ namespace NetAutoGUI.Windows
     [SupportedOSPlatform("windows")]
     internal class WindowsApplicationController : IApplicationController
     {
-        private static string GetWindowText(long hwnd)
-        {
-            StringBuilder sb = new StringBuilder(1024);
-            User32.GetWindowText(hwnd.ToHWND(), sb, sb.Capacity);
-            return sb.ToString();
-        }
-
-        private static Rectangle GetWindowRect(long hwnd)
-        {
-            User32.GetWindowRect(hwnd.ToHWND(), out RECT rect);
-            return new Rectangle(rect.X, rect.Y, rect.Width, rect.Height);
-        }
-
-        private static Window GetWindowDetail(HWND hwnd)
-        {
-            Window window = new Window(hwnd.ToInt64(), GetWindowRect, GetWindowText);
-            return window;
-        }
-
         public bool IsApplicationRunning(string processName)
         {
             //The ProcessName property does not include the .exe extension
@@ -68,7 +49,7 @@ namespace NetAutoGUI.Windows
             {
                 bool visible = User32.IsWindowVisible(hwnd);
                 if (!visible) return true;
-                var currentWin = GetWindowDetail(hwnd);
+                var currentWin = WindowFactory.CreateWindow(hwnd);
                 if (predict(currentWin))
                 {
                     window = currentWin;
@@ -145,7 +126,7 @@ namespace NetAutoGUI.Windows
             List<Window> list = new List<Window>();
             User32.EnumWindows((hwnd, _) =>
             {
-                var window = GetWindowDetail(hwnd);
+                var window = WindowFactory.CreateWindow(hwnd);
                 list.Add(window);
                 return true;// continue the enumeration
             }, IntPtr.Zero);
@@ -154,7 +135,16 @@ namespace NetAutoGUI.Windows
 
         public Window FindWindowById(long id)
         {
-            return GetWindowDetail(id.ToHWND());
+            return WindowFactory.CreateWindow(id.ToHWND());
+        }
+
+        public void OpenFileWithDefaultApp(string filePath)
+        {
+            Process.Start(new ProcessStartInfo
+            {
+                FileName = filePath,
+                UseShellExecute = true
+            });
         }
     }
 }

@@ -1,4 +1,5 @@
 using NetAutoGUI;
+using NetAutoGUI.Windows;
 
 namespace AllSamplesInOneWinForms;
 
@@ -210,7 +211,8 @@ public partial class FormMain : Form
 
     private void BtnFullScreenShot_Click(object sender, EventArgs e)
     {
-
+        GUI.Screenshot.Screenshot().Save("1.png");
+        GUI.Application.OpenFileWithDefaultApp("1.png");
     }
 
     private void BtnSelectFolder_Click(object sender, EventArgs e)
@@ -238,5 +240,23 @@ public partial class FormMain : Form
         {
             GUI.Dialog.Alert($"You selected file: {filePath}");
         }
+    }
+
+    private void BtnViewFile_Click(object sender, EventArgs e)
+    {
+        GUI.Application.OpenFileWithDefaultApp("C:\\Windows\\system.ini");
+    }
+
+    private void BtnWindowShot_Click(object sender, EventArgs e)
+    {
+        Window? window = GUI.Application.FindWindowLikeTitle("*Visual Studio*");
+        if (window == null)
+        {
+            GUI.Dialog.Alert("Visual Studio is not running.");
+            return;
+        }
+        window.Activate();
+        GUI.Screenshot.Screenshot(window).Save("1.png");
+        GUI.Application.OpenFileWithDefaultApp("1.png");
     }
 }

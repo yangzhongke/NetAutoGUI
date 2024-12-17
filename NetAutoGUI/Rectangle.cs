@@ -22,5 +22,12 @@
                 return new Location(centerX, centerY);
             }
         }
+
+        public bool Contains(Location loc)
+        {
+            return loc.X >= X && loc.X <= X + Width && loc.Y >= Y && loc.Y <= Y + Height;
+        }
+
+        public int Area => Width * Height;
     }
 }
