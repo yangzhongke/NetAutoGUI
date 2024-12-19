@@ -2,7 +2,7 @@
 using System.Drawing.Imaging;
 using System.IO;
 
-namespace NetAutoGUI.Windows;
+namespace NetAutoGUI;
 
 public static class BitmapExtensions
 {

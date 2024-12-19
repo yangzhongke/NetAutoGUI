@@ -9,6 +9,7 @@ namespace NetAutoGUI.Windows
     {
         public static BitmapData CaptureWindow(HWND hWnd, int width, int height)
         {
+            GUIWindows.CheckIsSetHighDpiModeInvoked();
             //https://blog.walterlv.com/post/win32-and-system-drawing-capture-window-to-bitmap.html
 
             var wdc = User32.GetWindowDC(hWnd);
@@ -35,8 +36,7 @@ namespace NetAutoGUI.Windows
 
         public static BitmapData CaptureVirtualScreen()
         {
-            Application.SetHighDpiMode(HighDpiMode.PerMonitorV2);
-
+            GUIWindows.CheckIsSetHighDpiModeInvoked();
             Rectangle virtualScreen = new Rectangle(
                 SystemInformation.VirtualScreen.Left,
                 SystemInformation.VirtualScreen.Top,

@@ -1,7 +1,7 @@
 ﻿using System;
 using Vanara.PInvoke;
 
-namespace NetAutoGUI.Windows
+namespace NetAutoGUI
 {
     internal static class HWNDExtensions
     {

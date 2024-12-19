@@ -49,7 +49,7 @@ namespace NetAutoGUI.Windows
             {
                 bool visible = User32.IsWindowVisible(hwnd);
                 if (!visible) return true;
-                var currentWin = WindowFactory.CreateWindow(hwnd);
+                var currentWin = WindowLoader.CreateWindow(hwnd);
                 if (predict(currentWin))
                 {
                     window = currentWin;
@@ -126,7 +126,7 @@ namespace NetAutoGUI.Windows
             List<Window> list = new List<Window>();
             User32.EnumWindows((hwnd, _) =>
             {
-                var window = WindowFactory.CreateWindow(hwnd);
+                var window = WindowLoader.CreateWindow(hwnd);
                 list.Add(window);
                 return true;// continue the enumeration
             }, IntPtr.Zero);
@@ -135,7 +135,7 @@ namespace NetAutoGUI.Windows
 
         public Window FindWindowById(long id)
         {
-            return WindowFactory.CreateWindow(id.ToHWND());
+            return WindowLoader.CreateWindow(id.ToHWND());
         }
 
         public void OpenFileWithDefaultApp(string filePath)

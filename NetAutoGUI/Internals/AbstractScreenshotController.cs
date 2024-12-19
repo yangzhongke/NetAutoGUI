@@ -6,17 +6,11 @@ namespace NetAutoGUI.Internals
 {
     public abstract class AbstractScreenshotController : IScreenshotController
     {
-        protected abstract BitmapData LoadImageFromFile(string imageFile);
-
         public abstract BitmapData Screenshot();
 
         public abstract BitmapData Screenshot(Window window);
 
-        public Rectangle[] LocateAll(BitmapData basePicture, string imgFileToBeFound, double confidence = 0.99)
-        {
-            var rectangles = LocateAllWithConfidence(basePicture, imgFileToBeFound, confidence);
-            return rectangles.OrderBy(e => e.Rectangle.Y).Select(e => e.Rectangle).ToArray();
-        }
+        
 
         public abstract void Highlight(double waitSeconds = 0.5, params Rectangle[] rectangles);
 
@@ -28,9 +22,10 @@ namespace NetAutoGUI.Internals
         /// <returns></returns>
         public abstract (int x, int y) ScreenshotLocationToRelativeLocation(int x, int y);
 
-        public RectangleWithConfidence[] LocateAllWithConfidence(BitmapData basePicture, string imgFileToBeFound, double confidence = 0.99)
+        
+
+        public RectangleWithConfidence[] LocateAllWithConfidence(BitmapData basePicture, BitmapData bitmapToBeFound, double confidence = 0.99)
         {
-            var bitmapToBeFound = this.LoadImageFromFile(imgFileToBeFound);
             using Mat matToBeFound = bitmapToBeFound.ToMat();
             using Mat matBasePicture = basePicture.ToMat();
             var rectangles = new List<RectangleWithConfidence>();

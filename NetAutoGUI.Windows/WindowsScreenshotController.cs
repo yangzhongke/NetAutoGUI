@@ -23,13 +23,6 @@ namespace NetAutoGUI.Windows
             return ScreenshotHelper.CaptureWindow(windowHandler.ToHWND(), width, height);
         }
 
-        protected override BitmapData LoadImageFromFile(string imageFile)
-        {
-            using var image = Image.FromFile(imageFile);
-            using Bitmap bitmap = new Bitmap(image);
-            return bitmap.ToBitmapData();
-        }
-
         private static PRECT ToPRECT(Rectangle r)
         {
             return new PRECT(r.X, r.Y, r.X + r.Width, r.Y + r.Height);

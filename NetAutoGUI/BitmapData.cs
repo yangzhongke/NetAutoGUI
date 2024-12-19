@@ -6,6 +6,17 @@ namespace NetAutoGUI
 {
     public record BitmapData(byte[] Data, int Width, int Height)
     {
+        public static Func<string, BitmapData> LoadFromFileFunc { get; set; }
+
+        public static BitmapData FromFile(string imageFile)
+        {
+            if (LoadFromFileFunc == null)
+            {
+                throw new InvalidOperationException("LoadFromFileFunc is not set");
+            }
+            return LoadFromFileFunc(imageFile);
+        }
+
         private static void CreateDir(string filename)
         {
             new FileInfo(filename).Directory!.Create();

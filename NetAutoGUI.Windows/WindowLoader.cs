@@ -1,9 +1,9 @@
 ﻿using System.Text;
 using Vanara.PInvoke;
 
-namespace NetAutoGUI.Windows
+namespace NetAutoGUI
 {
-    public static class WindowFactory
+    public static class WindowLoader
     {
         private static string GetWindowText(long hwnd)
         {

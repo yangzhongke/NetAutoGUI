@@ -3,7 +3,7 @@ using System.Drawing;
 using System.Threading;
 using System.Windows.Forms;
 
-namespace NetAutoGUI.Windows
+namespace NetAutoGUI
 {
     public static class ClipboardHelpers
     {

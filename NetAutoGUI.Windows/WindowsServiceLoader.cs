@@ -6,12 +6,6 @@ namespace NetAutoGUI.Windows
     [SupportedOSPlatform("windows")]
     public class WindowsServiceLoader : IServiceLoader
     {
-        public WindowsServiceLoader()
-        {
-            //Only this is set, we can get the correct virtual screen shot for multiple monitors with different scale.
-            Application.SetHighDpiMode(HighDpiMode.PerMonitorV2);
-        }
-
         public IDialogController LoadDialogController()
         {
             return new WinFormDialogController();

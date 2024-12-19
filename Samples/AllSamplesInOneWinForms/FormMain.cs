@@ -1,5 +1,6 @@
 using NetAutoGUI;
 using NetAutoGUI.Windows;
+using System.Text;
 
 namespace AllSamplesInOneWinForms;
 
@@ -258,5 +259,21 @@ public partial class FormMain : Form
         window.Activate();
         GUI.Screenshot.Screenshot(window).Save("1.png");
         GUI.Application.OpenFileWithDefaultApp("1.png");
+    }
+
+    private void BtnHighLightRect_Click(object sender, EventArgs e)
+    {
+        GUI.Screenshot.Highlight(1, new NetAutoGUI.Rectangle(100, 100, 200, 200), new NetAutoGUI.Rectangle(300, 300, 400, 400));
+    }
+
+    private void BtnLocateAll_Click(object sender, EventArgs e)
+    {
+        var rects = GUI.Screenshot.LocateAll(GUI.Screenshot.Screenshot(), BitmapData.FromFile("Images/startMenu.png"));
+        StringBuilder sb = new();
+        foreach (var rect in rects)
+        {
+            sb.AppendLine(rect.ToString());
+        }
+        GUI.Dialog.Alert(sb.ToString());
     }
 }

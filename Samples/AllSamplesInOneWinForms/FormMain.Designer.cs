@@ -33,6 +33,7 @@ partial class FormMain
         tabControl1 = new TabControl();
         tabPage1 = new TabPage();
         groupBox5 = new GroupBox();
+        BtnHighLightRect = new Button();
         BtnWindowShot = new Button();
         BtnFullScreenShot = new Button();
         groupBox4 = new GroupBox();
@@ -60,6 +61,7 @@ partial class FormMain
         BtnFindWindow = new Button();
         tabPage3 = new TabPage();
         timerMousePosition = new System.Windows.Forms.Timer(components);
+        BtnLocateAll = new Button();
         tabControl1.SuspendLayout();
         tabPage1.SuspendLayout();
         groupBox5.SuspendLayout();
@@ -97,14 +99,26 @@ partial class FormMain
         // 
         // groupBox5
         // 
+        groupBox5.Controls.Add(BtnLocateAll);
+        groupBox5.Controls.Add(BtnHighLightRect);
         groupBox5.Controls.Add(BtnWindowShot);
         groupBox5.Controls.Add(BtnFullScreenShot);
         groupBox5.Location = new Point(6, 410);
         groupBox5.Name = "groupBox5";
-        groupBox5.Size = new Size(762, 100);
+        groupBox5.Size = new Size(762, 115);
         groupBox5.TabIndex = 6;
         groupBox5.TabStop = false;
         groupBox5.Text = "Screenshot";
+        // 
+        // BtnHighLightRect
+        // 
+        BtnHighLightRect.Location = new Point(348, 22);
+        BtnHighLightRect.Name = "BtnHighLightRect";
+        BtnHighLightRect.Size = new Size(156, 34);
+        BtnHighLightRect.TabIndex = 2;
+        BtnHighLightRect.Text = "HighLight Rect";
+        BtnHighLightRect.UseVisualStyleBackColor = true;
+        BtnHighLightRect.Click += BtnHighLightRect_Click;
         // 
         // BtnWindowShot
         // 
@@ -383,6 +397,16 @@ partial class FormMain
         timerMousePosition.Enabled = true;
         timerMousePosition.Tick += timerMousePosition_Tick;
         // 
+        // BtnLocateAll
+        // 
+        BtnLocateAll.Location = new Point(560, 22);
+        BtnLocateAll.Name = "BtnLocateAll";
+        BtnLocateAll.Size = new Size(134, 34);
+        BtnLocateAll.TabIndex = 3;
+        BtnLocateAll.Text = "Locate All";
+        BtnLocateAll.UseVisualStyleBackColor = true;
+        BtnLocateAll.Click += BtnLocateAll_Click;
+        // 
         // FormMain
         // 
         AutoScaleDimensions = new SizeF(7F, 15F);
@@ -437,4 +461,6 @@ partial class FormMain
     private Button BtnOpenTextFile;
     private Button BtnSaveOfficeDocs;
     private Button BtnViewFile;
+    private Button BtnHighLightRect;
+    private Button BtnLocateAll;
 }

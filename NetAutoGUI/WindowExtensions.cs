@@ -85,7 +85,7 @@ namespace NetAutoGUI
             }
         }
 
-        public static Rectangle[] LocateAll(this Window window, string imgFileToBeFound, double confidence = 0.99)
+        public static Rectangle[] LocateAll(this Window window, BitmapData imgFileToBeFound, double confidence = 0.99)
         {
             var winScreenshot = GUI.Screenshot.Screenshot(window);
             return GUI.Screenshot.LocateAll(winScreenshot, imgFileToBeFound, confidence);
@@ -114,19 +114,19 @@ namespace NetAutoGUI
             GUI.Screenshot.Highlight(waitSeconds, rectsToScreen);
         }
 
-        public static Rectangle? Locate(this Window window, string imgFileToBeFound, double confidence = 0.99)
+        public static Rectangle? Locate(this Window window, BitmapData imgFileToBeFound, double confidence = 0.99)
         {
             var winBitmap = GUI.Screenshot.Screenshot(window);
             return GUI.Screenshot.LocateAll(winBitmap, imgFileToBeFound, confidence).FirstOrDefault();
         }
 
-        public static void WaitAndClick(this Window window, string imgFileToBeFound, double confidence = 0.99, double timeoutSeconds = 5)
+        public static void WaitAndClick(this Window window, BitmapData imgFileToBeFound, double confidence = 0.99, double timeoutSeconds = 5)
         {
             var rect = Wait(window, imgFileToBeFound, confidence, timeoutSeconds);
             Click(window, rect.Center.X, rect.Center.Y);
         }
 
-        public static Rectangle Wait(this Window window, string imgFileToBeFound, double confidence = 0.99, double timeoutSeconds = 5)
+        public static Rectangle Wait(this Window window, BitmapData imgFileToBeFound, double confidence = 0.99, double timeoutSeconds = 5)
         {
             Stopwatch sw = new Stopwatch();
             sw.Start();

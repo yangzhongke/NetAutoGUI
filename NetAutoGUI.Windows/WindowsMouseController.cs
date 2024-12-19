@@ -94,8 +94,7 @@ namespace NetAutoGUI.Windows
 
         public override Location Position()
         {
-            User32.GetCursorPos(out POINT point)
-                .CheckReturn(nameof(User32.GetCursorPos));
+            User32.GetCursorPos(out POINT point);
             return new Location(point.X, point.Y);
         }
 
