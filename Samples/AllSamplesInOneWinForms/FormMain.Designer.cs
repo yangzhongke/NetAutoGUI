@@ -33,6 +33,7 @@ partial class FormMain
         tabControl1 = new TabControl();
         tabPage1 = new TabPage();
         groupBox5 = new GroupBox();
+        BtnLocateAll = new Button();
         BtnHighLightRect = new Button();
         BtnWindowShot = new Button();
         BtnFullScreenShot = new Button();
@@ -42,6 +43,7 @@ partial class FormMain
         BtnSelectFolder = new Button();
         BtnDialog = new Button();
         groupBox3 = new GroupBox();
+        BtnKeyCtrlCV = new Button();
         BtnHoldKey = new Button();
         BtnHotKey = new Button();
         BtnKeyDownUp = new Button();
@@ -61,7 +63,9 @@ partial class FormMain
         BtnFindWindow = new Button();
         tabPage3 = new TabPage();
         timerMousePosition = new System.Windows.Forms.Timer(components);
-        BtnLocateAll = new Button();
+        tabPage2 = new TabPage();
+        groupBox6 = new GroupBox();
+        BtnMoveMouseToCenterOfMsPaint = new Button();
         tabControl1.SuspendLayout();
         tabPage1.SuspendLayout();
         groupBox5.SuspendLayout();
@@ -69,12 +73,15 @@ partial class FormMain
         groupBox3.SuspendLayout();
         groupBox2.SuspendLayout();
         groupBox1.SuspendLayout();
+        tabPage3.SuspendLayout();
+        groupBox6.SuspendLayout();
         SuspendLayout();
         // 
         // tabControl1
         // 
         tabControl1.Controls.Add(tabPage1);
         tabControl1.Controls.Add(tabPage3);
+        tabControl1.Controls.Add(tabPage2);
         tabControl1.Dock = DockStyle.Fill;
         tabControl1.Location = new Point(0, 0);
         tabControl1.Name = "tabControl1";
@@ -109,6 +116,16 @@ partial class FormMain
         groupBox5.TabIndex = 6;
         groupBox5.TabStop = false;
         groupBox5.Text = "Screenshot";
+        // 
+        // BtnLocateAll
+        // 
+        BtnLocateAll.Location = new Point(560, 22);
+        BtnLocateAll.Name = "BtnLocateAll";
+        BtnLocateAll.Size = new Size(134, 34);
+        BtnLocateAll.TabIndex = 3;
+        BtnLocateAll.Text = "Locate All";
+        BtnLocateAll.UseVisualStyleBackColor = true;
+        BtnLocateAll.Click += BtnLocateAll_Click;
         // 
         // BtnHighLightRect
         // 
@@ -195,6 +212,7 @@ partial class FormMain
         // 
         // groupBox3
         // 
+        groupBox3.Controls.Add(BtnKeyCtrlCV);
         groupBox3.Controls.Add(BtnHoldKey);
         groupBox3.Controls.Add(BtnHotKey);
         groupBox3.Controls.Add(BtnKeyDownUp);
@@ -206,6 +224,16 @@ partial class FormMain
         groupBox3.TabIndex = 4;
         groupBox3.TabStop = false;
         groupBox3.Text = "Keyboard";
+        // 
+        // BtnKeyCtrlCV
+        // 
+        BtnKeyCtrlCV.Location = new Point(178, 64);
+        BtnKeyCtrlCV.Name = "BtnKeyCtrlCV";
+        BtnKeyCtrlCV.Size = new Size(138, 31);
+        BtnKeyCtrlCV.TabIndex = 5;
+        BtnKeyCtrlCV.Text = "CtrlCV";
+        BtnKeyCtrlCV.UseVisualStyleBackColor = true;
+        BtnKeyCtrlCV.Click += BtnKeyCtrlCV_Click;
         // 
         // BtnHoldKey
         // 
@@ -384,12 +412,13 @@ partial class FormMain
         // 
         // tabPage3
         // 
+        tabPage3.Controls.Add(groupBox6);
         tabPage3.Location = new Point(4, 24);
         tabPage3.Name = "tabPage3";
         tabPage3.Padding = new Padding(3);
         tabPage3.Size = new Size(776, 533);
         tabPage3.TabIndex = 2;
-        tabPage3.Text = "Advanced";
+        tabPage3.Text = "Extensions";
         tabPage3.UseVisualStyleBackColor = true;
         // 
         // timerMousePosition
@@ -397,15 +426,35 @@ partial class FormMain
         timerMousePosition.Enabled = true;
         timerMousePosition.Tick += timerMousePosition_Tick;
         // 
-        // BtnLocateAll
+        // tabPage2
         // 
-        BtnLocateAll.Location = new Point(560, 22);
-        BtnLocateAll.Name = "BtnLocateAll";
-        BtnLocateAll.Size = new Size(134, 34);
-        BtnLocateAll.TabIndex = 3;
-        BtnLocateAll.Text = "Locate All";
-        BtnLocateAll.UseVisualStyleBackColor = true;
-        BtnLocateAll.Click += BtnLocateAll_Click;
+        tabPage2.Location = new Point(4, 24);
+        tabPage2.Name = "tabPage2";
+        tabPage2.Padding = new Padding(3);
+        tabPage2.Size = new Size(776, 533);
+        tabPage2.TabIndex = 3;
+        tabPage2.Text = "tabPage2";
+        tabPage2.UseVisualStyleBackColor = true;
+        // 
+        // groupBox6
+        // 
+        groupBox6.Controls.Add(BtnMoveMouseToCenterOfMsPaint);
+        groupBox6.Location = new Point(6, 6);
+        groupBox6.Name = "groupBox6";
+        groupBox6.Size = new Size(767, 145);
+        groupBox6.TabIndex = 0;
+        groupBox6.TabStop = false;
+        groupBox6.Text = "Window";
+        // 
+        // BtnMoveMouseToCenterOfMsPaint
+        // 
+        BtnMoveMouseToCenterOfMsPaint.Location = new Point(6, 22);
+        BtnMoveMouseToCenterOfMsPaint.Name = "BtnMoveMouseToCenterOfMsPaint";
+        BtnMoveMouseToCenterOfMsPaint.Size = new Size(173, 33);
+        BtnMoveMouseToCenterOfMsPaint.TabIndex = 0;
+        BtnMoveMouseToCenterOfMsPaint.Text = "Mouse To Center Of MsPaint";
+        BtnMoveMouseToCenterOfMsPaint.UseVisualStyleBackColor = true;
+        BtnMoveMouseToCenterOfMsPaint.Click += BtnMoveMouseToCenterOfMsPaint_Click;
         // 
         // FormMain
         // 
@@ -424,6 +473,8 @@ partial class FormMain
         groupBox2.ResumeLayout(false);
         groupBox2.PerformLayout();
         groupBox1.ResumeLayout(false);
+        tabPage3.ResumeLayout(false);
+        groupBox6.ResumeLayout(false);
         ResumeLayout(false);
     }
 
@@ -463,4 +514,8 @@ partial class FormMain
     private Button BtnViewFile;
     private Button BtnHighLightRect;
     private Button BtnLocateAll;
+    private Button BtnKeyCtrlCV;
+    private TabPage tabPage2;
+    private GroupBox groupBox6;
+    private Button BtnMoveMouseToCenterOfMsPaint;
 }

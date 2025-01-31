@@ -166,6 +166,8 @@ public partial class FormMain : Form
         GUI.Keyboard.Press(VirtualKeyCode.RIGHT);
         GUI.Keyboard.HotKey(VirtualKeyCode.CONTROL, VirtualKeyCode.VK_V);
         GUI.Keyboard.HotKey(VirtualKeyCode.CONTROL, VirtualKeyCode.VK_V);
+        GUI.Keyboard.HotKey(VirtualKeyCode.MENU, VirtualKeyCode.F4);
+        GUI.Keyboard.Press(VirtualKeyCode.VK_N);
     }
 
     private void BtnHoldKey_Click(object sender, EventArgs e)
@@ -275,5 +277,28 @@ public partial class FormMain : Form
             sb.AppendLine(rect.ToString());
         }
         GUI.Dialog.Alert(sb.ToString());
+    }
+
+    private void BtnKeyCtrlCV_Click(object sender, EventArgs e)
+    {
+        GUI.Application.LaunchApplication("notepad");
+        Window window = GUI.Application.WaitForWindow(w => w.Title.Contains("Notepad"));
+        window.Activate();
+        GUI.Keyboard.Write("Hello, World!");
+        GUI.Keyboard.Ctrl_A();
+        GUI.Keyboard.Ctrl_C();
+        GUI.Keyboard.Ctrl_V();
+        GUI.Keyboard.Ctrl_V();
+    }
+
+    private void BtnMoveMouseToCenterOfMsPaint_Click(object sender, EventArgs e)
+    {
+        GUI.Application.LaunchApplication("mspaint");
+        Window window = GUI.Application.WaitForWindow(w => w.Title.Contains("Paint"));
+        window.Activate();
+        (int centerX, int centerY) = window.Rectangle.Center;
+        window.MoveMouseTo(centerX, centerY);
+        Thread.Sleep(500);
+        window.Click(10, 20);
     }
 }
