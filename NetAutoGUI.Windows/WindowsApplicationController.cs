@@ -133,9 +133,15 @@ namespace NetAutoGUI.Windows
             return list.ToArray();
         }
 
-        public Window FindWindowById(long id)
+        public Window? FindWindowById(long id)
         {
-            return WindowLoader.CreateWindow(id.ToHWND());
+            HWND hwnd = id.ToHWND();
+            if (!User32.IsWindow(hwnd))
+            {
+                return null;
+            }
+
+            return WindowLoader.CreateWindow(hwnd);
         }
 
         public void OpenFileWithDefaultApp(string filePath)

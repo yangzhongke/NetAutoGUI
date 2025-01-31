@@ -4,6 +4,9 @@ using System.Reflection;
 
 namespace NetAutoGUI
 {
+    /// <summary>
+    /// Entry of controllers
+    /// </summary>
     public static class GUI
     {
         public static readonly IMouseController Mouse;
