@@ -6,6 +6,7 @@ using System.Linq;
 using System.Runtime.Versioning;
 using System.Text;
 using System.Threading;
+using System.Threading.Tasks;
 using Vanara.PInvoke;
 using WildcardMatch;
 
@@ -84,11 +85,40 @@ namespace NetAutoGUI.Windows
             }
         }
 
+        public async Task WaitForApplicationAsync(string processName, double timeoutSeconds = 2,
+            CancellationToken cancellationToken = default)
+        {
+            Stopwatch stopwatch = new Stopwatch();
+            stopwatch.Start();
+            //The ProcessName property does not include the .exe extension
+            string nameWithoutExtension = Path.GetFileNameWithoutExtension(processName);
+            while (!Process.GetProcesses().Any(p => p.ProcessName == nameWithoutExtension))
+            {
+                if (cancellationToken.IsCancellationRequested)
+                {
+                    throw new TaskCanceledException();
+                }
+
+                if (stopwatch.ElapsedMilliseconds > timeoutSeconds * 1000)
+                {
+                    throw new TimeoutException("wait for application timeout:" + processName);
+                }
+
+                await Task.Delay(50);
+            }
+        }
+
         public Window WaitForWindowByTitle(string title, double timeoutSeconds = 2)
         {
             return WaitForWindow(t => title == t.Title, timeoutSeconds);
         }
 
+        public async Task<Window> WaitForWindowByTitleAsync(string title, double timeoutSeconds = 2,
+            CancellationToken cancellationToken = default)
+        {
+            return await WaitForWindowAsync(t => title == t.Title, timeoutSeconds, cancellationToken);
+        }
+        
         public Window WaitForWindow(Func<Window, bool> predict, double timeoutSeconds = 2)
         {
             Stopwatch stopwatch = new Stopwatch();
@@ -105,9 +135,40 @@ namespace NetAutoGUI.Windows
             return window;
         }
 
+        public async Task<Window> WaitForWindowAsync(Func<Window, bool> predict, double timeoutSeconds = 2,
+            CancellationToken cancellationToken = default)
+        {
+            Stopwatch stopwatch = new Stopwatch();
+            stopwatch.Start();
+            Window? window = null;
+            while ((window = GetAllWindows().FirstOrDefault(predict)) == null)
+            {
+                if (cancellationToken.IsCancellationRequested)
+                {
+                    throw new TaskCanceledException();
+                }
+
+                if (stopwatch.ElapsedMilliseconds > timeoutSeconds * 1000)
+                {
+                    throw new TimeoutException("wait for Window timeout");
+                }
+
+                await Task.Delay(50);
+            }
+
+            return window;
+        }
+
         public Window WaitForWindowLikeTitle(string wildcard, double timeoutSeconds = 2)
         {
             return WaitForWindow(f => wildcard.WildcardMatch(f.Title, true), timeoutSeconds);
+        }
+
+        public async Task<Window> WaitForWindowLikeTitleAsync(string wildcard, double timeoutSeconds = 2,
+            CancellationToken cancellationToken = default)
+        {
+            return await WaitForWindowAsync(f => wildcard.WildcardMatch(f.Title, true), timeoutSeconds,
+                cancellationToken);
         }
 
         public void KillProcesses(string processName)
