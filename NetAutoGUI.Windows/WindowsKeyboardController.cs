@@ -3,6 +3,7 @@ using System;
 using System.Runtime.InteropServices;
 using System.Runtime.Versioning;
 using System.Threading;
+using System.Threading.Tasks;
 using Vanara.PInvoke;
 
 namespace NetAutoGUI.Windows
@@ -44,13 +45,23 @@ namespace NetAutoGUI.Windows
             SendInputs(inputBuilder);
         }
 
-        public void Write(string s, double interval)
+        public void Write(string s, double intervalInSeconds)
         {
-            ValidationHelpers.NotNegative(interval, nameof(interval));
+            ValidationHelpers.NotNegative(intervalInSeconds, nameof(intervalInSeconds));
             foreach (char c in s)
             {
                 Write(c);
-                Thread.Sleep((int)(interval * 1000));
+                Thread.Sleep((int)(intervalInSeconds * 1000));
+            }
+        }
+
+        public async Task WriteAsync(string s, double intervalInSeconds, CancellationToken cancellationToken = default)
+        {
+            ValidationHelpers.NotNegative(intervalInSeconds, nameof(intervalInSeconds));
+            foreach (char c in s)
+            {
+                Write(c);
+                await Task.Delay((int)(intervalInSeconds * 1000), cancellationToken);
             }
         }
 

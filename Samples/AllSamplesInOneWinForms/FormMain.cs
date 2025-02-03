@@ -135,7 +135,7 @@ public partial class FormMain : Form
         GUI.Keyboard.Write('a');
         GUI.Keyboard.Write('\n');
         GUI.Keyboard.Write("I'm Zack.\n");
-        GUI.Keyboard.Write("Hello, World!", interval: 0.1);
+        GUI.Keyboard.Write("Hello, World!", intervalInSeconds: 0.1);
     }
 
     private void BtnPress_Click(object sender, EventArgs e)
