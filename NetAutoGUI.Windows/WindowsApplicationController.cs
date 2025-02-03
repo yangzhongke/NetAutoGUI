@@ -69,13 +69,15 @@ namespace NetAutoGUI.Windows
             return FindWindow(f => wildcard.WildcardMatch(f.Title, true));
         }
 
-        public void WaitForApplication(string processName, double timeoutSeconds = 2)
+        public Process WaitForApplication(string processName, double timeoutSeconds = 2)
         {
             Stopwatch stopwatch = new Stopwatch();
             stopwatch.Start();
             //The ProcessName property does not include the .exe extension
             string nameWithoutExtension = Path.GetFileNameWithoutExtension(processName);
-            while (!Process.GetProcesses().Any(p => p.ProcessName == nameWithoutExtension))
+            Process? process;
+            while ((process = Process.GetProcesses().FirstOrDefault(p => p.ProcessName == nameWithoutExtension)) !=
+                   null)
             {
                 if (stopwatch.ElapsedMilliseconds > timeoutSeconds * 1000)
                 {
@@ -83,16 +85,20 @@ namespace NetAutoGUI.Windows
                 }
                 Thread.Sleep(50);
             }
+
+            return process!;
         }
 
-        public async Task WaitForApplicationAsync(string processName, double timeoutSeconds = 2,
+        public async Task<Process> WaitForApplicationAsync(string processName, double timeoutSeconds = 2,
             CancellationToken cancellationToken = default)
         {
             Stopwatch stopwatch = new Stopwatch();
             stopwatch.Start();
             //The ProcessName property does not include the .exe extension
             string nameWithoutExtension = Path.GetFileNameWithoutExtension(processName);
-            while (!Process.GetProcesses().Any(p => p.ProcessName == nameWithoutExtension))
+            Process? process;
+            while ((process = Process.GetProcesses().FirstOrDefault(p => p.ProcessName == nameWithoutExtension)) !=
+                   null)
             {
                 if (cancellationToken.IsCancellationRequested)
                 {
@@ -104,8 +110,10 @@ namespace NetAutoGUI.Windows
                     throw new TimeoutException("wait for application timeout:" + processName);
                 }
 
-                await Task.Delay(50);
+                await Task.Delay(50, cancellationToken);
             }
+
+            return process!;
         }
 
         public Window WaitForWindowByTitle(string title, double timeoutSeconds = 2)
@@ -123,7 +131,7 @@ namespace NetAutoGUI.Windows
         {
             Stopwatch stopwatch = new Stopwatch();
             stopwatch.Start();
-            Window? window = null;
+            Window? window;
             while ((window = GetAllWindows().FirstOrDefault(predict)) == null)
             {
                 if (stopwatch.ElapsedMilliseconds > timeoutSeconds * 1000)
@@ -153,7 +161,7 @@ namespace NetAutoGUI.Windows
                     throw new TimeoutException("wait for Window timeout");
                 }
 
-                await Task.Delay(50);
+                await Task.Delay(50, cancellationToken);
             }
 
             return window;

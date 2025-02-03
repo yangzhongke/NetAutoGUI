@@ -70,32 +70,86 @@ public interface IApplicationController
     /// </summary>
     /// <param name="processName">the process's name, it can be with or without an extension. For example, both 'notepad' and 'notepad.exe' are accepted.</param>
     /// <param name="timeoutSeconds">timeout in second</param>
+    /// <returns>the first found process</returns>
     /// <exception cref="System.TimeoutException">thrown when time is up</exception>
-    public void WaitForApplication(string processName, double timeoutSeconds = 2);
+    public Process WaitForApplication(string processName, double timeoutSeconds = 2);
 
     /// <summary>
     /// Wait for the first process with the give name running.
     /// </summary>
     /// <param name="processName">the process's name, it can be with or without an extension. For example, both 'notepad' and 'notepad.exe' are accepted.</param>
     /// <param name="timeoutSeconds">timeout in second</param>
+    /// <param name="cancellationToken">cancellationToken</param>
+    /// <returns>the first found process</returns>
     /// <exception cref="System.TimeoutException">thrown when time is up</exception>
-    public Task WaitForApplicationAsync(string processName, double timeoutSeconds = 2,
+    public Task<Process> WaitForApplicationAsync(string processName, double timeoutSeconds = 2,
         CancellationToken cancellationToken = default);
 
+    /// <summary>
+    /// Wait for the window with the given title 
+    /// </summary>
+    /// <param name="title">title</param>
+    /// <param name="timeoutSeconds">timeout in second</param>
+    /// <exception cref="System.TimeoutException">thrown when time is up</exception>
+    /// <returns>The first found window</returns>
     public Window WaitForWindowByTitle(string title, double timeoutSeconds = 2);
 
+    /// <summary>
+    /// Wait for the window with the given title 
+    /// </summary>
+    /// <param name="title">title</param>
+    /// <param name="timeoutSeconds">timeout in second</param>
+    /// <param name="cancellationToken">cancellationToken</param>
+    /// <exception cref="System.TimeoutException">thrown when time is up</exception>
+    /// <returns>The first found window</returns>
     public Task<Window> WaitForWindowByTitleAsync(string title, double timeoutSeconds = 2,
         CancellationToken cancellationToken = default);
-    
+
+    /// <summary>
+    /// Wait for a window using the given criteria
+    /// </summary>
+    /// <param name="predict">the condition</param>
+    /// <param name="timeoutSeconds">timeout in second</param>
+    /// <exception cref="System.TimeoutException">thrown when time is up</exception>
+    /// <returns>the first found window</returns>
     public Window WaitForWindow(Func<Window, bool> predict, double timeoutSeconds = 2);
 
+    /// <summary>
+    /// Wait for a window using the given criteria
+    /// </summary>
+    /// <param name="predict">the condition</param>
+    /// <param name="timeoutSeconds">timeout in second</param>
+    /// <param name="cancellationToken">cancellationToken</param>
+    /// <exception cref="System.TimeoutException">thrown when time is up</exception>
+    /// <returns>the first found window</returns>
     public Task<Window> WaitForWindowAsync(Func<Window, bool> predict, double timeoutSeconds = 2,
         CancellationToken cancellationToken = default);
-    
+
+    /// <summary>
+    /// Wait for a window using the given wildcard title
+    /// </summary>
+    /// <param name="wildcard">the wildcard expression. it supports * and ?. For example: *notepad*, n?te</param>
+    /// <param name="timeoutSeconds">timeout in second</param>
+    /// <exception cref="System.TimeoutException">thrown when time is up</exception>
+    /// <returns>the first found window</returns>
+    /// <returns></returns>
     public Window WaitForWindowLikeTitle(string wildcard, double timeoutSeconds = 2);
 
+    /// <summary>
+    /// Wait for a window using the given wildcard title
+    /// </summary>
+    /// <param name="wildcard">the wildcard expression. it supports * and ?. For example: *notepad*, n?te</param>
+    /// <param name="timeoutSeconds">timeout in second</param>
+    /// <param name="cancellationToken">cancellationToken</param>
+    /// <exception cref="System.TimeoutException">thrown when time is up</exception>
+    /// <returns>the first found window</returns>
+    /// <returns></returns>
     public Task<Window> WaitForWindowLikeTitleAsync(string wildcard, double timeoutSeconds = 2,
         CancellationToken cancellationToken = default);
 
+    /// <summary>
+    /// Open the given file with the default application
+    /// </summary>
+    /// <param name="filePath">the file path to be opened</param>
     public void OpenFileWithDefaultApp(string filePath);
 }
