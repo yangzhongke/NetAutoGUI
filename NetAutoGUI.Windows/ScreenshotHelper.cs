@@ -15,9 +15,8 @@ namespace NetAutoGUI.Windows
             var wdc = User32.GetWindowDC(hWnd);
             var cdc = Gdi32.CreateCompatibleDC(wdc);
             var hBitmap = Gdi32.CreateCompatibleBitmap(wdc, width, height);
-            // 关联兼容位图和兼容内存，不这么做，下面的像素位块（bit_block）转换不会生效到 hBitmap。
+            // Associate a compatible bitmap with compatible memory. If you don't do this, the following pixel bit_block conversion will not take effect on hBitmap.
             var oldHBitmap = Gdi32.SelectObject(cdc, hBitmap);
-            // 注：使用 GDI+ 截取“使用硬件加速过的”应用时，截取到的部分是全黑的。
             var result = Gdi32.BitBlt(cdc, 0, 0, width, height, wdc, 0, 0, RasterOperationMode.SRCCOPY);
             Win32Error.ThrowLastErrorIfFalse(result);
             try
