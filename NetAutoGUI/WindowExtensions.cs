@@ -39,11 +39,11 @@ namespace NetAutoGUI
             if (winX != null && winY != null)
             {
                 (int x, int y) = WindowPosToScreen(window, (int)winX, (int)winY);
-                GUI.Mouse.Click(x: x, y: y, button: button, clicks: clicks, interval: interval);
+                GUI.Mouse.Click(x: x, y: y, button: button, clicks: clicks, intervalInSeconds: interval);
             }
             else
             {
-                GUI.Mouse.Click(button: button, clicks: clicks, interval: interval);
+                GUI.Mouse.Click(button: button, clicks: clicks, intervalInSeconds: interval);
             }
         }
 
@@ -52,11 +52,11 @@ namespace NetAutoGUI
             if (winX != null && winY != null)
             {
                 (int x, int y) = WindowPosToScreen(window, (int)winX, (int)winY);
-                GUI.Mouse.DoubleClick(x: x, y: y, button: button, interval: interval);
+                GUI.Mouse.DoubleClick(x: x, y: y, button: button, intervalInSeconds: interval);
             }
             else
             {
-                GUI.Mouse.DoubleClick(button: button, interval: interval);
+                GUI.Mouse.DoubleClick(button: button, intervalInSeconds: interval);
             }
         }
 
