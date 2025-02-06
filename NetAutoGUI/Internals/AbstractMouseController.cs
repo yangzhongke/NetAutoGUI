@@ -20,7 +20,7 @@ namespace NetAutoGUI.Internals
             Click(x, y, button, 2, intervalInSeconds);
         }
 
-        public async Task DoubleClickSync(int? x = null, int? y = null, MouseButtonType button = MouseButtonType.Left,
+        public async Task DoubleClickAsync(int? x = null, int? y = null, MouseButtonType button = MouseButtonType.Left,
             double intervalInSeconds = 0)
         {
             await ClickAsync(x, y, button, clicks: 2, intervalInSeconds);

@@ -2,6 +2,11 @@
 
 namespace NetAutoGUI
 {
+    /// <summary>
+    /// A location
+    /// </summary>
+    /// <param name="X">x</param>
+    /// <param name="Y">y</param>
     public record Location(int X, int Y)
     {
         public void Deconstruct(out int x, out int y)

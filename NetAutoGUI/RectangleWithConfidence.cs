@@ -1,4 +1,10 @@
 ﻿namespace NetAutoGUI;
+
+/// <summary>
+/// Rectangle with confidence
+/// </summary>
+/// <param name="Rectangle">Rectangle</param>
+/// <param name="Confidence">Confidence</param>
 public record RectangleWithConfidence(Rectangle Rectangle, double Confidence)
 {
     public void Deconstruct(out Rectangle rectangle, out double confidence)

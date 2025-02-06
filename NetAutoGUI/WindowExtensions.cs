@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace NetAutoGUI
 {
@@ -9,10 +11,10 @@ namespace NetAutoGUI
         /// <summary>
         /// Translate the relative position to position on screen
         /// </summary>
-        /// <param name="winX"></param>
-        /// <param name="winY"></param>
-        /// <param name="window"></param>
-        /// <returns></returns>
+        /// <param name="winX">x to the window</param>
+        /// <param name="winY">y to the window</param>
+        /// <param name="window">window</param>
+        /// <returns>position relative to the whole screen</returns>
         public static (int x, int y) WindowPosToScreen(this Window window, int winX, int winY)
         {
             return (winX + window.Rectangle.X, winY + window.Rectangle.Y);
@@ -21,6 +23,7 @@ namespace NetAutoGUI
         /// <summary>
         /// Move the mouse cursor to the specific location
         /// </summary>
+        /// <param name="window">window</param>
         /// <param name="winX"></param>
         /// <param name="winY"></param>
         public static void MoveMouseTo(this Window window, int winX, int winY)
@@ -30,36 +33,108 @@ namespace NetAutoGUI
         }
 
         /// <summary>
-        ///  simulates a single, left-button mouse click at the mouse’s current position. 
+        ///  Simulate a single mouse click at the given position relative to the given window<paramref name="window"/>. 
         /// </summary>
-        /// <param name="winX">move mouse to (x,y), then click the button</param>
-        /// <param name="winY"></param>
-        public static void Click(this Window window, int? winX = null, int? winY = null, MouseButtonType button = MouseButtonType.Left, int clicks = 1, double interval = 0)
+        /// <param name="window">window</param>
+        /// <param name="winX">mouse x to window origin. The default value is current mouse x.</param>
+        /// <param name="winY">mouse y to window origin. The default value is current mouse y. </param>
+        /// <param name="button">which mouse button</param>
+        /// <param name="clicks">click times</param>
+        /// <param name="intervalInSeconds">interval in seconds between clicks</param>
+        public static void Click(this Window window, int? winX = null, int? winY = null,
+            MouseButtonType button = MouseButtonType.Left, int clicks = 1, double intervalInSeconds = 0)
         {
             if (winX != null && winY != null)
             {
                 (int x, int y) = WindowPosToScreen(window, (int)winX, (int)winY);
-                GUI.Mouse.Click(x: x, y: y, button: button, clicks: clicks, intervalInSeconds: interval);
+                GUI.Mouse.Click(x: x, y: y, button: button, clicks: clicks, intervalInSeconds: intervalInSeconds);
             }
             else
             {
-                GUI.Mouse.Click(button: button, clicks: clicks, intervalInSeconds: interval);
+                GUI.Mouse.Click(button: button, clicks: clicks, intervalInSeconds: intervalInSeconds);
             }
         }
 
-        public static void DoubleClick(this Window window, int? winX = null, int? winY = null, MouseButtonType button = MouseButtonType.Left, double interval = 0)
+        /// <summary>
+        ///  Simulate a single mouse click at the given position relative to the given window<paramref name="window"/>. 
+        /// </summary>
+        /// <param name="window">window</param>
+        /// <param name="winX">mouse x to window origin. The default value is current mouse x.</param>
+        /// <param name="winY">mouse y to window origin. The default value is current mouse y. </param>
+        /// <param name="button">which mouse button</param>
+        /// <param name="clicks">click times</param>
+        /// <param name="intervalInSeconds">interval in seconds between clicks</param>
+        /// <param name="cancellationToken">cancellationToken</param>
+        public static async Task ClickAsync(this Window window, int? winX = null, int? winY = null,
+            MouseButtonType button = MouseButtonType.Left, int clicks = 1, double intervalInSeconds = 0,
+            CancellationToken cancellationToken = default(CancellationToken))
         {
             if (winX != null && winY != null)
             {
                 (int x, int y) = WindowPosToScreen(window, (int)winX, (int)winY);
-                GUI.Mouse.DoubleClick(x: x, y: y, button: button, intervalInSeconds: interval);
+                await GUI.Mouse.ClickAsync(x: x, y: y, button: button, clicks: clicks,
+                    intervalInSeconds: intervalInSeconds, cancellationToken: cancellationToken);
             }
             else
             {
-                GUI.Mouse.DoubleClick(button: button, intervalInSeconds: interval);
+                await GUI.Mouse.ClickAsync(button: button, clicks: clicks, intervalInSeconds: intervalInSeconds,
+                    cancellationToken: cancellationToken);
             }
         }
 
+        /// <summary>
+        ///  Simulate a double mouse click at the given position relative to the given window<paramref name="window"/>. 
+        /// </summary>
+        /// <param name="window">window</param>
+        /// <param name="winX">mouse x to window origin. The default value is current mouse x.</param>
+        /// <param name="winY">mouse y to window origin. The default value is current mouse y. </param>
+        /// <param name="button">which mouse button</param>
+        /// <param name="intervalInSeconds">interval in seconds between clicks</param>
+        public static void DoubleClick(this Window window, int? winX = null, int? winY = null,
+            MouseButtonType button = MouseButtonType.Left, double intervalInSeconds = 0)
+        {
+            if (winX != null && winY != null)
+            {
+                (int x, int y) = WindowPosToScreen(window, (int)winX, (int)winY);
+                GUI.Mouse.DoubleClick(x: x, y: y, button: button, intervalInSeconds: intervalInSeconds);
+            }
+            else
+            {
+                GUI.Mouse.DoubleClick(button: button, intervalInSeconds: intervalInSeconds);
+            }
+        }
+
+        /// <summary>
+        ///  Simulate a double mouse click at the given position relative to the given window<paramref name="window"/>. 
+        /// </summary>
+        /// <param name="window">window</param>
+        /// <param name="winX">mouse x to window origin. The default value is current mouse x.</param>
+        /// <param name="winY">mouse y to window origin. The default value is current mouse y. </param>
+        /// <param name="button">which mouse button</param>
+        /// <param name="intervalInSeconds">interval in seconds between clicks</param>
+        /// <param name="cancellationToken"></param>
+        public static async Task DoubleClickAsync(this Window window, int? winX = null, int? winY = null,
+            MouseButtonType button = MouseButtonType.Left, double intervalInSeconds = 0,
+            CancellationToken cancellationToken = default)
+        {
+            if (winX != null && winY != null)
+            {
+                (int x, int y) = WindowPosToScreen(window, (int)winX, (int)winY);
+                await GUI.Mouse.DoubleClickAsync(x: x, y: y, button: button, intervalInSeconds: intervalInSeconds);
+            }
+            else
+            {
+                await GUI.Mouse.DoubleClickAsync(button: button, intervalInSeconds: intervalInSeconds);
+            }
+        }
+
+        /// <summary>
+        /// Press down a mouse key down on a window
+        /// </summary>
+        /// <param name="window">window</param>
+        /// <param name="winX">x to the window. Default value is the current mouse position.</param>
+        /// <param name="winY">y to the window. Default value is the current mouse position.</param>
+        /// <param name="button">which button</param>
         public static void MouseDown(this Window window, int? winX = null, int? winY = null, MouseButtonType button = MouseButtonType.Left)
         {
             if (winX != null && winY != null)
@@ -72,6 +147,14 @@ namespace NetAutoGUI
                 GUI.Mouse.MouseDown(button: button);
             }
         }
+
+        /// <summary>
+        /// Release a mouse key down on a window
+        /// </summary>
+        /// <param name="window">window</param>
+        /// <param name="winX">x to the window. Default value is the current mouse position.</param>
+        /// <param name="winY">y to the window. Default value is the current mouse position.</param>
+        /// <param name="button">which button</param>
         public static void MouseUp(this Window window, int? winX = null, int? winY = null, MouseButtonType button = MouseButtonType.Left)
         {
             if (winX != null && winY != null)
@@ -85,47 +168,83 @@ namespace NetAutoGUI
             }
         }
 
+        /// <summary>
+        /// Locates all occurrences of a given bitmap within the window with a specified confidence level.
+        /// </summary>
+        /// <param name="window">The window where the search is performed</param>
+        /// <param name="imgFileToBeFound">The image to locate within the window</param>
+        /// <param name="confidence">The confidence level required for a match, ranging from 0.0 to 1.0.
+        /// A value closer to 1.0 ensures higher accuracy but may result in fewer matches.</param>
+        /// <returns>An array of <see cref="Rectangle"/> objects, each representing a located instance of 
+        /// <paramref name="imgFileToBeFound"/> within <paramref name="window"/>.</returns>
         public static Rectangle[] LocateAll(this Window window, BitmapData imgFileToBeFound, double confidence = 0.99)
         {
             var winScreenshot = GUI.Screenshot.Screenshot(window);
             return GUI.Screenshot.LocateAll(winScreenshot, imgFileToBeFound, confidence);
         }
 
-        public static Rectangle WindowRectToScreen(this Window window, Rectangle relativeRect)
+        private static Rectangle WindowRectToScreen(Window window, Rectangle relativeRect)
         {
             var winRect = window.Rectangle;
             return new Rectangle(winRect.X + relativeRect.X, winRect.Y + relativeRect.Y, winRect.Width, winRect.Height);
         }
 
-        public static Rectangle[] WindowRectsToScreen(this Window window, Rectangle[] relativeRects)
-        {
-            return relativeRects.Select(r => WindowRectToScreen(window, r)).ToArray();
-        }
-
         /// <summary>
-        /// 
+        /// Highlight several areas 
         /// </summary>
-        /// <param name="window"></param>
-        /// <param name="waitSeconds"></param>
-        /// <param name="rectangles">Relative to window</param>
+        /// <param name="window">window</param>
+        /// <param name="waitSeconds">display for the given seconds before it disappear</param>
+        /// <param name="relativeRects">multiple areas to highlight</param>
         public static void Highlight(this Window window, double waitSeconds = 0.5, params Rectangle[] relativeRects)
         {
-            Rectangle[] rectsToScreen = WindowRectsToScreen(window, relativeRects);
+            Rectangle[] rectsToScreen = relativeRects.Select(r => WindowRectToScreen(window, r)).ToArray();
             GUI.Screenshot.Highlight(waitSeconds, rectsToScreen);
         }
 
-        public static Rectangle? Locate(this Window window, BitmapData imgFileToBeFound, double confidence = 0.99)
-        {
-            var winBitmap = GUI.Screenshot.Screenshot(window);
-            return GUI.Screenshot.LocateAll(winBitmap, imgFileToBeFound, confidence).FirstOrDefault();
-        }
-
-        public static void WaitAndClick(this Window window, BitmapData imgFileToBeFound, double confidence = 0.99, double timeoutSeconds = 5)
+        /// <summary>
+        /// Wait for the first matched area(matched with<paramref name="imgFileToBeFound"/>) and click the centre of the area
+        /// </summary>
+        /// <param name="window">window</param>
+        /// <param name="imgFileToBeFound">The image to locate within the window</param>
+        /// <param name="confidence">The confidence level required for a match, ranging from 0.0 to 1.0.
+        /// A value closer to 1.0 ensures higher accuracy but may result in fewer matches.</param>
+        /// <param name="timeoutSeconds">timeout in seconds</param>
+        /// <exception cref="TimeoutException">not found after timeout</exception>
+        public static void WaitAndClick(this Window window, BitmapData imgFileToBeFound,
+            double confidence = 0.99, double timeoutSeconds = 5)
         {
             var rect = Wait(window, imgFileToBeFound, confidence, timeoutSeconds);
             Click(window, rect.Center.X, rect.Center.Y);
         }
 
+        /// <summary>
+        /// Wait for the first matched area(matched with<paramref name="imgFileToBeFound"/>) and click the centre of the area
+        /// </summary>
+        /// <param name="window">window</param>
+        /// <param name="imgFileToBeFound">The image to locate within the window</param>
+        /// <param name="confidence">The confidence level required for a match, ranging from 0.0 to 1.0.
+        /// A value closer to 1.0 ensures higher accuracy but may result in fewer matches.</param>
+        /// <param name="timeoutSeconds">timeout in seconds</param>
+        /// <param name="cancellationToken">cancellationToken</param>
+        /// <exception cref="TimeoutException">not found after timeout</exception>
+        public static async Task WaitAndClickAsync(this Window window, BitmapData imgFileToBeFound,
+            double confidence = 0.99, double timeoutSeconds = 5, CancellationToken cancellationToken = default)
+        {
+            var rect = await WaitAsync(window, imgFileToBeFound, confidence, timeoutSeconds, cancellationToken);
+            Click(window, rect.Center.X, rect.Center.Y);
+        }
+
+
+        /// <summary>
+        /// Wait for the first matched area(matched with<paramref name="imgFileToBeFound"/>) 
+        /// </summary>
+        /// <param name="window">window</param>
+        /// <param name="imgFileToBeFound">The image to locate within the window</param>
+        /// <param name="confidence">The confidence level required for a match, ranging from 0.0 to 1.0.
+        /// A value closer to 1.0 ensures higher accuracy but may result in fewer matches.</param>
+        /// <param name="timeoutSeconds">timeout in seconds</param>
+        /// <returns>Rectangle of the first found area</returns>
+        /// <exception cref="TimeoutException">not found after timeout</exception>
         public static Rectangle Wait(this Window window, BitmapData imgFileToBeFound, double confidence = 0.99, double timeoutSeconds = 5)
         {
             Stopwatch sw = new Stopwatch();
@@ -133,11 +252,50 @@ namespace NetAutoGUI
             Rectangle? rect = null;
             while (sw.ElapsedMilliseconds < timeoutSeconds * 1000 && rect == null)
             {
-                rect = Locate(window, imgFileToBeFound, confidence);
+                var winBitmap = GUI.Screenshot.Screenshot(window);
+                rect = GUI.Screenshot.LocateAll(winBitmap, imgFileToBeFound, confidence).FirstOrDefault();
             }
             if (rect == null)
             {
-                throw new InvalidOperationException($"image {imgFileToBeFound} not found on the screen");
+                throw new TimeoutException($"image {imgFileToBeFound} not found on the screen");
+            }
+            else
+            {
+                return rect;
+            }
+        }
+
+        /// <summary>
+        /// Wait for the first matched area(matched with<paramref name="imgFileToBeFound"/>) 
+        /// </summary>
+        /// <param name="window">window</param>
+        /// <param name="imgFileToBeFound">The image to locate within the window</param>
+        /// <param name="confidence">The confidence level required for a match, ranging from 0.0 to 1.0.
+        /// A value closer to 1.0 ensures higher accuracy but may result in fewer matches.</param>
+        /// <param name="timeoutSeconds">timeout in seconds</param>
+        /// <param name="cancellationToken">cancellationToken</param>
+        /// <returns>Rectangle of the first found area</returns>
+        /// <exception cref="TimeoutException">not found after timeout</exception>
+        public static async Task<Rectangle> WaitAsync(this Window window, BitmapData imgFileToBeFound,
+            double confidence = 0.99,
+            double timeoutSeconds = 5, CancellationToken cancellationToken = default)
+        {
+            Stopwatch sw = new Stopwatch();
+            sw.Start();
+            Rectangle? rect = null;
+            while (sw.ElapsedMilliseconds < timeoutSeconds * 1000 && rect == null)
+            {
+                var winBitmap = GUI.Screenshot.Screenshot(window);
+                rect = GUI.Screenshot.LocateAll(winBitmap, imgFileToBeFound, confidence).FirstOrDefault();
+                if (cancellationToken.IsCancellationRequested)
+                {
+                    throw new TaskCanceledException();
+                }
+            }
+
+            if (rect == null)
+            {
+                throw new TimeoutException($"image {imgFileToBeFound} not found on the screen");
             }
             else
             {

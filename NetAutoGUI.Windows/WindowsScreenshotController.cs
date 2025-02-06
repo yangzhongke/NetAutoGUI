@@ -44,7 +44,7 @@ namespace NetAutoGUI.Windows
             }
         }
 
-        public async Task HighlightAsync(double waitSeconds, Rectangle[] rectangles,
+        public override async Task HighlightAsync(double waitSeconds, Rectangle[] rectangles,
             CancellationToken cancellationToken = default)
         {
             HDC hDC_Desktop = User32.GetDC(HWND.NULL);
