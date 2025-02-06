@@ -29,7 +29,11 @@ namespace NetAutoGUI
             return result;
         }
 
-        public static IDataObject GetClipboardData()
+        /// <summary>
+        /// Get DataObject in clipboard
+        /// </summary>
+        /// <returns>DataObject</returns>
+        public static IDataObject? GetClipboardData()
         {
             return RunInSTAThread(() =>
             {
@@ -37,7 +41,11 @@ namespace NetAutoGUI
             });
         }
 
-        public static string GetClipboardText()
+        /// <summary>
+        /// Get text in clipboard
+        /// </summary>
+        /// <returns>text</returns>
+        public static string? GetClipboardText()
         {
             return RunInSTAThread(() =>
             {
@@ -45,7 +53,11 @@ namespace NetAutoGUI
             });
         }
 
-        public static Image GetImage()
+        /// <summary>
+        /// Get image from clipboard
+        /// </summary>
+        /// <returns>image</returns>
+        public static Image? GetImage()
         {
             return RunInSTAThread(() =>
             {

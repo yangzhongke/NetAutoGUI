@@ -6,6 +6,11 @@ namespace NetAutoGUI;
 
 public static class BitmapExtensions
 {
+    /// <summary>
+    /// Convert a Bitmp into BitmapData
+    /// </summary>
+    /// <param name="bitmap"></param>
+    /// <returns></returns>
     public static BitmapData ToBitmapData(this Bitmap bitmap)
     {
         using MemoryStream memSteam = new MemoryStream();

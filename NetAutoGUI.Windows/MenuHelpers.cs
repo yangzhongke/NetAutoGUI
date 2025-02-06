@@ -9,7 +9,7 @@ using static Vanara.PInvoke.User32;
 namespace NetAutoGUI.Windows;
 internal static class MenuHelpers
 {
-    public static MenuItemInfo GetMenuItem(HMENU menu, uint position)
+    private static MenuItemInfo GetMenuItem(HMENU menu, uint position)
     {
         MENUITEMINFO menuItemInfo = new MENUITEMINFO();
         menuItemInfo.cbSize = (uint)Marshal.SizeOf(typeof(MENUITEMINFO));

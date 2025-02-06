@@ -6,7 +6,11 @@ namespace NetAutoGUI
 {
     public static class GUIWindows
     {
-        public static bool IsSetHighDpiModeInvoked{ get; private set; }
+        private static bool _isSetHighDpiModeInvoked;
+
+        /// <summary>
+        /// It must be called before Application.Run(new Form())
+        /// </summary>
         public static void Initialize()
         {
             if (Application.MessageLoop)
@@ -14,7 +18,7 @@ namespace NetAutoGUI
                 throw new ApplicationException("GUIWindows.Initialize() must be called before Application.Run(new Form())");
             }
             Application.SetHighDpiMode(HighDpiMode.PerMonitorV2);
-            IsSetHighDpiModeInvoked = true;
+            _isSetHighDpiModeInvoked = true;
             BitmapData.LoadFromFileFunc = (string imageFile)=>
             {
                 using var image = Image.FromFile(imageFile);
@@ -23,9 +27,9 @@ namespace NetAutoGUI
             };
         }
 
-        public static void CheckIsSetHighDpiModeInvoked()
+        internal static void CheckIsSetHighDpiModeInvoked()
         {
-            if (!IsSetHighDpiModeInvoked)
+            if (!_isSetHighDpiModeInvoked)
             {
                 throw new ApplicationException("GUIWindows.Initialize() must be called before Application.Run(new Form())");
             }
