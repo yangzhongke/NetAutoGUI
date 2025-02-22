@@ -37,7 +37,6 @@ public partial class FormMain : Form
         if (!GUI.Application.IsApplicationRunning("notepad.exe"))
         {
             GUI.Application.LaunchApplication("notepad.exe");
-            GUI.Application.WaitForApplication("notepad.exe");
         }
         Window window = GUI.Application.WaitForWindow(w => w.Title.Contains("Notepad") && !w.Title.Contains("Notepad++"));
         window.Activate();
@@ -300,5 +299,46 @@ public partial class FormMain : Form
         window.MoveMouseTo(centerX, centerY);
         Thread.Sleep(500);
         window.Click(10, 20);
+    }
+
+    private void BtnLocateAllOnWindow_Click(object sender, EventArgs e)
+    {
+        GUI.Application.LaunchApplication("mspaint");
+        Window window = GUI.Application.WaitForWindow(w => w.Title.Contains("Paint"));
+        window.Activate();
+        var rects = window.LocateAll(BitmapData.FromFile("Images/mspaint_EditColors.png"));
+        if (rects.Length <= 0)
+        {
+            GUI.Dialog.Alert("Nothing found!");
+            return;
+        }
+        foreach (var rect in rects)
+        {
+            GUI.Dialog.Alert(rect.ToString());
+        }
+    }
+
+    private void BtnHighLightOnWindow_Click(object sender, EventArgs e)
+    {
+        if (!GUI.Application.IsApplicationRunning("notepad"))
+        {
+            GUI.Application.LaunchApplication("notepad");
+        }
+        Window window = GUI.Application.WaitForWindow(w => w.Title.EndsWith("Notepad"));
+
+        window.Activate();
+        window.Highlight(1, new NetAutoGUI.Rectangle(0, 0, 100, 200), new NetAutoGUI.Rectangle(100, 200, 50, 80));
+    }
+
+    private void BtnWaitAndClick_Click(object sender, EventArgs e)
+    {
+        if (!GUI.Application.IsApplicationRunning("mspaint"))
+        {
+            GUI.Application.LaunchApplication("mspaint");
+        }
+        Window window = GUI.Application.WaitForWindow(w => w.Title.EndsWith("Paint"));
+
+        window.Activate();
+        window.WaitAndClick(BitmapData.FromFile("Images/mspaint_EditColors.png"));
     }
 }

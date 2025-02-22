@@ -15,9 +15,26 @@ namespace NetAutoGUI
         /// <param name="winY">y to the window</param>
         /// <param name="window">window</param>
         /// <returns>position relative to the whole screen</returns>
-        public static (int x, int y) WindowPosToScreen(this Window window, int winX, int winY)
+        private static (int x, int y) WindowPosToScreen(this Window window, int winX, int winY)
         {
             return (winX + window.Rectangle.X, winY + window.Rectangle.Y);
+        }
+
+        private static (int x, int y) ScreenPosToWindow(this Window window, int screenX, int screenY)
+        {
+            return (screenX + window.Rectangle.X, screenY + window.Rectangle.Y);
+        }
+
+        private static Rectangle WindowRectToScreen(Window window, Rectangle relativeRect)
+        {
+            var winRect = window.Rectangle;
+            return new Rectangle(winRect.X + relativeRect.X, winRect.Y + relativeRect.Y, relativeRect.Width, relativeRect.Height);
+        }
+
+        private static Rectangle ScreenRectToWindow(Window window, Rectangle screenRect)
+        {
+            var winRect = window.Rectangle;
+            return new Rectangle(screenRect.X - winRect.X, screenRect.Y - winRect.Y, screenRect.Width, screenRect.Height);
         }
 
         /// <summary>
@@ -183,11 +200,6 @@ namespace NetAutoGUI
             return GUI.Screenshot.LocateAll(winScreenshot, imgFileToBeFound, confidence);
         }
 
-        private static Rectangle WindowRectToScreen(Window window, Rectangle relativeRect)
-        {
-            var winRect = window.Rectangle;
-            return new Rectangle(winRect.X + relativeRect.X, winRect.Y + relativeRect.Y, winRect.Width, winRect.Height);
-        }
 
         /// <summary>
         /// Highlight several areas 
@@ -214,6 +226,7 @@ namespace NetAutoGUI
             double confidence = 0.99, double timeoutSeconds = 5)
         {
             var rect = Wait(window, imgFileToBeFound, confidence, timeoutSeconds);
+            Highlight(window, 2, rect);
             Click(window, rect.Center.X, rect.Center.Y);
         }
 
@@ -243,7 +256,7 @@ namespace NetAutoGUI
         /// <param name="confidence">The confidence level required for a match, ranging from 0.0 to 1.0.
         /// A value closer to 1.0 ensures higher accuracy but may result in fewer matches.</param>
         /// <param name="timeoutSeconds">timeout in seconds</param>
-        /// <returns>Rectangle of the first found area</returns>
+        /// <returns>Rectangle of the first found area relative to <paramref name="window"/></returns>
         /// <exception cref="TimeoutException">not found after timeout</exception>
         public static Rectangle Wait(this Window window, BitmapData imgFileToBeFound, double confidence = 0.99, double timeoutSeconds = 5)
         {
@@ -253,6 +266,7 @@ namespace NetAutoGUI
             while (sw.ElapsedMilliseconds < timeoutSeconds * 1000 && rect == null)
             {
                 var winBitmap = GUI.Screenshot.Screenshot(window);
+                winBitmap.Save("d:/test.png");
                 rect = GUI.Screenshot.LocateAll(winBitmap, imgFileToBeFound, confidence).FirstOrDefault();
             }
             if (rect == null)

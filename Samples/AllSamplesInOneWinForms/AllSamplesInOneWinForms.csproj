@@ -17,6 +17,9 @@
     </ItemGroup>
 
     <ItemGroup>
+      <None Update="Images\mspaint_EditColors.png">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </None>
       <None Update="Images\startMenu.png">
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </None>

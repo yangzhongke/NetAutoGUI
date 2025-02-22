@@ -23,7 +23,8 @@ public interface IApplicationController
     /// </summary>
     /// <param name="processName">the process's name, it can be with or without an extension. For example, both 'notepad' and 'notepad.exe' are accepted.</param>
     /// <returns>true: the application is running; false: the application is not running</returns>
-    public bool IsApplicationRunning(string processName);
+    public bool IsApplicationRunning(string processName, string? arguments = null);
+
 
     /// <summary>
     /// Kill all processes with the given name

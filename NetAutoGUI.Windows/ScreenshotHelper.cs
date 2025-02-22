@@ -1,4 +1,5 @@
-﻿using System.Drawing;
+﻿using SkiaSharp;
+using System.Drawing;
 using System.Windows.Forms;
 using Vanara.PInvoke;
 using static Vanara.PInvoke.Gdi32;
@@ -11,13 +12,12 @@ namespace NetAutoGUI.Windows
         {
             GUIWindows.CheckIsSetHighDpiModeInvoked();
             //https://blog.walterlv.com/post/win32-and-system-drawing-capture-window-to-bitmap.html
-
-            var wdc = User32.GetWindowDC(hWnd);
-            var cdc = Gdi32.CreateCompatibleDC(wdc);
-            var hBitmap = Gdi32.CreateCompatibleBitmap(wdc, width, height);
+            var windowDC = User32.GetWindowDC(hWnd);
+            var compatibleDC = Gdi32.CreateCompatibleDC(windowDC);
+            var hBitmap = Gdi32.CreateCompatibleBitmap(windowDC, width, height);
             // Associate a compatible bitmap with compatible memory. If you don't do this, the following pixel bit_block conversion will not take effect on hBitmap.
-            var oldHBitmap = Gdi32.SelectObject(cdc, hBitmap);
-            var result = Gdi32.BitBlt(cdc, 0, 0, width, height, wdc, 0, 0, RasterOperationMode.SRCCOPY);
+            var oldHBitmap = Gdi32.SelectObject(compatibleDC, hBitmap);
+            var result = Gdi32.BitBlt(compatibleDC, 0, 0, width, height, windowDC, 0, 0, RasterOperationMode.SRCCOPY);
             Win32Error.ThrowLastErrorIfFalse(result);
             try
             {
@@ -26,10 +26,10 @@ namespace NetAutoGUI.Windows
             }
             finally
             {
-                Gdi32.SelectObject(cdc, oldHBitmap);
+                Gdi32.SelectObject(compatibleDC, oldHBitmap);
                 Gdi32.DeleteObject(hBitmap);
-                Gdi32.DeleteDC(cdc);
-                User32.ReleaseDC(hWnd, wdc);
+                Gdi32.DeleteDC(compatibleDC);
+                User32.ReleaseDC(hWnd, windowDC);
             }
         }
 

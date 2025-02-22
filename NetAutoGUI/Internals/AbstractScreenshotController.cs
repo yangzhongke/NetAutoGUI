@@ -9,9 +9,7 @@ namespace NetAutoGUI.Internals
     {
         public abstract BitmapData Screenshot();
 
-        public abstract BitmapData Screenshot(Window window);
-
-        
+        public abstract BitmapData Screenshot(Window window);        
 
         public abstract void Highlight(double waitSeconds = 0.5, params Rectangle[] rectangles);
 

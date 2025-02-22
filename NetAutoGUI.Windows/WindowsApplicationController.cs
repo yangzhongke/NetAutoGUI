@@ -15,11 +15,12 @@ namespace NetAutoGUI.Windows
     [SupportedOSPlatform("windows")]
     internal class WindowsApplicationController : IApplicationController
     {
-        public bool IsApplicationRunning(string processName)
+        public bool IsApplicationRunning(string processName, string? arguments = null)
         {
             //The ProcessName property does not include the .exe extension
             string nameWithoutExtension = Path.GetFileNameWithoutExtension(processName);
-            return Process.GetProcesses().Any(p => nameWithoutExtension.Equals(p.ProcessName, StringComparison.OrdinalIgnoreCase));
+            return Process.GetProcesses().Any(p => nameWithoutExtension.Equals(p.ProcessName, StringComparison.OrdinalIgnoreCase)
+            &&(arguments==null||(arguments!=null&&arguments==p.StartInfo.Arguments)));
         }
 
         public Process LaunchApplication(string appPath, string? arguments = null)
@@ -76,7 +77,7 @@ namespace NetAutoGUI.Windows
             //The ProcessName property does not include the .exe extension
             string nameWithoutExtension = Path.GetFileNameWithoutExtension(processName);
             Process? process;
-            while ((process = Process.GetProcesses().FirstOrDefault(p => p.ProcessName == nameWithoutExtension)) !=
+            while ((process = Process.GetProcesses().FirstOrDefault(p => nameWithoutExtension.Equals(p.ProcessName, StringComparison.OrdinalIgnoreCase))) ==
                    null)
             {
                 if (stopwatch.ElapsedMilliseconds > timeoutSeconds * 1000)
