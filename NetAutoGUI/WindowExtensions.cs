@@ -266,7 +266,6 @@ namespace NetAutoGUI
             while (sw.ElapsedMilliseconds < timeoutSeconds * 1000 && rect == null)
             {
                 var winBitmap = GUI.Screenshot.Screenshot(window);
-                winBitmap.Save("d:/test.png");
                 rect = GUI.Screenshot.LocateAll(winBitmap, imgFileToBeFound, confidence).FirstOrDefault();
             }
             if (rect == null)

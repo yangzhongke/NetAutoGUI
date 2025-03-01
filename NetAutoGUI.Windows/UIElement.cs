@@ -152,9 +152,7 @@ public class UIElement
 
     public BitmapData ToBitmap()
     {
-        int width = Rectangle.Width;
-        int height = Rectangle.Height;
-        return ScreenshotHelper.CaptureWindow(hwnd, width, height);
+        return ScreenshotHelper.CaptureWindow(hwnd);
     }
 
     public bool Equals(UIElement obj)

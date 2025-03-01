@@ -1,36 +1,75 @@
-﻿using SkiaSharp;
+﻿using System;
 using System.Drawing;
 using System.Windows.Forms;
 using Vanara.PInvoke;
-using static Vanara.PInvoke.Gdi32;
 
 namespace NetAutoGUI.Windows
 {
     internal static class ScreenshotHelper
     {
-        public static BitmapData CaptureWindow(HWND hWnd, int width, int height)
+        public static BitmapData CaptureWindow(HWND hWnd)
         {
-            GUIWindows.CheckIsSetHighDpiModeInvoked();
-            //https://blog.walterlv.com/post/win32-and-system-drawing-capture-window-to-bitmap.html
-            var windowDC = User32.GetWindowDC(hWnd);
-            var compatibleDC = Gdi32.CreateCompatibleDC(windowDC);
-            var hBitmap = Gdi32.CreateCompatibleBitmap(windowDC, width, height);
-            // Associate a compatible bitmap with compatible memory. If you don't do this, the following pixel bit_block conversion will not take effect on hBitmap.
-            var oldHBitmap = Gdi32.SelectObject(compatibleDC, hBitmap);
-            var result = Gdi32.BitBlt(compatibleDC, 0, 0, width, height, windowDC, 0, 0, RasterOperationMode.SRCCOPY);
-            Win32Error.ThrowLastErrorIfFalse(result);
+            // DWM is only available on Windows Vista and later;
+            // On some server systems, DWM is not available either.
+            // In this case, we use PrintWindow API instead.
+            // CaptureWindowUsingDwm can capture the GPU-accelarated window,
+            // while CaptureWindowUsingPrintWindow can only capture as a black picture from the GPU-accelarated window.
+            if (IsDwmEnabled())
+            {
+                return CaptureWindowUsingDwm(hWnd);
+            }
+            else
+            {
+                return CaptureWindowUsingPrintWindow(hWnd);
+            }
+        }
+
+        private static bool IsDwmEnabled()
+        {
             try
             {
-                using var bmp = Image.FromHbitmap(hBitmap.DangerousGetHandle());
-                return bmp.ToBitmapData();
+                DwmApi.DwmIsCompositionEnabled(out bool enabled);
+                return enabled;
             }
-            finally
+            catch
             {
-                Gdi32.SelectObject(compatibleDC, oldHBitmap);
-                Gdi32.DeleteObject(hBitmap);
-                Gdi32.DeleteDC(compatibleDC);
-                User32.ReleaseDC(hWnd, windowDC);
+                return false;
             }
+        }
+
+        private static BitmapData CaptureWindowUsingDwm(HWND hWnd)
+        {
+            DwmApi.DwmGetWindowAttribute<RECT>(hWnd, DwmApi.DWMWINDOWATTRIBUTE.DWMWA_EXTENDED_FRAME_BOUNDS, out RECT rect); // DWMWA_EXTENDED_FRAME_BOUNDS
+
+            int width = rect.Right - rect.Left;
+            int height = rect.Bottom - rect.Top;
+
+            using Bitmap bmp = new Bitmap(width, height);
+            using (Graphics g = Graphics.FromImage(bmp))
+            {
+                g.CopyFromScreen(rect.Left, rect.Top, 0, 0, new System.Drawing.Size(width, height), CopyPixelOperation.SourceCopy);
+            }
+            return bmp.ToBitmapData();
+        }
+
+        public static BitmapData CaptureWindowUsingPrintWindow(HWND hWnd)
+        {
+            if (!User32.GetWindowRect(hWnd, out RECT rect))
+                throw new Exception("Failed to get window rectangle.");
+
+            int width = rect.Right - rect.Left;
+            int height = rect.Bottom - rect.Top;
+
+            using Bitmap bmp = new(width, height);
+            using Graphics g = Graphics.FromImage(bmp);
+            IntPtr hdcBitmap = g.GetHdc();
+            bool success = User32.PrintWindow(hWnd, hdcBitmap, 0);
+            g.ReleaseHdc(hdcBitmap);
+
+            if (!success)
+                throw new Exception("PrintWindow failed!");
+
+            return bmp.ToBitmapData();
         }
 
         public static BitmapData CaptureVirtualScreen()
@@ -60,7 +99,8 @@ namespace NetAutoGUI.Windows
         }
 
         /// <summary>
-        /// Invoker should dispose the returned Bitmap
+        /// Invoker should dispose the returned Bitmap.
+        /// It uses Dwm, so it can capture the GPU-accelarated window.
         /// </summary>
         /// <param name="screen"></param>
         /// <returns></returns>

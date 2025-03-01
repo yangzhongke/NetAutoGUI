@@ -15,7 +15,7 @@ namespace NetAutoGUI
         {
             if (Application.MessageLoop)
             {
-                throw new ApplicationException("GUIWindows.Initialize() must be called before Application.Run(new Form())");
+                throw new ApplicationException("GUIWindows.Initialize() must be called at the beginning of Main");
             }
             Application.SetHighDpiMode(HighDpiMode.PerMonitorV2);
             _isSetHighDpiModeInvoked = true;
@@ -31,7 +31,7 @@ namespace NetAutoGUI
         {
             if (!_isSetHighDpiModeInvoked)
             {
-                throw new ApplicationException("GUIWindows.Initialize() must be called before Application.Run(new Form())");
+                throw new ApplicationException("GUIWindows.Initialize() must be called at the beginning of Main");
             }
         }
     }

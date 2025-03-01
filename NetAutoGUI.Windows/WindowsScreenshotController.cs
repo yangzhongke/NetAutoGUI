@@ -19,9 +19,7 @@ namespace NetAutoGUI.Windows
         public override BitmapData Screenshot(Window window)
         {
             var windowHandler = window.Id;
-            int width = window.Rectangle.Width;
-            int height = window.Rectangle.Height;
-            return ScreenshotHelper.CaptureWindow(windowHandler.ToHWND(), width, height);
+            return ScreenshotHelper.CaptureWindow(windowHandler.ToHWND());
         }
 
         private static PRECT ToPRECT(Rectangle r)
