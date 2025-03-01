@@ -17,7 +17,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AllSamplesInOneWinForms", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SamplesInConsoleApp", "SamplesInConsoleApp\SamplesInConsoleApp.csproj", "{9AA35EB8-F37E-4BCE-B08A-97996F754335}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetAutoGUI.Windows.UnitTests", "NetAutoGUI.Windows.UnitTests\NetAutoGUI.Windows.UnitTests.csproj", "{F46C92F3-EB73-492B-94DF-30989ED466C6}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetAutoGUI.Windows.IntegrationTests", "NetAutoGUI.Windows.IntegrationTests\NetAutoGUI.Windows.IntegrationTests.csproj", "{F46C92F3-EB73-492B-94DF-30989ED466C6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
