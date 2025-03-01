@@ -33,7 +33,7 @@ namespace NetAutoGUI
         /// Get DataObject in clipboard
         /// </summary>
         /// <returns>DataObject</returns>
-        public static IDataObject? GetClipboardData()
+        public static IDataObject? GetDataObject()
         {
             return RunInSTAThread(() =>
             {
@@ -45,7 +45,7 @@ namespace NetAutoGUI
         /// Get text in clipboard
         /// </summary>
         /// <returns>text</returns>
-        public static string? GetClipboardText()
+        public static string? GetText()
         {
             return RunInSTAThread(() =>
             {

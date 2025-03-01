@@ -1,7 +1,7 @@
 ﻿using NetAutoGUI;
 
 GUIWindows.Initialize();
-var window = GUI.Application.FindWindowLikeTitle("*百度*");
+var window = GUI.Application.FindWindowLikeTitle("*Notepad*");
 if (window == null)
 {
     Console.WriteLine("No Baidu Window Found!");

@@ -10,7 +10,6 @@ namespace NetAutoGUI
         public static void Activate(this Window window)
         {
             ActiveWindow(window.Id);
-            Thread.Sleep(100);
         }
 
         public static void ActiveWindow(long windowId)
@@ -28,7 +27,6 @@ namespace NetAutoGUI
         {
             HWND hwnd = window.Id.ToHWND();
             User32.ShowWindow(hwnd, ShowWindowCommand.SW_MAXIMIZE);
-            Thread.Sleep(100);
         }
 
         public static dynamic GetMainMenu(this Window window)

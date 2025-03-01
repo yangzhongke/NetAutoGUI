@@ -23,13 +23,12 @@ namespace NetAutoGUI.Windows
                 return CaptureWindowUsingPrintWindow(hWnd);
             }
         }
-
         private static bool IsDwmEnabled()
         {
             try
             {
-                DwmApi.DwmIsCompositionEnabled(out bool enabled);
-                return enabled;
+                var result = DwmApi.DwmIsCompositionEnabled(out bool enabled);
+                return result == HRESULT.S_OK && enabled;
             }
             catch
             {

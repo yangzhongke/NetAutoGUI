@@ -1,6 +1,4 @@
-﻿using System.Threading;
-
-namespace NetAutoGUI
+﻿namespace NetAutoGUI
 {
     public static class KeyboardExtensions
     {
@@ -14,7 +12,6 @@ namespace NetAutoGUI
             {
                 kb.Press(VirtualKeyCode.VK_C);
             }
-            Thread.Sleep(100);
         }
 
         /// <summary>
@@ -27,7 +24,6 @@ namespace NetAutoGUI
             {
                 kb.Press(VirtualKeyCode.VK_V);
             }
-            Thread.Sleep(100);
         }
 
         /// <summary>
@@ -40,7 +36,6 @@ namespace NetAutoGUI
             {
                 kb.Press(VirtualKeyCode.VK_A);
             }
-            Thread.Sleep(100);
         }
     }
 }
