@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Text;
 using Vanara.PInvoke;
-using static Vanara.PInvoke.User32;
 
 namespace NetAutoGUI.Windows;
 
@@ -102,10 +101,26 @@ public class UIElement
     {
         get
         {
-            var childHWNDs = User32.EnumChildWindows(this.hwnd);
-            foreach (var childHWND in childHWNDs)
+            List<HWND> result = new List<HWND>();
+            Queue<HWND> queue = new Queue<HWND>();
+
+            queue.Enqueue(this.hwnd);
+
+            while (queue.Count > 0)
             {
-                UIElement child = new UIElement(childHWND);
+                HWND currentWindow = queue.Dequeue();
+
+                User32.EnumChildWindows(currentWindow, (hWnd, _) =>
+                {
+                    result.Add(hWnd);
+                    queue.Enqueue(hWnd); // Add to queue for further processing
+                    return true;
+                }, IntPtr.Zero);
+            }
+
+            foreach (var descendentHwnd in result)
+            {
+                UIElement child = new UIElement(descendentHwnd);
                 yield return child;
             }
         }
@@ -122,22 +137,22 @@ public class UIElement
 
     public void Click()
     {
-        User32.SendMessage(hwnd, ButtonMessage.BM_CLICK, 0);
+        User32.SendMessage(hwnd, User32.ButtonMessage.BM_CLICK, 0);
     }
 
     public void Paste()
     {
-        User32.SendMessage(hwnd, WindowMessage.WM_PASTE, 0);
+        User32.SendMessage(hwnd, User32.WindowMessage.WM_PASTE, 0);
     }
 
     public void SelectAll()
     {
-        User32.SendMessage(hwnd, (uint)EditMessage.EM_SETSEL, IntPtr.Zero, new IntPtr(-1));
+        User32.SendMessage(hwnd, (uint)User32.EditMessage.EM_SETSEL, IntPtr.Zero, new IntPtr(-1));
     }
 
     public void Copy()
     {
-        User32.SendMessage(hwnd, WindowMessage.WM_COPY, 0);
+        User32.SendMessage(hwnd, User32.WindowMessage.WM_COPY, 0);
     }
 
     public void Focus()
