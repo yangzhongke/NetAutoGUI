@@ -26,10 +26,5 @@
     <ItemGroup>
       <ProjectReference Include="..\NetAutoGUI.Windows\NetAutoGUI.Windows.csproj" />
     </ItemGroup>
-    <ItemGroup>
-      <None Update="AppsForTest\WinFormsAppForTest1.exe">
-        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      </None>
-    </ItemGroup>
 
 </Project>
