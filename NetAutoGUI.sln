@@ -17,9 +17,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AllSamplesInOneWinForms", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SamplesInConsoleApp", "SamplesInConsoleApp\SamplesInConsoleApp.csproj", "{9AA35EB8-F37E-4BCE-B08A-97996F754335}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetAutoGUI.Windows.IntegrationTests", "NetAutoGUI.Windows.IntegrationTests\NetAutoGUI.Windows.IntegrationTests.csproj", "{F46C92F3-EB73-492B-94DF-30989ED466C6}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetAutoGUI.Windows.IntegrationTests", "Tests\NetAutoGUI.Windows.IntegrationTests\NetAutoGUI.Windows.IntegrationTests.csproj", "{F46C92F3-EB73-492B-94DF-30989ED466C6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WinFormsAppForTest1", "WinFormsAppForTest1\WinFormsAppForTest1.csproj", "{934C720A-C68F-4BF0-B1FD-51EBAC80B6BB}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WinFormsAppForTest1", "Tests\WinFormsAppForTest1\WinFormsAppForTest1.csproj", "{934C720A-C68F-4BF0-B1FD-51EBAC80B6BB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
