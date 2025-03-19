@@ -20,7 +20,7 @@ public class UIElementShould
     public void Handle_WinFormsAppForTest1_Correctly()
     {
         GUIWindows.Initialize();
-        Process process = GUI.Application.LaunchApplication(@".\AppsForTest\WinFormsAppForTest1.exe");
+        Process process = GUI.Application.LaunchApplication(@".\..\..\..\..\WinFormsAppForTest1\bin\Release\net8.0-windows\win-x86\publish\WinFormsAppForTest1.exe");
         output.WriteLine("All Screens:");
         foreach (var screen in Screen.AllScreens)
         {
