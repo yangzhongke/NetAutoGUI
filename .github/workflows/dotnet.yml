@@ -28,7 +28,7 @@ jobs:
     - name: Build
       run: dotnet build --no-restore
     - name: Publish Test App
-      run: dotnet publish -c Release -r win-x86 --self-contained true
-      working-directory: WinFormsAppForTest1      
+      run: publish-apps-for-test.bat
+      working-directory: Tests/  
     - name: Test
       run: dotnet test --no-build --verbosity normal
