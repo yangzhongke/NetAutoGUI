@@ -15,7 +15,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetAutoGUI.UnitTests", "Tes
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AllSamplesInOneWinForms", "Samples\AllSamplesInOneWinForms\AllSamplesInOneWinForms.csproj", "{EE33D1E7-B4F4-4D81-8C63-3C581F6A19C1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SamplesInConsoleApp", "SamplesInConsoleApp\SamplesInConsoleApp.csproj", "{9AA35EB8-F37E-4BCE-B08A-97996F754335}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SamplesInConsoleApp", "Samples\SamplesInConsoleApp\SamplesInConsoleApp.csproj", "{9AA35EB8-F37E-4BCE-B08A-97996F754335}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetAutoGUI.Windows.IntegrationTests", "Tests\NetAutoGUI.Windows.IntegrationTests\NetAutoGUI.Windows.IntegrationTests.csproj", "{F46C92F3-EB73-492B-94DF-30989ED466C6}"
 EndProject

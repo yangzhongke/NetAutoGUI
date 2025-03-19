@@ -20,18 +20,15 @@ public class UIElementShould
     public void Handle_WinFormsAppForTest1_Correctly()
     {
         GUIWindows.Initialize();
-        Process process = GUI.Application.LaunchApplication(@".\..\..\..\..\WinFormsAppForTest1\bin\Release\net8.0-windows\win-x86\publish\WinFormsAppForTest1.exe");
+        string solutionRoot = TestHelpers.GetSolutionRootDirectory();
+        string pathOfWinFormsAppForTest1 = TestHelpers.FindFile(solutionRoot,"WinFormsAppForTest1.exe");
+        Process process = GUI.Application.LaunchApplication(pathOfWinFormsAppForTest1);
         output.WriteLine("All Screens:");
         foreach (var screen in Screen.AllScreens)
         {
             output.WriteLine($"DeviceName: {screen.DeviceName}, Bounds: {screen.Bounds}");
         }
         Thread.Sleep(1000);
-        output.WriteLine("All windows:");
-        foreach (var w in GUI.Application.GetAllWindows())
-        {
-            output.WriteLine(w.Title);
-        }
         Window? win = GUI.Application.WaitForWindowByTitle("WinFormsAppForTest1");
         UIElement? uiWindow = win?.GetRoot();
         uiWindow.ClassName.Should().Contain("WindowsForms");
