@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using System.Threading;
 using System.Threading.Tasks;
+using NetAutoGUI.Internals;
 
 namespace NetAutoGUI;
 
@@ -21,7 +22,8 @@ public interface IApplicationController
     /// <summary>
     /// Check if there is any processes running with the given process name
     /// </summary>
-    /// <param name="processName">the process's name, it can be with or without an extension. For example, both 'notepad' and 'notepad.exe' are accepted.</param>
+    /// <param name="processName">the process's name.</param>
+    /// <param name="arguments">arguments</param>
     /// <returns>true: the application is running; false: the application is not running</returns>
     public bool IsApplicationRunning(string processName, string? arguments = null);
 
@@ -29,7 +31,7 @@ public interface IApplicationController
     /// <summary>
     /// Kill all processes with the given name
     /// </summary>
-    /// <param name="processName">the process's name, it can be with or without an extension. For example, both 'notepad' and 'notepad.exe' are accepted.</param>
+    /// <param name="processName">the process's name.</param>
     public void KillProcesses(string processName);
 
     /// <summary>
@@ -69,21 +71,22 @@ public interface IApplicationController
     /// <summary>
     /// Wait for the first process with the give name running.
     /// </summary>
-    /// <param name="processName">the process's name, it can be with or without an extension. For example, both 'notepad' and 'notepad.exe' are accepted.</param>
+    /// <param name="processName">the process's name.</param>
     /// <param name="timeoutSeconds">timeout in second</param>
     /// <returns>the first found process</returns>
     /// <exception cref="System.TimeoutException">thrown when time is up</exception>
-    public Process WaitForApplication(string processName, double timeoutSeconds = 2);
+    public Process WaitForApplication(string processName, double timeoutSeconds = Constants.DefaultWaitSeconds);
 
     /// <summary>
     /// Wait for the first process with the give name running.
     /// </summary>
-    /// <param name="processName">the process's name, it can be with or without an extension. For example, both 'notepad' and 'notepad.exe' are accepted.</param>
+    /// <param name="processName">the process's name.</param>
     /// <param name="timeoutSeconds">timeout in second</param>
     /// <param name="cancellationToken">cancellationToken</param>
     /// <returns>the first found process</returns>
     /// <exception cref="System.TimeoutException">thrown when time is up</exception>
-    public Task<Process> WaitForApplicationAsync(string processName, double timeoutSeconds = 2,
+    public Task<Process> WaitForApplicationAsync(string processName,
+        double timeoutSeconds = Constants.DefaultWaitSeconds,
         CancellationToken cancellationToken = default);
 
     /// <summary>
@@ -93,7 +96,7 @@ public interface IApplicationController
     /// <param name="timeoutSeconds">timeout in second</param>
     /// <exception cref="System.TimeoutException">thrown when time is up</exception>
     /// <returns>The first found window</returns>
-    public Window WaitForWindowByTitle(string title, double timeoutSeconds = 2);
+    public Window WaitForWindowByTitle(string title, double timeoutSeconds = Constants.DefaultWaitSeconds);
 
     /// <summary>
     /// Wait for the window with the given title 
@@ -103,27 +106,32 @@ public interface IApplicationController
     /// <param name="cancellationToken">cancellationToken</param>
     /// <exception cref="System.TimeoutException">thrown when time is up</exception>
     /// <returns>The first found window</returns>
-    public Task<Window> WaitForWindowByTitleAsync(string title, double timeoutSeconds = 2,
+    public Task<Window> WaitForWindowByTitleAsync(string title, double timeoutSeconds = Constants.DefaultWaitSeconds,
         CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Wait for a window using the given criteria
     /// </summary>
     /// <param name="predict">the condition</param>
+    /// <param name="errorMessageWhenTimeout">errorMessageWhenTimeout</param>
     /// <param name="timeoutSeconds">timeout in second</param>
     /// <exception cref="System.TimeoutException">thrown when time is up</exception>
     /// <returns>the first found window</returns>
-    public Window WaitForWindow(Func<Window, bool> predict, double timeoutSeconds = 2);
+    public Window WaitForWindow(Func<Window, bool> predict, string errorMessageWhenTimeout,
+        double timeoutSeconds = Constants.DefaultWaitSeconds);
 
     /// <summary>
     /// Wait for a window using the given criteria
     /// </summary>
     /// <param name="predict">the condition</param>
+    /// <param name="errorMessageWhenTimeout">errorMessageWhenTimeout</param>
     /// <param name="timeoutSeconds">timeout in second</param>
     /// <param name="cancellationToken">cancellationToken</param>
     /// <exception cref="System.TimeoutException">thrown when time is up</exception>
     /// <returns>the first found window</returns>
-    public Task<Window> WaitForWindowAsync(Func<Window, bool> predict, double timeoutSeconds = 2,
+    public Task<Window> WaitForWindowAsync(Func<Window, bool> predict,
+        string errorMessageWhenTimeout,
+        double timeoutSeconds = Constants.DefaultWaitSeconds,
         CancellationToken cancellationToken = default);
 
     /// <summary>
@@ -134,7 +142,7 @@ public interface IApplicationController
     /// <exception cref="System.TimeoutException">thrown when time is up</exception>
     /// <returns>the first found window</returns>
     /// <returns></returns>
-    public Window WaitForWindowLikeTitle(string wildcard, double timeoutSeconds = 2);
+    public Window WaitForWindowLikeTitle(string wildcard, double timeoutSeconds = Constants.DefaultWaitSeconds);
 
     /// <summary>
     /// Wait for a window using the given wildcard title
@@ -145,7 +153,8 @@ public interface IApplicationController
     /// <exception cref="System.TimeoutException">thrown when time is up</exception>
     /// <returns>the first found window</returns>
     /// <returns></returns>
-    public Task<Window> WaitForWindowLikeTitleAsync(string wildcard, double timeoutSeconds = 2,
+    public Task<Window> WaitForWindowLikeTitleAsync(string wildcard,
+        double timeoutSeconds = Constants.DefaultWaitSeconds,
         CancellationToken cancellationToken = default);
 
     /// <summary>

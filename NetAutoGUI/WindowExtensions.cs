@@ -1,8 +1,8 @@
 ﻿using System;
-using System.Diagnostics;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using NetAutoGUI.Internals;
 
 namespace NetAutoGUI
 {
@@ -260,22 +260,10 @@ namespace NetAutoGUI
         /// <exception cref="TimeoutException">not found after timeout</exception>
         public static Rectangle Wait(this Window window, BitmapData imgFileToBeFound, double confidence = 0.99, double timeoutSeconds = 5)
         {
-            Stopwatch sw = new Stopwatch();
-            sw.Start();
-            Rectangle? rect = null;
-            while (sw.ElapsedMilliseconds < timeoutSeconds * 1000 && rect == null)
-            {
-                var winBitmap = GUI.Screenshot.Screenshot(window);
-                rect = GUI.Screenshot.LocateAll(winBitmap, imgFileToBeFound, confidence).FirstOrDefault();
-            }
-            if (rect == null)
-            {
-                throw new TimeoutException($"image {imgFileToBeFound} not found on the screen");
-            }
-            else
-            {
-                return rect;
-            }
+            var winBitmap = GUI.Screenshot.Screenshot(window);
+            return TimeBoundWaiter.WaitForNotNull(
+                () => GUI.Screenshot.LocateAll(winBitmap, imgFileToBeFound, confidence).FirstOrDefault(),
+                timeoutSeconds, "Cannot find an area within the given time");
         }
 
         /// <summary>
@@ -293,27 +281,10 @@ namespace NetAutoGUI
             double confidence = 0.99,
             double timeoutSeconds = 5, CancellationToken cancellationToken = default)
         {
-            Stopwatch sw = new Stopwatch();
-            sw.Start();
-            Rectangle? rect = null;
-            while (sw.ElapsedMilliseconds < timeoutSeconds * 1000 && rect == null)
-            {
-                var winBitmap = GUI.Screenshot.Screenshot(window);
-                rect = GUI.Screenshot.LocateAll(winBitmap, imgFileToBeFound, confidence).FirstOrDefault();
-                if (cancellationToken.IsCancellationRequested)
-                {
-                    throw new TaskCanceledException();
-                }
-            }
-
-            if (rect == null)
-            {
-                throw new TimeoutException($"image {imgFileToBeFound} not found on the screen");
-            }
-            else
-            {
-                return rect;
-            }
+            var winBitmap = GUI.Screenshot.Screenshot(window);
+            return await TimeBoundWaiter.WaitForNotNullAsync(
+                () => GUI.Screenshot.LocateAll(winBitmap, imgFileToBeFound, confidence).FirstOrDefault(),
+                timeoutSeconds, "Cannot find an area within the given time", cancellationToken);
         }
     }
 }

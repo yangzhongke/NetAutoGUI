@@ -2,19 +2,20 @@
 using System.Collections.Generic;
 using System.Text;
 using Vanara.PInvoke;
+using static Vanara.PInvoke.User32;
 
 namespace NetAutoGUI.Windows;
 
-public class UIElement
+public class Win32UIElement
 {
     private HWND hwnd;
 
-    public UIElement(long hwnd)
+    public Win32UIElement(long hwnd)
     {
         this.hwnd = hwnd.ToHWND();
     }
 
-    public UIElement(HWND hwnd)
+    public Win32UIElement(HWND hwnd)
     {
         this.hwnd = hwnd;
     }
@@ -51,7 +52,8 @@ public class UIElement
             User32.SetWindowText(hwnd, value);
         }
     }
-    public UIElement? Parent
+
+    public Win32UIElement? Parent
     {
         get
         {
@@ -60,7 +62,8 @@ public class UIElement
             {
                 return null;
             }
-            return new UIElement(pHwnd);
+
+            return new Win32UIElement(pHwnd);
         }
         set
         {
@@ -75,7 +78,7 @@ public class UIElement
         }
     }
 
-    public IEnumerable<UIElement> Children
+    public IEnumerable<Win32UIElement> Children
     {
         get
         {
@@ -91,36 +94,56 @@ public class UIElement
                 else
                 {
                     prevChild = childHwnd;
-                    yield return new UIElement(childHwnd);
+                    if (User32.IsWindowVisible(childHwnd))
+                    {
+                        yield return new Win32UIElement(childHwnd);
+                    }
                 }
             }
         }
     }
 
-    public IEnumerable<UIElement> Descendents
+    private static IEnumerable<HWND> GetAllDescendantWindows(HWND parentHwnd)
+    {
+        ISet<HWND> descendantWindows = new HashSet<HWND>();
+        GetDescendantWindowsRecursive(parentHwnd, descendantWindows);
+        return descendantWindows;
+    }
+
+    private static void GetDescendantWindowsRecursive(HWND parentHwnd, ISet<HWND> collectedWindows)
+    {
+        List<HWND> childWindows = new List<HWND>();
+
+        EnumWindowsProc callback = (hWnd, lParam) =>
+        {
+            if (User32.IsWindowVisible(hWnd))
+            {
+                childWindows.Add(hWnd);
+            }
+
+            return true; // Continue enumeration
+        };
+
+        EnumChildWindows(parentHwnd, callback, IntPtr.Zero);
+
+        foreach (var childHwnd in childWindows)
+        {
+            if (User32.IsWindowVisible(childHwnd))
+            {
+                collectedWindows.Add(childHwnd);
+            }
+
+            GetDescendantWindowsRecursive(childHwnd, collectedWindows); // Recursive call for each child
+        }
+    }
+
+    public IEnumerable<Win32UIElement> Descendents
     {
         get
         {
-            List<HWND> result = new List<HWND>();
-            Queue<HWND> queue = new Queue<HWND>();
-
-            queue.Enqueue(this.hwnd);
-
-            while (queue.Count > 0)
+            foreach (var descendentHwnd in GetAllDescendantWindows(Handle))
             {
-                HWND currentWindow = queue.Dequeue();
-
-                User32.EnumChildWindows(currentWindow, (hWnd, _) =>
-                {
-                    result.Add(hWnd);
-                    queue.Enqueue(hWnd); // Add to queue for further processing
-                    return true;
-                }, IntPtr.Zero);
-            }
-
-            foreach (var descendentHwnd in result)
-            {
-                UIElement child = new UIElement(descendentHwnd);
+                Win32UIElement child = new Win32UIElement(descendentHwnd);
                 yield return child;
             }
         }
@@ -170,20 +193,20 @@ public class UIElement
         return ScreenshotHelper.CaptureWindow(hwnd);
     }
 
-    public bool Equals(UIElement obj)
+    public bool Equals(Win32UIElement obj)
     {
         return obj.hwnd == this.hwnd;
     }
     public override bool Equals(object? obj)
     {
-        if (obj is UIElement)
+        if (obj is Win32UIElement)
         {
             return Equals(obj, this);
         }
         return base.Equals(obj);
     }
 
-    public static bool operator ==(UIElement? e1, UIElement? e2)
+    public static bool operator ==(Win32UIElement? e1, Win32UIElement? e2)
     {
         if ((object?)e1 != null && (object?)e2 != null)
         {
@@ -199,7 +222,7 @@ public class UIElement
         }
     }
 
-    public static bool operator !=(UIElement? e1, UIElement? e2)
+    public static bool operator !=(Win32UIElement? e1, Win32UIElement? e2)
     {
         if ((object?)e1 != null && (object?)e2 != null)
         {

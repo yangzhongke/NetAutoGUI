@@ -14,9 +14,9 @@ public partial class FormMain : Form
     private void BtnStartNotePadThenKill_Click(object sender, EventArgs e)
     {
         GUI.Application.LaunchApplication("notepad.exe", "C:\\Windows\\system.ini");
-        GUI.Application.WaitForApplication("notepad.exe");
-        var isRunning = GUI.Application.IsApplicationRunning("notepad.exe");
-        if (isRunning && GUI.Dialog.YesNoBox("Kill all notepad?")) GUI.Application.KillProcesses("notepad.exe");
+        GUI.Application.WaitForApplication("notepad");
+        var isRunning = GUI.Application.IsApplicationRunning("notepad");
+        if (isRunning && GUI.Dialog.YesNoBox("Kill all notepad?")) GUI.Application.KillProcesses("notepad");
     }
 
     private void BtnFindWindow_Click(object sender, EventArgs e)
@@ -34,11 +34,14 @@ public partial class FormMain : Form
 
     private void BtnClickNotepadMenu_Click(object sender, EventArgs e)
     {
-        if (!GUI.Application.IsApplicationRunning("notepad.exe"))
+        if (!GUI.Application.IsApplicationRunning("notepad"))
         {
             GUI.Application.LaunchApplication("notepad.exe");
         }
-        Window window = GUI.Application.WaitForWindow(w => w.Title.Contains("Notepad") && !w.Title.Contains("Notepad++"));
+
+        Window window =
+            GUI.Application.WaitForWindow(w => w.Title.Contains("Notepad") && !w.Title.Contains("Notepad++"),
+                "Cannot find notepad");
         window.Activate();
         window.GetMainMenu().Edit.TimeDate.Click();
         for (int i = 0; i < 5; i++)
@@ -87,7 +90,7 @@ public partial class FormMain : Form
     {
         GUI.Application.LaunchApplication("mspaint.exe");
         GUI.Application.WaitForApplication("mspaint.exe");
-        Window window = GUI.Application.WaitForWindow(w => w.Title.Contains("Paint"));
+        Window window = GUI.Application.WaitForWindowLikeTitle("*Paint*");
         window.Activate();
         window.Maximize();
         GUI.Mouse.MoveTo(100, 300);
@@ -104,7 +107,7 @@ public partial class FormMain : Form
     {
         GUI.Application.LaunchApplication("chrome", "https://www.google.com/maps");
         GUI.Application.WaitForApplication("chrome");
-        Window window = GUI.Application.WaitForWindow(w => w.Title.Contains("Google"));
+        Window window = GUI.Application.WaitForWindowLikeTitle("*Google*");
         window.Activate();
         Thread.Sleep(2000);
         GUI.Mouse.MoveTo(300, 300);
@@ -128,7 +131,7 @@ public partial class FormMain : Form
     private void BtnKeyboardWrite_Click(object sender, EventArgs e)
     {
         GUI.Application.LaunchApplication("notepad");
-        Window window = GUI.Application.WaitForWindow(w => w.Title.Contains("Notepad"));
+        Window window = GUI.Application.WaitForWindowLikeTitle("*Notepad*");
         window.Activate();
 
         GUI.Keyboard.Write('a');
@@ -140,7 +143,7 @@ public partial class FormMain : Form
     private void BtnPress_Click(object sender, EventArgs e)
     {
         GUI.Application.LaunchApplication("notepad");
-        Window window = GUI.Application.WaitForWindow(w => w.Title.Contains("Notepad"));
+        Window window = GUI.Application.WaitForWindowLikeTitle("*Notepad*");
         window.Activate();
         GUI.Keyboard.Press(VirtualKeyCode.VK_0, VirtualKeyCode.VK_A);
     }
@@ -148,7 +151,7 @@ public partial class FormMain : Form
     private void BtnKeyDownUp_Click(object sender, EventArgs e)
     {
         GUI.Application.LaunchApplication("notepad");
-        Window window = GUI.Application.WaitForWindow(w => w.Title.Contains("Notepad"));
+        Window window = GUI.Application.WaitForWindowLikeTitle("*Notepad*");
         window.Activate();
         GUI.Keyboard.KeyDown(VirtualKeyCode.VK_A);
         GUI.Keyboard.KeyUp(VirtualKeyCode.VK_A);
@@ -157,7 +160,7 @@ public partial class FormMain : Form
     private void BtnHotKey_Click(object sender, EventArgs e)
     {
         GUI.Application.LaunchApplication("notepad");
-        Window window = GUI.Application.WaitForWindow(w => w.Title.Contains("Notepad"));
+        Window window = GUI.Application.WaitForWindowLikeTitle("*Notepad*");
         window.Activate();
         GUI.Keyboard.Write("Hello, World!");
         GUI.Keyboard.HotKey(VirtualKeyCode.CONTROL, VirtualKeyCode.VK_A);
@@ -172,7 +175,7 @@ public partial class FormMain : Form
     private void BtnHoldKey_Click(object sender, EventArgs e)
     {
         GUI.Application.LaunchApplication("notepad");
-        Window window = GUI.Application.WaitForWindow(w => w.Title.Contains("Notepad"));
+        Window window = GUI.Application.WaitForWindowLikeTitle("*Notepad*");
         window.Activate();
         GUI.Keyboard.Write("Hello, World!");
         using (GUI.Keyboard.Hold(VirtualKeyCode.CONTROL))
@@ -281,7 +284,7 @@ public partial class FormMain : Form
     private void BtnKeyCtrlCV_Click(object sender, EventArgs e)
     {
         GUI.Application.LaunchApplication("notepad");
-        Window window = GUI.Application.WaitForWindow(w => w.Title.Contains("Notepad"));
+        Window window = GUI.Application.WaitForWindowLikeTitle("*Notepad*");
         window.Activate();
         GUI.Keyboard.Write("Hello, World!");
         GUI.Keyboard.Ctrl_A();
@@ -293,7 +296,7 @@ public partial class FormMain : Form
     private void BtnMoveMouseToCenterOfMsPaint_Click(object sender, EventArgs e)
     {
         GUI.Application.LaunchApplication("mspaint");
-        Window window = GUI.Application.WaitForWindow(w => w.Title.Contains("Paint"));
+        Window window = GUI.Application.WaitForWindowLikeTitle("*Paint*");
         window.Activate();
         (int centerX, int centerY) = window.Rectangle.Center;
         window.MoveMouseTo(centerX, centerY);
@@ -304,7 +307,7 @@ public partial class FormMain : Form
     private void BtnLocateAllOnWindow_Click(object sender, EventArgs e)
     {
         GUI.Application.LaunchApplication("mspaint");
-        Window window = GUI.Application.WaitForWindow(w => w.Title.Contains("Paint"));
+        Window window = GUI.Application.WaitForWindowLikeTitle("*Paint*");
         window.Activate();
         var rects = window.LocateAll(BitmapData.FromFile("Images/mspaint_EditColors.png"));
         if (rects.Length <= 0)
@@ -324,7 +327,8 @@ public partial class FormMain : Form
         {
             GUI.Application.LaunchApplication("notepad");
         }
-        Window window = GUI.Application.WaitForWindow(w => w.Title.EndsWith("Notepad"));
+
+        Window window = GUI.Application.WaitForWindowLikeTitle("*Notepad*");
 
         window.Activate();
         window.Highlight(1, new NetAutoGUI.Rectangle(0, 0, 100, 200), new NetAutoGUI.Rectangle(100, 200, 50, 80));
@@ -336,7 +340,8 @@ public partial class FormMain : Form
         {
             GUI.Application.LaunchApplication("mspaint");
         }
-        Window window = GUI.Application.WaitForWindow(w => w.Title.EndsWith("Paint"));
+
+        Window window = GUI.Application.WaitForWindowLikeTitle("*Paint*");
 
         window.Activate();
         window.WaitAndClick(BitmapData.FromFile("Images/mspaint_EditColors.png"));

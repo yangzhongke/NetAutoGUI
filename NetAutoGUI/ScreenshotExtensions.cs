@@ -3,6 +3,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using NetAutoGUI.Internals;
 
 namespace NetAutoGUI
 {
@@ -23,47 +24,19 @@ namespace NetAutoGUI
 
         public static Rectangle WaitOnScreen(this IScreenshotController ctl, BitmapData imgFileToBeFound, double confidence = 0.99, double timeoutSeconds = 5)
         {
-            Stopwatch sw = new Stopwatch();
-            sw.Start();
-            Rectangle? rect = null;
-            while (sw.ElapsedMilliseconds < timeoutSeconds * 1000 && rect == null)
-            {
-                rect = LocateAllOnScreen(ctl, imgFileToBeFound, confidence).FirstOrDefault();
-            }
-            if (rect == null)
-            {
-                throw new InvalidOperationException($"image {imgFileToBeFound} not found on the screen");
-            }
-            else
-            {
-                return rect;
-            }
+            return TimeBoundWaiter.WaitForNotNull(
+                () => LocateAllOnScreen(ctl, imgFileToBeFound, confidence).FirstOrDefault(), timeoutSeconds,
+                "Cannot find an area within the given time");
         }
 
-        public static Task<Rectangle> WaitOnScreenAsync(this IScreenshotController ctl,
+        public static async Task<Rectangle> WaitOnScreenAsync(this IScreenshotController ctl,
             BitmapData imgFileToBeFound,
             double confidence = 0.99, double timeoutSeconds = 5, CancellationToken cancellationToken = default)
         {
-            Stopwatch sw = new Stopwatch();
-            sw.Start();
-            Rectangle? rect = null;
-            while (sw.ElapsedMilliseconds < timeoutSeconds * 1000 && rect == null)
-            {
-                rect = LocateAllOnScreen(ctl, imgFileToBeFound, confidence).FirstOrDefault();
-                if (cancellationToken.IsCancellationRequested)
-                {
-                    throw new TaskCanceledException();
-                }
-            }
-
-            if (rect == null)
-            {
-                throw new InvalidOperationException($"image {imgFileToBeFound} not found on the screen");
-            }
-            else
-            {
-                return Task.FromResult(rect);
-            }
+            return await TimeBoundWaiter.WaitForNotNullAsync(
+                () => LocateAllOnScreen(ctl, imgFileToBeFound, confidence).FirstOrDefault(), timeoutSeconds,
+                "Cannot find an area within the given time",
+                cancellationToken);
         }
 
         public static Rectangle[] LocateAllOnScreen(this IScreenshotController ctrl, BitmapData imgFileToBeFound, double confidence = 0.99)

@@ -30,7 +30,7 @@ public class UIElementShould
         }
         Thread.Sleep(1000);
         Window? win = GUI.Application.WaitForWindowByTitle("WinFormsAppForTest1");
-        UIElement? uiWindow = win?.GetRoot();
+        Win32UIElement? uiWindow = win?.GetRoot();
         uiWindow.ClassName.Should().Contain("WindowsForms");
         uiWindow.Text.Should().Be("WinFormsAppForTest1");
         uiWindow.Parent.Should().BeNull();
