@@ -15,26 +15,6 @@ public class UIElementShould
     {
         this.output = output;
     }
-
-    public static bool IsRunningInGitHubActions()
-    {
-        return Environment.GetEnvironmentVariable("GITHUB_ACTIONS") == "true";
-    }
-
-    [Fact]
-    public void ShouldHaveMultipleMonitors()
-    {
-        GUIWindows.Initialize();
-        if (IsRunningInGitHubActions())
-        {
-            output.WriteLine("Running in GitHub Actions");
-            
-        }
-        else
-        {
-            output.WriteLine("Not running in GitHub Actions");
-        }
-    }
     
     [Fact]
     public void Handle_WinFormsAppForTest1_Correctly()
