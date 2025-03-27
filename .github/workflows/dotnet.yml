@@ -31,7 +31,7 @@ jobs:
       run: .\publish-apps-for-test.bat
       working-directory: Tests/  
     - name: Install Virtual Display
-      run: whami #dotnet run
+      run: dir #dotnet run
       working-directory: Tests/VirtualDisplayInstaller
     - name: Test
       run: dotnet test --no-build --verbosity normal
