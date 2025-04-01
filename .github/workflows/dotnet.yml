@@ -33,6 +33,7 @@ jobs:
     - name: Install Virtual Display
       run: .\deviceinstaller64 install usbmmIdd.inf usbmmidd
       working-directory: usbmmidd/
+      continue-on-error: true
     - name: Configure Virtual Display
       run: .\deviceinstaller64 enableidd 1
       working-directory: usbmmidd/
