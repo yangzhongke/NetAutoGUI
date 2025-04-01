@@ -31,7 +31,10 @@ jobs:
       run: .\publish-apps-for-test.bat
       working-directory: Tests/  
     - name: Install Virtual Display
-      run: dir #dotnet run
-      working-directory: Tests/VirtualDisplayInstaller
+      run: deviceinstaller64 install usbmmIdd.inf usbmmidd
+      working-directory: usbmmidd/
+    - name: Configure Virtual Display
+      run: deviceinstaller64 enableidd 1
+      working-directory: usbmmidd/
     - name: Test
       run: dotnet test --no-build --verbosity normal
