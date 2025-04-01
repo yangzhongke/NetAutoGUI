@@ -12,7 +12,7 @@ on:
 jobs:
   build:
 
-    runs-on: windows-latest
+    runs-on: self-hosted
 
     steps:
     - uses: actions/checkout@v4
@@ -30,12 +30,5 @@ jobs:
     - name: Publish Test App
       run: .\publish-apps-for-test.bat
       working-directory: Tests/  
-    - name: Install Virtual Display
-      run: .\deviceinstaller64 install usbmmIdd.inf usbmmidd
-      working-directory: usbmmidd/
-      continue-on-error: true
-    - name: Configure Virtual Display
-      run: .\deviceinstaller64 enableidd 1
-      working-directory: usbmmidd/
     - name: Test
       run: dotnet test --no-build --verbosity normal
