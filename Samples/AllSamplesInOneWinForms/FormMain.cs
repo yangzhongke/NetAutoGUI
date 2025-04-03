@@ -40,7 +40,8 @@ public partial class FormMain : Form
         }
 
         Window window =
-            GUI.Application.WaitForWindow(w => w.Title.Contains("Notepad") && !w.Title.Contains("Notepad++"),
+            GUI.Application.WaitForWindow(
+                w => w.Title.Contains("Notepad") && !w.Title.Contains("Notepad++"),
                 "Cannot find notepad");
         window.Activate();
         window.GetMainMenu().Edit.TimeDate.Click();
@@ -298,7 +299,7 @@ public partial class FormMain : Form
         GUI.Application.LaunchApplication("mspaint");
         Window window = GUI.Application.WaitForWindowLikeTitle("*Paint*");
         window.Activate();
-        (int centerX, int centerY) = window.Rectangle.Center;
+        (int centerX, int centerY) = window.Boundary.Center;
         window.MoveMouseTo(centerX, centerY);
         Thread.Sleep(500);
         window.Click(10, 20);

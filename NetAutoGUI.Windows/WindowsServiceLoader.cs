@@ -26,6 +26,11 @@ namespace NetAutoGUI.Windows
             return new WindowsApplicationController();
         }
 
+        public IWindowController LoadWindowController()
+        {
+            return new WindowsWindowController();
+        }
+
         public IKeyboardController LoadKeyboardController()
         {
             return new WindowsKeyboardController();

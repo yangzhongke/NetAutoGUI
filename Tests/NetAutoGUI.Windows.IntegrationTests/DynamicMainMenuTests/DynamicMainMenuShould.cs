@@ -44,9 +44,9 @@ public class DynamicMainMenuShould
         bool clickAndWait_Returned = false;
         Thread thread = new Thread(() =>
         {
-            Thread.Sleep(500);
             clickAndWait_Returned.Should().BeFalse();
-            GUI.Keyboard.Press(VirtualKeyCode.SPACE);
+            var aboutWin = process.WaitForWindowByTitle("About Notepad");
+            aboutWin.Close();
             Thread.Sleep(200);
             clickAndWait_Returned.Should().BeTrue();
         });

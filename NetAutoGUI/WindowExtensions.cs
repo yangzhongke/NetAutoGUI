@@ -17,23 +17,25 @@ namespace NetAutoGUI
         /// <returns>position relative to the whole screen</returns>
         private static (int x, int y) WindowPosToScreen(this Window window, int winX, int winY)
         {
-            return (winX + window.Rectangle.X, winY + window.Rectangle.Y);
+            var rect = GUI.Window.GetBoundary(window);
+            return (winX + rect.X, winY + rect.Y);
         }
 
         private static (int x, int y) ScreenPosToWindow(this Window window, int screenX, int screenY)
         {
-            return (screenX + window.Rectangle.X, screenY + window.Rectangle.Y);
+            var rect = GUI.Window.GetBoundary(window);
+            return (screenX + rect.X, screenY + rect.Y);
         }
 
         private static Rectangle WindowRectToScreen(Window window, Rectangle relativeRect)
         {
-            var winRect = window.Rectangle;
+            var winRect = GUI.Window.GetBoundary(window);
             return new Rectangle(winRect.X + relativeRect.X, winRect.Y + relativeRect.Y, relativeRect.Width, relativeRect.Height);
         }
 
         private static Rectangle ScreenRectToWindow(Window window, Rectangle screenRect)
         {
-            var winRect = window.Rectangle;
+            var winRect = GUI.Window.GetBoundary(window);
             return new Rectangle(screenRect.X - winRect.X, screenRect.Y - winRect.Y, screenRect.Width, screenRect.Height);
         }
 

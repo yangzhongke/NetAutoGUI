@@ -38,7 +38,7 @@ namespace NetAutoGUI.Windows
 
         public Window? FindWindowByTitle(string title)
         {
-            return FindWindow(t => title == t.Title);
+            return FindWindow(w => title == w.Title);
         }
 
         public Window? FindWindow(Func<Window, bool> predict)
@@ -48,7 +48,7 @@ namespace NetAutoGUI.Windows
             {
                 bool visible = User32.IsWindowVisible(hwnd);
                 if (!visible) return true;
-                var currentWin = WindowLoader.CreateWindow(hwnd);
+                var currentWin = new Window(hwnd.ToInt64());
                 if (predict(currentWin))
                 {
                     window = currentWin;
@@ -64,7 +64,7 @@ namespace NetAutoGUI.Windows
 
         public Window? FindWindowLikeTitle(string wildcard)
         {
-            return FindWindow(f => wildcard.WildcardMatch(f.Title, true));
+            return FindWindow(w => wildcard.WildcardMatch(w.Title, true));
         }
 
         public Process WaitForApplication(string processName, double timeoutSeconds = Constants.DefaultWaitSeconds)
@@ -87,14 +87,16 @@ namespace NetAutoGUI.Windows
 
         public Window WaitForWindowByTitle(string title, double timeoutSeconds = Constants.DefaultWaitSeconds)
         {
-            return WaitForWindow(t => title == t.Title, $"Cannot find a window whose title={title}", timeoutSeconds);
+            return WaitForWindow(w => title == w.Title, $"Cannot find a window whose title={title}",
+                timeoutSeconds);
         }
 
         public async Task<Window> WaitForWindowByTitleAsync(string title,
             double timeoutSeconds = Constants.DefaultWaitSeconds,
             CancellationToken cancellationToken = default)
         {
-            return await WaitForWindowAsync(t => title == t.Title, $"Cannot find a window whose title={title}",
+            return await WaitForWindowAsync(w => title == w.Title,
+                $"Cannot find a window whose title={title}",
                 timeoutSeconds, cancellationToken);
         }
 
@@ -116,7 +118,7 @@ namespace NetAutoGUI.Windows
 
         public Window WaitForWindowLikeTitle(string wildcard, double timeoutSeconds = Constants.DefaultWaitSeconds)
         {
-            return WaitForWindow(f => wildcard.WildcardMatch(f.Title, true),
+            return WaitForWindow(w => wildcard.WildcardMatch(w.Title, true),
                 $"Cannot find a window with text like '{wildcard}'", timeoutSeconds);
         }
 
@@ -124,7 +126,7 @@ namespace NetAutoGUI.Windows
             double timeoutSeconds = Constants.DefaultWaitSeconds,
             CancellationToken cancellationToken = default)
         {
-            return await WaitForWindowAsync(f => wildcard.WildcardMatch(f.Title, true),
+            return await WaitForWindowAsync(w => wildcard.WildcardMatch(w.Title, true),
                 $"Cannot find a window with text like '{wildcard}'", timeoutSeconds,
                 cancellationToken);
         }
@@ -144,7 +146,7 @@ namespace NetAutoGUI.Windows
             List<Window> list = new List<Window>();
             User32.EnumWindows((hwnd, _) =>
             {
-                var window = WindowLoader.CreateWindow(hwnd);
+                var window = new Window(hwnd.ToInt64());
                 if (User32.IsWindowVisible(hwnd))
                 {
                     list.Add(window);
@@ -162,7 +164,7 @@ namespace NetAutoGUI.Windows
                 return null;
             }
 
-            return WindowLoader.CreateWindow(hwnd);
+            return new Window(hwnd.ToInt64());
         }
 
         public void OpenFileWithDefaultApp(string filePath)

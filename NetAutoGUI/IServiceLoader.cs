@@ -34,5 +34,7 @@
         /// </summary>
         /// <returns></returns>
         public IApplicationController LoadApplicationController();
+
+        public IWindowController LoadWindowController();
     }
 }

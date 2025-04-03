@@ -34,7 +34,7 @@ public static class ProcessExtensions
         foreach (var hwnd in EnumerateProcessWindowHandles(process))
         {
             if (User32.IsWindowVisible(hwnd) == false) continue;
-            windowList.Add(WindowLoader.CreateWindow(hwnd));
+            windowList.Add(new Window(hwnd.ToInt64()));
         }
 
         return windowList.ToArray();
@@ -99,7 +99,8 @@ public static class ProcessExtensions
         double timeoutSeconds = Constants.DefaultWaitSeconds,
         CancellationToken cancellationToken = default)
     {
-        return await WaitForWindowAsync(process, w => w.Title == title, $"Cannot find a window with title={title}",
+        return await WaitForWindowAsync(process, w => w.Title == title,
+            $"Cannot find a window with title={title}",
             timeoutSeconds, cancellationToken);
     }
 

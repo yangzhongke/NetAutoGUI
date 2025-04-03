@@ -14,6 +14,7 @@ namespace NetAutoGUI
         public static readonly IDialogController Dialog;
         public static readonly IScreenshotController Screenshot;
         public static readonly IApplicationController Application;
+        internal static readonly IWindowController Window;
 
         static GUI()
         {
@@ -35,6 +36,7 @@ namespace NetAutoGUI
                 Dialog = serviceLoader.LoadDialogController();
                 Screenshot = serviceLoader.LoadScreenshotController();
                 Application = serviceLoader.LoadApplicationController();
+                Window = serviceLoader.LoadWindowController();
             }
             else
             {

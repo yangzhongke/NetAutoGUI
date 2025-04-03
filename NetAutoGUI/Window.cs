@@ -6,24 +6,26 @@ namespace NetAutoGUI
     /// A window on desktop
     /// </summary>
     /// <param name="Id">the id/handler of the window</param>
-    /// <param name="getRectFunc">a function used for getting the window's rectangle</param>
-    /// <param name="getTitleFunc">a function used for getting the window's title</param>
-    public record Window(long Id, Func<long, Rectangle> getRectFunc,
-        Func<long, string> getTitleFunc)
+    public class Window
     {
-        public string Title
+        public long Id { get; private set; }
+
+        public Window(long id)
         {
-            get
-            {
-                return getTitleFunc(Id);
-            }
+            Id = id;
         }
-        public Rectangle Rectangle
+
+        public string Title => GUI.Window.GetTitle(this);
+        public Rectangle Boundary => GUI.Window.GetBoundary(this);
+
+        public void PressKey(VirtualKeyCode keyCode)
         {
-            get
-            {
-                return getRectFunc(Id);
-            }
+            GUI.Window.PressKey(this, keyCode);
+        }
+
+        public void Close()
+        {
+            GUI.Window.Close(this);
         }
     }
 }
