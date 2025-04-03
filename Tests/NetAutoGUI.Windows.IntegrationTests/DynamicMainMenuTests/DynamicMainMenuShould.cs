@@ -38,7 +38,6 @@ public class DynamicMainMenuShould
         GUIWindows.Initialize();
         var process = GUI.Application.LaunchApplication("notepad");
         Window? win = process.WaitForWindowLikeTitle("*Notepad*");
-        win.Activate();
         win.Should().NotBeNull();
         dynamic sut = new DynamicMainMenu(new HWND((IntPtr)win.Id));
         bool clickAndWait_Returned = false;
@@ -63,7 +62,6 @@ public class DynamicMainMenuShould
         GUIWindows.Initialize();
         var process = GUI.Application.LaunchApplication("notepad");
         Window? win = process.WaitForWindowLikeTitle("*Notepad*");
-        win.Activate();
         win.Should().NotBeNull();
         dynamic sut = new DynamicMainMenu(new HWND((IntPtr)win.Id));
         bool clickAndWait_Returned = false;
@@ -85,7 +83,6 @@ public class DynamicMainMenuShould
         GUIWindows.Initialize();
         var process = GUI.Application.LaunchApplication("notepad");
         Window? win = process.WaitForWindowLikeTitle("*Notepad*");
-        win.Activate();
         win.Should().NotBeNull();
         dynamic sut = new DynamicMainMenu(new HWND((IntPtr)win.Id));
         bool clickAndWait_Returned = false;
@@ -98,6 +95,19 @@ public class DynamicMainMenuShould
         sut.Help.AboutNotepad();
         clickAndWait_Returned = true;
         thread.Join();
+        GUI.Application.KillProcesses("notepad");
+    }
+
+    [Fact]
+    public void SubMenuItem_ShouldWorkWell()
+    {
+        GUIWindows.Initialize();
+        var process = GUI.Application.LaunchApplication("notepad");
+        Window? win = process.WaitForWindowLikeTitle("*Notepad*");
+        win.Should().NotBeNull();
+        dynamic sut = new DynamicMainMenu(new HWND((IntPtr)win.Id));
+        Action action = () => sut.View.Zoom.ZoomOut();
+        action.Should().NotThrow();
         GUI.Application.KillProcesses("notepad");
     }
 }
