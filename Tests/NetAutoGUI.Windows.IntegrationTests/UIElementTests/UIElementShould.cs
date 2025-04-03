@@ -23,17 +23,15 @@ public class UIElementShould
         string solutionRoot = TestHelpers.GetSolutionRootDirectory();
         string pathOfWinFormsAppForTest1 = TestHelpers.FindFile(solutionRoot,"WinFormsAppForTest1.exe");
         Process process = GUI.Application.LaunchApplication(pathOfWinFormsAppForTest1);
-        output.WriteLine("All Screens:");
-        foreach (var screen in Screen.AllScreens)
-        {
-            output.WriteLine($"DeviceName: {screen.DeviceName}, Bounds: {screen.Bounds}");
-        }
-        Thread.Sleep(1000);
-        Window? win = GUI.Application.WaitForWindowByTitle("WinFormsAppForTest1");
+        Window? win = process.WaitForWindowByTitle("WinFormsAppForTest1");
         Win32UIElement? uiWindow = win?.GetRoot();
         uiWindow.ClassName.Should().Contain("WindowsForms");
         uiWindow.Text.Should().Be("WinFormsAppForTest1");
         uiWindow.Parent.Should().BeNull();
+        uiWindow.Children.Should().Contain(c => c.Text.Equals("Name"));
+        uiWindow.Children.Should().NotContain(c => c.Text.Equals("Email"));
+        uiWindow.Descendents.Should().Contain(c => c.Text.Equals("Name"));
+        uiWindow.Descendents.Should().Contain(c => c.Text.Equals("Email"));
         GUI.Application.KillProcesses("WinFormsAppForTest1");
     }
 }
