@@ -10,8 +10,8 @@ public class DynamicMainMenuShould
     public void HandleNotepadExit_ImplicitlyClick_Correctly()
     {
         GUIWindows.Initialize();
-        GUI.Application.LaunchApplication("notepad");
-        Window? win = GUI.Application.WaitForWindowLikeTitle("*Notepad*");
+        var process = GUI.Application.LaunchApplication("notepad");
+        Window? win = process.WaitForWindowLikeTitle("*Notepad*");
         win.Should().NotBeNull();
         dynamic sut = new DynamicMainMenu(new HWND((IntPtr)win.Id));
         sut.File.Exit();
@@ -23,8 +23,8 @@ public class DynamicMainMenuShould
     public void HandleNotepadExit_ExplicitlyClick_Correctly()
     {
         GUIWindows.Initialize();
-        GUI.Application.LaunchApplication("notepad");
-        Window? win = GUI.Application.WaitForWindowLikeTitle("*Notepad*");
+        var process = GUI.Application.LaunchApplication("notepad");
+        Window? win = process.WaitForWindowLikeTitle("*Notepad*");
         win.Should().NotBeNull();
         dynamic sut = new DynamicMainMenu(new HWND((IntPtr)win.Id));
         sut.File.Exit.Click();
@@ -36,8 +36,8 @@ public class DynamicMainMenuShould
     public void Blocked_WhenClickAndWait()
     {
         GUIWindows.Initialize();
-        GUI.Application.LaunchApplication("notepad");
-        Window? win = GUI.Application.WaitForWindowLikeTitle("*Notepad*");
+        var process = GUI.Application.LaunchApplication("notepad");
+        Window? win = process.WaitForWindowLikeTitle("*Notepad*");
         win.Activate();
         win.Should().NotBeNull();
         dynamic sut = new DynamicMainMenu(new HWND((IntPtr)win.Id));
@@ -61,8 +61,8 @@ public class DynamicMainMenuShould
     public void Unblocked_WhenClickExplicitly()
     {
         GUIWindows.Initialize();
-        GUI.Application.LaunchApplication("notepad");
-        Window? win = GUI.Application.WaitForWindowLikeTitle("*Notepad*");
+        var process = GUI.Application.LaunchApplication("notepad");
+        Window? win = process.WaitForWindowLikeTitle("*Notepad*");
         win.Activate();
         win.Should().NotBeNull();
         dynamic sut = new DynamicMainMenu(new HWND((IntPtr)win.Id));
@@ -83,8 +83,8 @@ public class DynamicMainMenuShould
     public void Unblocked_WhenClickImplicitly()
     {
         GUIWindows.Initialize();
-        GUI.Application.LaunchApplication("notepad");
-        Window? win = GUI.Application.WaitForWindowLikeTitle("*Notepad*");
+        var process = GUI.Application.LaunchApplication("notepad");
+        Window? win = process.WaitForWindowLikeTitle("*Notepad*");
         win.Activate();
         win.Should().NotBeNull();
         dynamic sut = new DynamicMainMenu(new HWND((IntPtr)win.Id));
