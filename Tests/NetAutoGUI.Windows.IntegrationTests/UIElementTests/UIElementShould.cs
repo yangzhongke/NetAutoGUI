@@ -32,6 +32,6 @@ public class UIElementShould
         uiWindow.Children.Should().NotContain(c => c.Text.Equals("Email"));
         uiWindow.Descendents.Should().Contain(c => c.Text.Equals("Name"));
         uiWindow.Descendents.Should().Contain(c => c.Text.Equals("Email"));
-        GUI.Application.KillProcesses("WinFormsAppForTest1");
+        process.Kill();
     }
 }

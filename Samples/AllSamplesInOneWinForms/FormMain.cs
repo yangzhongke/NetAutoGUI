@@ -13,10 +13,10 @@ public partial class FormMain : Form
 
     private void BtnStartNotePadThenKill_Click(object sender, EventArgs e)
     {
-        GUI.Application.LaunchApplication("notepad.exe", "C:\\Windows\\system.ini");
-        GUI.Application.WaitForApplication("notepad");
+        var process = GUI.Application.LaunchApplication("notepad.exe", "C:\\Windows\\system.ini");
         var isRunning = GUI.Application.IsApplicationRunning("notepad");
-        if (isRunning && GUI.Dialog.YesNoBox("Kill all notepad?")) GUI.Application.KillProcesses("notepad");
+        if (isRunning && GUI.Dialog.YesNoBox("Kill all notepad?"))
+            process.Kill();
     }
 
     private void BtnFindWindow_Click(object sender, EventArgs e)

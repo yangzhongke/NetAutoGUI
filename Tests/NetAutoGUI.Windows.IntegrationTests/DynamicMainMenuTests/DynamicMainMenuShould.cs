@@ -53,7 +53,7 @@ public class DynamicMainMenuShould
         sut.Help.AboutNotepad.ClickAndWait();
         clickAndWait_Returned = true;
         thread.Join();
-        GUI.Application.KillProcesses("notepad");
+        process.Kill();
     }
 
     [Fact]
@@ -74,7 +74,7 @@ public class DynamicMainMenuShould
         sut.Help.AboutNotepad.Click();
         clickAndWait_Returned = true;
         thread.Join();
-        GUI.Application.KillProcesses("notepad");
+        process.Kill();
     }
 
     [Fact]
@@ -95,7 +95,7 @@ public class DynamicMainMenuShould
         sut.Help.AboutNotepad();
         clickAndWait_Returned = true;
         thread.Join();
-        GUI.Application.KillProcesses("notepad");
+        process.Kill();
     }
 
     [Fact]
@@ -108,6 +108,6 @@ public class DynamicMainMenuShould
         dynamic sut = new DynamicMainMenu(new HWND((IntPtr)win.Id));
         Action action = () => sut.View.Zoom.ZoomOut();
         action.Should().NotThrow();
-        GUI.Application.KillProcesses("notepad");
+        process.Kill();
     }
 }
