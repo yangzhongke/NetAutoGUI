@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading;
 using Vanara.PInvoke;
@@ -9,7 +10,7 @@ namespace NetAutoGUI.Windows;
 
 public class Win32UIElement
 {
-    private HWND hwnd;
+    private readonly HWND hwnd;
 
     public Win32UIElement(long hwnd)
     {
@@ -43,14 +44,18 @@ public class Win32UIElement
     {
         get
         {
-            int txtLen = User32.GetWindowTextLength(hwnd);
-            StringBuilder sbText = new StringBuilder(txtLen);
-            User32.GetWindowText(hwnd, sbText, txtLen + 1);
-            return sbText.ToString();
+            IntPtr lengthPtr = SendMessage(hwnd, WindowMessage.WM_GETTEXTLENGTH, IntPtr.Zero, IntPtr.Zero);
+            int length = lengthPtr.ToInt32();
+            StringBuilder sb = new StringBuilder(length + 1);
+            SendMessage(hwnd, (uint)WindowMessage.WM_GETTEXT, new IntPtr(sb.Capacity), sb);
+            return sb.ToString();
         }
         set
         {
-            User32.SetWindowText(hwnd, value);
+            IntPtr ptrText = Marshal.StringToHGlobalAuto(value);
+            SendMessage(hwnd, WindowMessage.WM_SETTEXT, IntPtr.Zero, ptrText);
+            Marshal.FreeHGlobal(ptrText);
+            
         }
     }
 
@@ -215,7 +220,8 @@ public class Win32UIElement
         {
             return Equals(obj, this);
         }
-        return base.Equals(obj);
+
+        return false;
     }
 
     public static bool operator ==(Win32UIElement? e1, Win32UIElement? e2)

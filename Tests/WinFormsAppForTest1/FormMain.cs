@@ -20,4 +20,9 @@ public partial class FormMain : Form
             form2.ShowDialog(this);
         }
     }
+
+    private void BtnEqual_Click(object sender, EventArgs e)
+    {
+        txtNum3.Text = (Convert.ToInt32(txtNum1.Text) + Convert.ToInt32(txtNum2.Text)).ToString();
+    }
 }
