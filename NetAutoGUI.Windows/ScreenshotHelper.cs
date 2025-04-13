@@ -9,6 +9,10 @@ namespace NetAutoGUI.Windows
     {
         public static BitmapData CaptureWindow(HWND hWnd)
         {
+            if (!User32.IsWindow(hWnd))
+            {
+                throw new ArgumentException("only window is allowed", nameof(hWnd));
+            }
             // DWM is only available on Windows Vista and later;
             // On some server systems, DWM is not available either.
             // In this case, we use PrintWindow API instead.
@@ -38,15 +42,29 @@ namespace NetAutoGUI.Windows
 
         private static BitmapData CaptureWindowUsingDwm(HWND hWnd)
         {
-            DwmApi.DwmGetWindowAttribute<RECT>(hWnd, DwmApi.DWMWINDOWATTRIBUTE.DWMWA_EXTENDED_FRAME_BOUNDS, out RECT rect); // DWMWA_EXTENDED_FRAME_BOUNDS
+            RECT rectToBeCaptured;
+            //if the hWnd a top-level window 
+            if (hWnd == User32.GetAncestor(hWnd, User32.GetAncestorFlag.GA_ROOT))
+            {
+                var hr = DwmApi.DwmGetWindowAttribute(hWnd,
+                    DwmApi.DWMWINDOWATTRIBUTE.DWMWA_EXTENDED_FRAME_BOUNDS,
+                    out rectToBeCaptured);
+                hr.ThrowIfFailed();
+            }
+            else
+            {
+                // Get control's rectangle in screen coordinates
+                User32.GetWindowRect(hWnd, out rectToBeCaptured);
+            }
 
-            int width = rect.Right - rect.Left;
-            int height = rect.Bottom - rect.Top;
+            int width = rectToBeCaptured.Width;
+            int height = rectToBeCaptured.Height;
 
             using Bitmap bmp = new Bitmap(width, height);
             using (Graphics g = Graphics.FromImage(bmp))
             {
-                g.CopyFromScreen(rect.Left, rect.Top, 0, 0, new System.Drawing.Size(width, height), CopyPixelOperation.SourceCopy);
+                g.CopyFromScreen(rectToBeCaptured.Left, rectToBeCaptured.Top, 0, 0,
+                    new System.Drawing.Size(width, height), CopyPixelOperation.SourceCopy);
             }
             return bmp.ToBitmapData();
         }

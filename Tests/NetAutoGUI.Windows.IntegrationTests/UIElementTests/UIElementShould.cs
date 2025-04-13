@@ -2,8 +2,6 @@
 using FluentAssertions;
 using System.Diagnostics;
 using Xunit.Abstractions;
-using System.Windows.Forms;
-
 
 namespace NetAutoGUI.Windows.UnitTests.UIElementTests;
 
@@ -42,7 +40,7 @@ public class UIElementShould
     }
 
     [Fact]
-    public void WinFormsAppForTest1_Calc_Correctly()
+    public void WinFormsAppForTest1_Click_Calc_Correctly()
     {
         GUIWindows.Initialize();
         string solutionRoot = TestHelpers.GetSolutionRootDirectory();
@@ -62,27 +60,39 @@ public class UIElementShould
             var textNum2 = textBoxes[1];
             var textNum3 = textBoxes[2];
             var btnAdd = calcGroup.Children.Single(c => c.ClassName.Contains("Button"));
-            textNum1.Focus();
-            ClipboardHelpers.SetText("1");
-            textNum1.Paste();
-
-            textNum2.Focus();
-            ClipboardHelpers.SetText("2");
-            textNum2.Paste();
-
+            textNum1.Text = "1";
+            textNum2.Text = "2";
             btnAdd.Click();
-            Thread.Sleep(200);
-
-            textNum3.Focus();
-            textNum3.SelectAll();
-            textNum3.Copy();
-            Thread.Sleep(200);
-            //Clipboard.GetText().Should().Be("3");
             textNum3.Text.Should().Be("3");
         }
         finally
         {
-            //process.Kill();
+            process.Kill();
+        }
+    }
+
+    [Fact]
+    public void ToBitmap_Correctly()
+    {
+        GUIWindows.Initialize();
+        string solutionRoot = TestHelpers.GetSolutionRootDirectory();
+        string pathOfWinFormsAppForTest1 = TestHelpers.FindFile(solutionRoot, "WinFormsAppForTest1.exe");
+        Process process = GUI.Application.LaunchApplication(pathOfWinFormsAppForTest1);
+        try
+        {
+            Window? win = process.WaitForWindowByTitle("WinFormsAppForTest1");
+            Win32UIElement? uiWindow = win?.GetRoot();
+            var labelName = uiWindow.Children.First(c => c.Text.Equals("Name"));
+            var bitmapWindow = uiWindow.ToBitmap();
+            var bitmapLabelName = labelName.ToBitmap();
+            bitmapWindow.Height.Should().BeGreaterThan(bitmapLabelName.Height);
+            bitmapWindow.Width.Should().BeGreaterThan(bitmapLabelName.Width);
+            bitmapWindow.Save("d:/window.png");
+            bitmapLabelName.Save("d:/label.png");
+        }
+        finally
+        {
+            process.Kill();
         }
     }
 }

@@ -97,13 +97,11 @@ public class Win32UIElement
                 {
                     break;
                 }
-                else
+
+                prevChild = childHwnd;
+                if (User32.IsWindowVisible(childHwnd))
                 {
-                    prevChild = childHwnd;
-                    if (User32.IsWindowVisible(childHwnd))
-                    {
-                        yield return new Win32UIElement(childHwnd);
-                    }
+                    yield return new Win32UIElement(childHwnd);
                 }
             }
         }
@@ -166,43 +164,13 @@ public class Win32UIElement
 
     public void Click()
     {
-        User32.SendMessage(hwnd, User32.ButtonMessage.BM_CLICK, 0);
-    }
-
-    public void MouseClick()
-    {
         GetWindowRect(hwnd, out RECT rect);
         int x = (rect.Left + rect.Right) / 2;
         int y = (rect.Top + rect.Bottom) / 2;
         SetCursorPos(x, y);
         mouse_event(MOUSEEVENTF.MOUSEEVENTF_LEFTDOWN, x, y, 0, IntPtr.Zero);
-        Thread.Sleep(50);
+        Thread.Sleep(100);
         mouse_event(MOUSEEVENTF.MOUSEEVENTF_LEFTUP, x, y, 0, IntPtr.Zero);
-    }
-
-    public void Paste()
-    {
-        User32.SendMessage(hwnd, User32.WindowMessage.WM_PASTE, 0);
-    }
-
-    public void SelectAll()
-    {
-        User32.SendMessage(hwnd, (uint)User32.EditMessage.EM_SETSEL, IntPtr.Zero, new IntPtr(-1));
-    }
-
-    public void Copy()
-    {
-        User32.SendMessage(hwnd, User32.WindowMessage.WM_COPY, 0);
-    }
-
-    public void Focus()
-    {
-        User32.SetFocus(hwnd);
-    }
-
-    public bool IsValid()
-    {
-        return User32.IsWindow(hwnd);
     }
 
     public BitmapData ToBitmap()
