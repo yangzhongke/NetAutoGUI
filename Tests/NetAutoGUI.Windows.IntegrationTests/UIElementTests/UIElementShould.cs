@@ -1,19 +1,11 @@
 ﻿using Xunit;
 using FluentAssertions;
 using System.Diagnostics;
-using Xunit.Abstractions;
 
 namespace NetAutoGUI.Windows.UnitTests.UIElementTests;
 
 public class UIElementShould
 {
-    private readonly ITestOutputHelper output;
-
-    public UIElementShould(ITestOutputHelper output)
-    {
-        this.output = output;
-    }
-    
     [Fact]
     public void Handle_WinFormsAppForTest1_Correctly()
     {

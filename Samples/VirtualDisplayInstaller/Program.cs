@@ -19,8 +19,8 @@ winStep1.WaitForText("Next").Click();
 winStep1.WaitForText("Next").Click();
 winStep1.WaitForText("Next").Click();
 winStep1.WaitForText("Next").Click();
-winStep1.WaitForText("Install").MouseClick();
+winStep1.WaitForText("Install").Click();
 var confirmDialog =
     GUI.Application.WaitForWindowLikeTitle("*Windows*Security*", 180);
-confirmDialog.WaitForText("Install").MouseClick();
+confirmDialog.WaitForText("Install").Click();
 winStep1.WaitForText("Finish", 180).Click();
