@@ -13,7 +13,6 @@ winStep1.WaitForText("I accept the agreement").Click();
 winStep1.WaitForText("Next").Click();
 winStep1.WaitForText("I accept the agreement").Click();
 winStep1.WaitForText("Next").Click();
-return;
 winStep1.WaitForText("Next").Click();
 winStep1.WaitForText("Next").Click();
 winStep1.WaitForText("Next").Click();
