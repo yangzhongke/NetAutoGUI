@@ -1,6 +1,8 @@
 ﻿using System;
 using System.IO;
 using System.Reflection;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace NetAutoGUI
 {
@@ -15,6 +17,21 @@ namespace NetAutoGUI
         public static readonly IScreenshotController Screenshot;
         public static readonly IApplicationController Application;
         internal static readonly IWindowController Window;
+
+        /// <summary>
+        /// delay(seconds) after each call that may require some delay.
+        /// </summary>
+        public static double PauseInSeconds { get; set; } = 0.1;
+
+        public static void Pause()
+        {
+            Thread.Sleep(TimeSpan.FromSeconds(PauseInSeconds));
+        }
+
+        public static async Task PauseAsync(CancellationToken cancellationToken = default(CancellationToken))
+        {
+            await Task.Delay(TimeSpan.FromSeconds(PauseInSeconds), cancellationToken);
+        }
 
         static GUI()
         {

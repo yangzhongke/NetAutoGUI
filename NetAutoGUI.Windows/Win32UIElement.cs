@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading;
+using System.Threading.Tasks;
 using Vanara.PInvoke;
 using static Vanara.PInvoke.User32;
 
@@ -169,10 +170,23 @@ public class Win32UIElement
         int y = (rect.Top + rect.Bottom) / 2;
         SetCursorPos(x, y);
         mouse_event(MOUSEEVENTF.MOUSEEVENTF_LEFTDOWN, x, y, 0, IntPtr.Zero);
-        Thread.Sleep(100);
+        GUI.Pause();
         mouse_event(MOUSEEVENTF.MOUSEEVENTF_LEFTUP, x, y, 0, IntPtr.Zero);
+        GUI.Pause();
     }
 
+    public async Task ClickAsync(CancellationToken cancellationToken = default)
+    {
+        GetWindowRect(hwnd, out RECT rect);
+        int x = (rect.Left + rect.Right) / 2;
+        int y = (rect.Top + rect.Bottom) / 2;
+        SetCursorPos(x, y);
+        mouse_event(MOUSEEVENTF.MOUSEEVENTF_LEFTDOWN, x, y, 0, IntPtr.Zero);
+        await GUI.PauseAsync(cancellationToken);
+        mouse_event(MOUSEEVENTF.MOUSEEVENTF_LEFTUP, x, y, 0, IntPtr.Zero);
+        await GUI.PauseAsync(cancellationToken);
+    }
+    
     public BitmapData ToBitmap()
     {
         return ScreenshotHelper.CaptureWindow(hwnd);
