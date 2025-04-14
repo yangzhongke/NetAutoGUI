@@ -55,7 +55,6 @@ public class UIElementShould
             textNum1.Text = "1";
             textNum2.Text = "2";
             btnAdd.Click();
-            GUI.Dialog.Prompt("aaa");
             textNum3.WaitForTextIsNotEmpty();
             textNum3.Text.Should().Be("3");
         }

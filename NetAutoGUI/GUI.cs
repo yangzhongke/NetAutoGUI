@@ -55,7 +55,7 @@ namespace NetAutoGUI
                     throw new TimeoutException();
                 }
 
-                Pause(seconds);
+                Pause(10);
             }
         }
 
