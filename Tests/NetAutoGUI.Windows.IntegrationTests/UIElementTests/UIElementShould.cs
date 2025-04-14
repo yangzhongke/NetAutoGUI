@@ -41,6 +41,7 @@ public class UIElementShould
         try
         {
             Window? win = process.WaitForWindowByTitle("WinFormsAppForTest1");
+            win.Activate();
             Win32UIElement? uiWindow = win?.GetRoot();
             var calcGroup = uiWindow.Descendents.Single(c => c.Text.Equals("Calc"));
             uiWindow.Rectangle.Contains(new Location(calcGroup.Rectangle.X, calcGroup.Rectangle.Y)).Should().BeTrue();
@@ -55,8 +56,7 @@ public class UIElementShould
             textNum1.Text = "1";
             textNum2.Text = "2";
             btnAdd.Click();
-            //textNum3.WaitForTextIsNotEmpty();
-            textNum3.WaitForTextIs("3", 2);
+            textNum3.WaitForTextIsNotEmpty();
             textNum3.Text.Should().Be("3");
         }
         finally
