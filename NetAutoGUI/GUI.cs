@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.IO;
 using System.Reflection;
 using System.Threading;
@@ -18,19 +19,44 @@ namespace NetAutoGUI
         public static readonly IApplicationController Application;
         internal static readonly IWindowController Window;
 
-        /// <summary>
-        /// delay(seconds) after each call that may require some delay.
-        /// </summary>
-        public static double PauseInSeconds { get; set; } = 0.1;
+        public static PauseMethod PauseMethod { get; set; } = PauseMethod.SpinWait;
 
-        public static void Pause()
+        public static void Pause(double seconds)
         {
-            Thread.Sleep(TimeSpan.FromSeconds(PauseInSeconds));
+            TimeSpan timeSpan = TimeSpan.FromSeconds(seconds);
+            switch (PauseMethod)
+            {
+                case PauseMethod.Sleep:
+                    Thread.Sleep(timeSpan);
+                    break;
+                case PauseMethod.SpinWait:
+                    var sw = Stopwatch.StartNew();
+                    while (sw.Elapsed < timeSpan)
+                    {
+                        Thread.SpinWait(100);
+                    }
+
+                    sw.Stop();
+                    break;
+                default:
+                    throw new NotSupportedException(PauseMethod.ToString());
+            }
         }
 
-        public static async Task PauseAsync(CancellationToken cancellationToken = default(CancellationToken))
+        public static void WaitFor(Func<bool> condition, double seconds = 1)
         {
-            await Task.Delay(TimeSpan.FromSeconds(PauseInSeconds), cancellationToken);
+            if (condition == null) throw new ArgumentNullException(nameof(condition));
+            if (seconds <= 0) throw new ArgumentOutOfRangeException(nameof(seconds));
+            var sw = Stopwatch.StartNew();
+            while (condition() == false)
+            {
+                if (sw.ElapsedMilliseconds > seconds * 1000)
+                {
+                    throw new TimeoutException();
+                }
+
+                Pause(seconds);
+            }
         }
 
         static GUI()

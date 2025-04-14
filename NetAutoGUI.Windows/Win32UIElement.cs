@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Vanara.PInvoke;
+using WildcardMatch;
 using static Vanara.PInvoke.User32;
 
 namespace NetAutoGUI.Windows;
@@ -163,6 +164,26 @@ public class Win32UIElement
         }
     }
 
+    public void WaitForTextIsNotEmpty(double seconds = 1)
+    {
+        GUI.WaitFor(() => !string.IsNullOrEmpty(Text), seconds);
+    }
+
+    public void WaitForTextIsNot(string textToMatch, double seconds = 1)
+    {
+        GUI.WaitFor(() => textToMatch != Text, seconds);
+    }
+
+    public void WaitForTextIs(string textToMatch, double seconds = 1)
+    {
+        GUI.WaitFor(() => textToMatch == Text, seconds);
+    }
+
+    public void WaitForTextMatches(string wildcard, double seconds = 1)
+    {
+        GUI.WaitFor(() => wildcard.WildcardMatch(Text), seconds);
+    }
+
     public void Click()
     {
         GetWindowRect(hwnd, out RECT rect);
@@ -170,21 +191,8 @@ public class Win32UIElement
         int y = (rect.Top + rect.Bottom) / 2;
         SetCursorPos(x, y);
         mouse_event(MOUSEEVENTF.MOUSEEVENTF_LEFTDOWN, x, y, 0, IntPtr.Zero);
-        GUI.Pause();
+        GUI.Pause(0.1);
         mouse_event(MOUSEEVENTF.MOUSEEVENTF_LEFTUP, x, y, 0, IntPtr.Zero);
-        GUI.Pause();
-    }
-
-    public async Task ClickAsync(CancellationToken cancellationToken = default)
-    {
-        GetWindowRect(hwnd, out RECT rect);
-        int x = (rect.Left + rect.Right) / 2;
-        int y = (rect.Top + rect.Bottom) / 2;
-        SetCursorPos(x, y);
-        mouse_event(MOUSEEVENTF.MOUSEEVENTF_LEFTDOWN, x, y, 0, IntPtr.Zero);
-        await GUI.PauseAsync(cancellationToken);
-        mouse_event(MOUSEEVENTF.MOUSEEVENTF_LEFTUP, x, y, 0, IntPtr.Zero);
-        await GUI.PauseAsync(cancellationToken);
     }
     
     public BitmapData ToBitmap()
