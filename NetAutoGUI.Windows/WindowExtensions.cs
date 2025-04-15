@@ -28,9 +28,10 @@ namespace NetAutoGUI
             User32.AttachThreadInput(currentThreadId, targetThreadId, true);
 
             // Bring to front
-            User32.BringWindowToTop(hWnd);
             User32.SetForegroundWindow(hWnd);
-
+            User32.BringWindowToTop(hWnd);
+            User32.SetFocus(hWnd);
+            
             User32.AttachThreadInput(currentThreadId, targetThreadId, false);
         }
 
