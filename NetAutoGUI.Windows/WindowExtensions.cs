@@ -20,11 +20,7 @@ namespace NetAutoGUI
         {
             //https://stackoverflow.com/questions/2636721/bring-another-processes-window-to-foreground-when-it-has-showintaskbar-false
             HWND hWnd = windowId.ToHWND();
-            if (User32.IsIconic(hWnd))
-            {
-                User32.ShowWindow(hWnd, ShowWindowCommand.SW_RESTORE);
-            }
-
+            User32.ShowWindow(hWnd, ShowWindowCommand.SW_RESTORE);
             uint targetThreadId = User32.GetWindowThreadProcessId(hWnd, out _);
             uint currentThreadId = Kernel32.GetCurrentThreadId();
 
