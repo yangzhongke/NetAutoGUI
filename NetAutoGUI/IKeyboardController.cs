@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace NetAutoGUI
 {
@@ -27,14 +25,6 @@ namespace NetAutoGUI
         /// <param name="s">the string</param>
         /// <param name="intervalInSeconds">interval of wait in seconds</param>
         public void Write(string s, double intervalInSeconds);
-
-        /// <summary>
-        /// Write a string from keyboard, wait a specific interval between each character
-        /// </summary>
-        /// <param name="s">the string</param>
-        /// <param name="intervalInSeconds">interval of wait in seconds</param>
-        /// <param name="cancellationToken">cancellationToken</param>
-        public Task WriteAsync(string s, double intervalInSeconds, CancellationToken cancellationToken = default);
 
         /// <summary>
         /// Press a keys combination

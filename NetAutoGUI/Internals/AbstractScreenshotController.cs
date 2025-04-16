@@ -1,7 +1,5 @@
 ﻿using OpenCvSharp;
 using System.Collections.Generic;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace NetAutoGUI.Internals
 {
@@ -12,9 +10,6 @@ namespace NetAutoGUI.Internals
         public abstract BitmapData Screenshot(Window window);        
 
         public abstract void Highlight(double waitSeconds = 0.5, params Rectangle[] rectangles);
-
-        public abstract Task HighlightAsync(double waitSeconds, Rectangle[] rectangles,
-            CancellationToken cancellationToken = default);
 
         /// <summary>
         /// Convert the location of the screenshot to the relative location to the primary screen.

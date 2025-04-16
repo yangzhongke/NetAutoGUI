@@ -1,7 +1,4 @@
-﻿using System.Threading;
-using System.Threading.Tasks;
-
-namespace NetAutoGUI
+﻿namespace NetAutoGUI
 {
     /// <summary>
     /// Mouse controller, used for simulating mouse events
@@ -40,19 +37,6 @@ namespace NetAutoGUI
             double intervalInSeconds = 0);
 
         /// <summary>
-        ///  Simulate a single mouse click. 
-        /// </summary>
-        /// <param name="x">mouse x. The default value is current mouse x.</param>
-        /// <param name="y">mouse y. The default value is current mouse y. </param>
-        /// <param name="button">which mouse button to click</param>
-        /// <param name="clicks">click count</param>
-        /// <param name="intervalInSeconds">interval in seconds between clicks</param>
-        /// <param name="cancellationToken">cancellationToken</param>
-        public Task ClickAsync(int? x = null, int? y = null, MouseButtonType button = MouseButtonType.Left,
-            int clicks = 1,
-            double intervalInSeconds = 0, CancellationToken cancellationToken = default);
-
-        /// <summary>
         ///  Simulate a double mouse click. 
         /// </summary>
         /// <param name="x">move mouse to (x,y), then click the button</param>
@@ -61,17 +45,7 @@ namespace NetAutoGUI
         /// <param name="intervalInSeconds">interval in seconds</param>
         public void DoubleClick(int? x = null, int? y = null, MouseButtonType button = MouseButtonType.Left,
             double intervalInSeconds = 0);
-
-        /// <summary>
-        ///  Simulate a double mouse click. 
-        /// </summary>
-        /// <param name="x">move mouse to (x,y), then click the button</param>
-        /// <param name="y">move mouse to (x,y), then click the button</param>
-        /// <param name="button">which mouse button to click</param>
-        /// <param name="intervalInSeconds">interval in seconds</param>
-        public Task DoubleClickAsync(int? x = null, int? y = null, MouseButtonType button = MouseButtonType.Left,
-            double intervalInSeconds = 0);
-
+        
         /// <summary>
         /// Simulate a mouse down
         /// </summary>

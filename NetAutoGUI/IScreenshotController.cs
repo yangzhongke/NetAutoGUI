@@ -1,6 +1,4 @@
 ﻿using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace NetAutoGUI
 {
@@ -55,14 +53,5 @@ namespace NetAutoGUI
         /// <param name="waitSeconds">display for the given seconds before it disappear</param>
         /// <param name="rectangles">multiple areas to highlight</param>
         public void Highlight(double waitSeconds = 0.5, params Rectangle[] rectangles);
-
-        /// <summary>
-        /// Highlight several areas 
-        /// </summary>
-        /// <param name="waitSeconds">display for the given seconds before it disappear</param>
-        /// <param name="rectangles">multiple areas to highlight</param>
-        /// <param name="cancellationToken"></param>
-        public Task HighlightAsync(double waitSeconds, Rectangle[] rectangles,
-            CancellationToken cancellationToken = default);
     }
 }

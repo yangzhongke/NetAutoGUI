@@ -2,7 +2,6 @@
 using System;
 using System.Runtime.Versioning;
 using System.Threading;
-using System.Threading.Tasks;
 using Vanara.PInvoke;
 
 namespace NetAutoGUI.Windows
@@ -36,38 +35,6 @@ namespace NetAutoGUI.Windows
                 Thread.Sleep((int)(intervalInSeconds * 1000));
             }
             Thread.Sleep(100);
-        }
-
-        public override async Task ClickAsync(int? x = null, int? y = null,
-            MouseButtonType button = MouseButtonType.Left,
-            int clicks = 1,
-            double intervalInSeconds = 0, CancellationToken cancellationToken = default)
-        {
-            if (clicks <= 0)
-            {
-                throw new ArgumentOutOfRangeException(nameof(clicks), "clicks should be positive.");
-            }
-
-            TryMoveTo(x, y);
-            for (int i = 0; i < clicks; i++)
-            {
-                if (button == MouseButtonType.Left)
-                {
-                    MouseHelper.LeftButtonClick();
-                }
-                else if (button == MouseButtonType.Middle)
-                {
-                    MouseHelper.MiddleButtonClick();
-                }
-                else if (button == MouseButtonType.Right)
-                {
-                    MouseHelper.RightButtonClick();
-                }
-
-                await Task.Delay((int)(intervalInSeconds * 1000), cancellationToken);
-            }
-
-            await Task.Delay(100, cancellationToken);
         }
 
         public override void MouseDown(int? x = null, int? y = null, MouseButtonType button = MouseButtonType.Left)

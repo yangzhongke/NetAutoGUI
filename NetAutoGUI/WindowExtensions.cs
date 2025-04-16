@@ -75,33 +75,6 @@ namespace NetAutoGUI
         }
 
         /// <summary>
-        ///  Simulate a single mouse click at the given position relative to the given window<paramref name="window"/>. 
-        /// </summary>
-        /// <param name="window">window</param>
-        /// <param name="winX">mouse x to window origin. The default value is current mouse x.</param>
-        /// <param name="winY">mouse y to window origin. The default value is current mouse y. </param>
-        /// <param name="button">which mouse button</param>
-        /// <param name="clicks">click times</param>
-        /// <param name="intervalInSeconds">interval in seconds between clicks</param>
-        /// <param name="cancellationToken">cancellationToken</param>
-        public static async Task ClickAsync(this Window window, int? winX = null, int? winY = null,
-            MouseButtonType button = MouseButtonType.Left, int clicks = 1, double intervalInSeconds = 0,
-            CancellationToken cancellationToken = default(CancellationToken))
-        {
-            if (winX != null && winY != null)
-            {
-                (int x, int y) = WindowPosToScreen(window, (int)winX, (int)winY);
-                await GUI.Mouse.ClickAsync(x: x, y: y, button: button, clicks: clicks,
-                    intervalInSeconds: intervalInSeconds, cancellationToken: cancellationToken);
-            }
-            else
-            {
-                await GUI.Mouse.ClickAsync(button: button, clicks: clicks, intervalInSeconds: intervalInSeconds,
-                    cancellationToken: cancellationToken);
-            }
-        }
-
-        /// <summary>
         ///  Simulate a double mouse click at the given position relative to the given window<paramref name="window"/>. 
         /// </summary>
         /// <param name="window">window</param>
@@ -120,30 +93,6 @@ namespace NetAutoGUI
             else
             {
                 GUI.Mouse.DoubleClick(button: button, intervalInSeconds: intervalInSeconds);
-            }
-        }
-
-        /// <summary>
-        ///  Simulate a double mouse click at the given position relative to the given window<paramref name="window"/>. 
-        /// </summary>
-        /// <param name="window">window</param>
-        /// <param name="winX">mouse x to window origin. The default value is current mouse x.</param>
-        /// <param name="winY">mouse y to window origin. The default value is current mouse y. </param>
-        /// <param name="button">which mouse button</param>
-        /// <param name="intervalInSeconds">interval in seconds between clicks</param>
-        /// <param name="cancellationToken"></param>
-        public static async Task DoubleClickAsync(this Window window, int? winX = null, int? winY = null,
-            MouseButtonType button = MouseButtonType.Left, double intervalInSeconds = 0,
-            CancellationToken cancellationToken = default)
-        {
-            if (winX != null && winY != null)
-            {
-                (int x, int y) = WindowPosToScreen(window, (int)winX, (int)winY);
-                await GUI.Mouse.DoubleClickAsync(x: x, y: y, button: button, intervalInSeconds: intervalInSeconds);
-            }
-            else
-            {
-                await GUI.Mouse.DoubleClickAsync(button: button, intervalInSeconds: intervalInSeconds);
             }
         }
 
