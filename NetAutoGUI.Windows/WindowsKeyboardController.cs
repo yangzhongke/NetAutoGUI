@@ -50,7 +50,7 @@ namespace NetAutoGUI.Windows
             foreach (char c in s)
             {
                 Write(c);
-                Thread.Sleep((int)(intervalInSeconds * 1000));
+                GUI.Pause(intervalInSeconds);
             }
         }
 

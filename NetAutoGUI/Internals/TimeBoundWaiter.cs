@@ -19,7 +19,7 @@ public static class TimeBoundWaiter
                 throw new TimeoutException(errorMessageWhenTimeout);
             }
 
-            Thread.Sleep(50);
+            GUI.Pause(0.05);
         }
 
         return result;

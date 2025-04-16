@@ -33,7 +33,8 @@ namespace NetAutoGUI.Windows
                 HBRUSH blueBrush = User32.GetSysColorBrush(SystemColorIndex.COLOR_ACTIVEBORDER);
                 User32.FillRect(hDC_Desktop, new RECT(rect.X, rect.Y, rect.X + rect.Width, rect.Y + rect.Height), blueBrush);
             }
-            Thread.Sleep((int)(waitSeconds * 1000));
+
+            GUI.Pause(waitSeconds);
             foreach (var rect in rectangles)
             {
                 User32.InvalidateRect(HWND.NULL, ToPRECT(rect), true);

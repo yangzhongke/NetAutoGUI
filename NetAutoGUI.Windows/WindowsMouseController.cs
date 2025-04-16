@@ -32,9 +32,10 @@ namespace NetAutoGUI.Windows
                     MouseHelper.RightButtonClick();
                 }
 
-                Thread.Sleep((int)(intervalInSeconds * 1000));
+                GUI.Pause(intervalInSeconds);
             }
-            Thread.Sleep(100);
+
+            GUI.Pause(0.1);
         }
 
         public override void MouseDown(int? x = null, int? y = null, MouseButtonType button = MouseButtonType.Left)
