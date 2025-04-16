@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 using Vanara.PInvoke;
 using WildcardMatch;
 using static Vanara.PInvoke.User32;
@@ -184,15 +182,77 @@ public class Win32UIElement
         GUI.WaitFor(() => wildcard.WildcardMatch(Text), seconds);
     }
 
-    public void Click()
+    public void Click(ClickMethod clickMethod = ClickMethod.Default)
     {
-        GetWindowRect(hwnd, out RECT rect);
-        int x = (rect.Left + rect.Right) / 2;
-        int y = (rect.Top + rect.Bottom) / 2;
-        SetCursorPos(x, y);
-        mouse_event(MOUSEEVENTF.MOUSEEVENTF_LEFTDOWN, x, y, 0, IntPtr.Zero);
-        GUI.Pause(0.1);
-        mouse_event(MOUSEEVENTF.MOUSEEVENTF_LEFTUP, x, y, 0, IntPtr.Zero);
+        switch (clickMethod)
+        {
+            case ClickMethod.Default:
+                if (IsButton())
+                {
+                    ButtonClickNotWait();
+                }
+                else
+                {
+                    MouseClick();
+                }
+
+                break;
+            case ClickMethod.ButtonClickAndWait:
+                ButtonClickAndWait();
+                break;
+            case ClickMethod.ButtonClickNotWait:
+                ButtonClickNotWait();
+                break;
+            case ClickMethod.MouseClick:
+                MouseClick();
+                break;
+            default:
+                throw new ArgumentOutOfRangeException(nameof(clickMethod), clickMethod, null);
+        }
+
+        bool IsButton()
+        {
+            var style = (User32.ButtonStyle)User32.GetWindowLong(hwnd, WindowLongFlags.GWL_STYLE);
+            User32.ButtonStyle[] buttonStyles =
+            {
+                User32.ButtonStyle.BS_PUSHBUTTON, User32.ButtonStyle.BS_DEFPUSHBUTTON,
+                User32.ButtonStyle.BS_CHECKBOX, User32.ButtonStyle.BS_AUTOCHECKBOX,
+                User32.ButtonStyle.BS_RADIOBUTTON, User32.ButtonStyle.BS_3STATE,
+                User32.ButtonStyle.BS_AUTO3STATE, ButtonStyle.BS_AUTORADIOBUTTON,
+                ButtonStyle.BS_USERBUTTON
+            };
+            foreach (var buttonStyle in buttonStyles)
+            {
+                if (style.HasFlag(buttonStyle))
+                    return true;
+            }
+
+            return false;
+        }
+
+        void MouseClick()
+        {
+            var hWndWindow = User32.GetAncestor(this.hwnd, User32.GetAncestorFlag.GA_ROOT);
+            Win32Helpers.ActiveWindow(hWndWindow); //The window must activate before being clicked.
+
+            GetWindowRect(hwnd, out RECT rect);
+            int x = (rect.Left + rect.Right) / 2;
+            int y = (rect.Top + rect.Bottom) / 2;
+            SetCursorPos(x, y);
+            mouse_event(MOUSEEVENTF.MOUSEEVENTF_LEFTDOWN, x, y, 0, IntPtr.Zero);
+            GUI.Pause(0.1);
+            mouse_event(MOUSEEVENTF.MOUSEEVENTF_LEFTUP, x, y, 0, IntPtr.Zero);
+        }
+
+        void ButtonClickAndWait()
+        {
+            User32.SendMessage(hwnd, (uint)ButtonMessage.BM_CLICK, IntPtr.Zero, IntPtr.Zero);
+        }
+
+        void ButtonClickNotWait()
+        {
+            User32.PostMessage(hwnd, (uint)ButtonMessage.BM_CLICK, IntPtr.Zero, IntPtr.Zero);
+        }
     }
     
     public BitmapData ToBitmap()

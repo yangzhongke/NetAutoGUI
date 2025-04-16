@@ -41,7 +41,6 @@ public class UIElementShould
         try
         {
             Window? win = process.WaitForWindowByTitle("WinFormsAppForTest1");
-            win.Activate();
             Win32UIElement? uiWindow = win?.GetRoot();
             var calcGroup = uiWindow.Descendents.Single(c => c.Text.Equals("Calc"));
             uiWindow.Rectangle.Contains(new Location(calcGroup.Rectangle.X, calcGroup.Rectangle.Y)).Should().BeTrue();
