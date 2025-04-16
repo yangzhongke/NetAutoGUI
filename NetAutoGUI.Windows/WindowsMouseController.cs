@@ -35,7 +35,7 @@ namespace NetAutoGUI.Windows
                 GUI.Pause(intervalInSeconds);
             }
 
-            GUI.Pause(0.1);
+            GUI.Pause(Math.Max(intervalInSeconds, 0.1));
         }
 
         public override void MouseDown(int? x = null, int? y = null, MouseButtonType button = MouseButtonType.Left)
@@ -70,6 +70,8 @@ namespace NetAutoGUI.Windows
             {
                 MouseHelper.RightButtonUp();
             }
+
+            GUI.Pause(0.1);
         }
 
         private void TryMoveTo(int? x, int? y)

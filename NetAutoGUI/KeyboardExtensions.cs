@@ -12,6 +12,8 @@
             {
                 kb.Press(VirtualKeyCode.VK_C);
             }
+
+            GUI.Pause(0.1);
         }
 
         /// <summary>
@@ -24,6 +26,8 @@
             {
                 kb.Press(VirtualKeyCode.VK_V);
             }
+
+            GUI.Pause(0.1);
         }
 
         /// <summary>
@@ -36,6 +40,8 @@
             {
                 kb.Press(VirtualKeyCode.VK_A);
             }
+
+            GUI.Pause(0.1);
         }
     }
 }

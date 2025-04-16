@@ -1,0 +1,38 @@
+﻿<Window x:Class="WpfAppForTest1.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WpfAppForTest1"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <Grid>
+        <Label Content="Name" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="txtName" HorizontalAlignment="Left" Margin="63,14,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
+        <ComboBox x:Name="cmbCountry" HorizontalAlignment="Left" Margin="63,49,0,0" VerticalAlignment="Top" Width="120">
+            <ComboBoxItem Tag="NZ">
+                <StackPanel Orientation="Horizontal">
+                    <Label>New Zealand</Label>
+                    <Image Source="Resources/NZ.png"></Image>
+                </StackPanel>
+            </ComboBoxItem>
+            <ComboBoxItem Tag="AU">
+                <StackPanel Orientation="Horizontal">
+                    <Label>Australia</Label>
+                    <Image Source="Resources/AU.png"></Image>
+                </StackPanel>
+            </ComboBoxItem>
+            <ComboBoxItem Tag="SG">
+                <StackPanel Orientation="Horizontal">
+                    <Label>Singapore</Label>
+                    <Image Source="Resources/SG.png"></Image>
+                </StackPanel>
+            </ComboBoxItem>
+        </ComboBox>
+        <Label Content="Country" HorizontalAlignment="Left" Margin="10,47,0,0" VerticalAlignment="Top"/>
+        <CheckBox x:Name="cbIsVIP" Content="Is VIP Member" HorizontalAlignment="Left" Margin="63,86,0,0" VerticalAlignment="Top"/>
+        <Button x:Name="btnSubmit" Content="Submit" HorizontalAlignment="Left" Margin="52,120,0,0" VerticalAlignment="Top" Click="Button_Click"/>
+        <TextBox x:Name="txtResult" HorizontalAlignment="Left" Margin="10,153,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="173" Height="72"/>
+
+    </Grid>
+</Window>

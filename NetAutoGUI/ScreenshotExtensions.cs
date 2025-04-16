@@ -29,6 +29,20 @@ namespace NetAutoGUI
                 "Cannot find an area within the given time");
         }
 
+        public static Rectangle WaitOnScreen(this IScreenshotController ctl, string imgFileToBeFound,
+            double confidence = 0.99, double timeoutSeconds = 5)
+        {
+            return WaitOnScreen(ctl, BitmapData.FromFile(imgFileToBeFound), confidence, timeoutSeconds);
+        }
+
+        public static void ClickOnScreen(this IScreenshotController ctl, string imgFileToBeFound,
+            double confidence = 0.99, double timeoutSeconds = 5)
+        {
+            BitmapData bitmapData = BitmapData.FromFile(imgFileToBeFound);
+            var center = WaitOnScreen(ctl, bitmapData, confidence, timeoutSeconds).Center;
+            GUI.Mouse.Click(center.X, center.Y);
+        }
+        
         public static async Task<Rectangle> WaitOnScreenAsync(this IScreenshotController ctl,
             BitmapData imgFileToBeFound,
             double confidence = 0.99, double timeoutSeconds = 5, CancellationToken cancellationToken = default)

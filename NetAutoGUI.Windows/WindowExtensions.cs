@@ -2,6 +2,7 @@
 using System;
 using System.Diagnostics;
 using System.Linq;
+using System.Text;
 using System.Threading;
 using NetAutoGUI.Internals;
 using Vanara.PInvoke;
@@ -30,6 +31,15 @@ namespace NetAutoGUI
 
         public static Win32UIElement GetRoot(this Window window)
         {
+            StringBuilder sbClassName = new StringBuilder(255);
+            User32.GetClassName(window.Id.ToHWND(), sbClassName, sbClassName.Capacity);
+            Win32Error.ThrowLastError();
+            string className = sbClassName.ToString();
+            if (className.StartsWith("HwndWrapper") || className.Contains("PresentationSource"))
+            {
+                throw new ArgumentException(nameof(window),
+                    "WPF window doesn't support GetRoot()");
+            }
             return new Win32UIElement(window.Id);
         }
 

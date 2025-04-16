@@ -23,6 +23,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WinFormsAppForTest1", "Test
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VirtualDisplayInstaller", "Samples\VirtualDisplayInstaller\VirtualDisplayInstaller.csproj", "{205726F8-DB9B-4F40-B969-97261A2F3D0E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WpfAppForTest1", "Tests\WpfAppForTest1\WpfAppForTest1.csproj", "{F5EF1655-7C94-449C-9BDE-3F45B62087DF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -61,6 +63,10 @@ Global
 		{205726F8-DB9B-4F40-B969-97261A2F3D0E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{205726F8-DB9B-4F40-B969-97261A2F3D0E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{205726F8-DB9B-4F40-B969-97261A2F3D0E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F5EF1655-7C94-449C-9BDE-3F45B62087DF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F5EF1655-7C94-449C-9BDE-3F45B62087DF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F5EF1655-7C94-449C-9BDE-3F45B62087DF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F5EF1655-7C94-449C-9BDE-3F45B62087DF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -72,6 +78,7 @@ Global
 		{F46C92F3-EB73-492B-94DF-30989ED466C6} = {F51312F0-E27A-46F7-B8EE-46F5137CCF27}
 		{934C720A-C68F-4BF0-B1FD-51EBAC80B6BB} = {F51312F0-E27A-46F7-B8EE-46F5137CCF27}
 		{205726F8-DB9B-4F40-B969-97261A2F3D0E} = {AC0D002F-490B-4CB2-BCF7-A5837A7716DF}
+		{F5EF1655-7C94-449C-9BDE-3F45B62087DF} = {F51312F0-E27A-46F7-B8EE-46F5137CCF27}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {F39F61FE-B0A9-4EF8-AB35-49763853BBAC}

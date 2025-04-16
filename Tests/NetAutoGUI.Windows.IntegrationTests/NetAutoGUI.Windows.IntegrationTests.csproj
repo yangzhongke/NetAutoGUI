@@ -26,5 +26,34 @@
     <ItemGroup>
       <ProjectReference Include="..\..\NetAutoGUI.Windows\NetAutoGUI.Windows.csproj" />
     </ItemGroup>
+    <ItemGroup>
+        <Folder Include="Issues\Resources\"/>
+    </ItemGroup>
+    <ItemGroup>
+        <None Update="Issues\Resources\cmbCountry.png">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
+        <None Update="Issues\Resources\countryAU.png">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
+        <None Update="Issues\Resources\countryNZ.png">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
+        <None Update="Issues\Resources\countrySG.png">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
+        <None Update="Issues\Resources\btnSubmit.png">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
+        <None Update="Issues\Resources\cbIsVIP.png">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
+        <None Update="Issues\Resources\txtName.png">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
+        <None Update="Issues\Resources\txtResult.png">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
+    </ItemGroup>
 
 </Project>
