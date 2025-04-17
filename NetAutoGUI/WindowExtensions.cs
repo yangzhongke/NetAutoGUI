@@ -156,12 +156,11 @@ namespace NetAutoGUI
         /// Highlight several areas 
         /// </summary>
         /// <param name="window">window</param>
-        /// <param name="waitSeconds">display for the given seconds before it disappear</param>
         /// <param name="relativeRects">multiple areas to highlight</param>
-        public static void Highlight(this Window window, double waitSeconds = 0.5, params Rectangle[] relativeRects)
+        public static void Highlight(this Window window, params Rectangle[] relativeRects)
         {
             Rectangle[] rectsToScreen = relativeRects.Select(r => WindowRectToScreen(window, r)).ToArray();
-            GUI.Screenshot.Highlight(waitSeconds, rectsToScreen);
+            GUI.Screenshot.Highlight(rectsToScreen);
         }
 
         /// <summary>
@@ -177,7 +176,6 @@ namespace NetAutoGUI
             double confidence = 0.99, double timeoutSeconds = 5)
         {
             var rect = Wait(window, imgFileToBeFound, confidence, timeoutSeconds);
-            Highlight(window, 2, rect);
             Click(window, rect.Center.X, rect.Center.Y);
         }
 

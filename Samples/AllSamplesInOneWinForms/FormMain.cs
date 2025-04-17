@@ -268,7 +268,8 @@ public partial class FormMain : Form
 
     private void BtnHighLightRect_Click(object sender, EventArgs e)
     {
-        GUI.Screenshot.Highlight(1, new NetAutoGUI.Rectangle(100, 100, 200, 200), new NetAutoGUI.Rectangle(300, 300, 400, 400));
+        GUI.Screenshot.Highlight(new NetAutoGUI.Rectangle(100, 100, 200, 200),
+            new NetAutoGUI.Rectangle(300, 300, 400, 400));
     }
 
     private void BtnLocateAll_Click(object sender, EventArgs e)
@@ -332,7 +333,7 @@ public partial class FormMain : Form
         Window window = GUI.Application.WaitForWindowLikeTitle("*Notepad*");
 
         window.Activate();
-        window.Highlight(1, new NetAutoGUI.Rectangle(0, 0, 100, 200), new NetAutoGUI.Rectangle(100, 200, 50, 80));
+        window.Highlight(new NetAutoGUI.Rectangle(0, 0, 100, 200), new NetAutoGUI.Rectangle(100, 200, 50, 80));
     }
 
     private void BtnWaitAndClick_Click(object sender, EventArgs e)

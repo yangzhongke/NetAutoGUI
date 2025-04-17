@@ -59,10 +59,11 @@ namespace NetAutoGUI
             return ctrl.LocateAll(bitmapScreen, imgFileToBeFound, confidence);
         }
 
-        public static void Highlight(this IScreenshotController ctl, BitmapData imgFileToBeFound, double confidence = 0.99, double waitSeconds = 0.5)
+        public static void Highlight(this IScreenshotController ctl, BitmapData imgFileToBeFound,
+            double confidence = 0.99)
         {
             var rects = LocateAllOnScreen(ctl, imgFileToBeFound, confidence);
-            ctl.Highlight(waitSeconds, rects);
+            ctl.Highlight(rects);
         }
     }
 }
