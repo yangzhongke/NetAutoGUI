@@ -9,7 +9,7 @@ namespace NetAutoGUI.Internals
 
         public abstract BitmapData Screenshot(Window window);        
 
-        public abstract void Highlight(double waitSeconds = 0.5, params Rectangle[] rectangles);
+        public abstract void Highlight(params Rectangle[] rectangles);
 
         /// <summary>
         /// Convert the location of the screenshot to the relative location to the primary screen.

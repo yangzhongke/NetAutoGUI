@@ -26,6 +26,11 @@ namespace NetAutoGUI
         public static dynamic GetMainMenu(this Window window)
         {
             HWND hwnd = window.Id.ToHWND();
+            var menu = User32.GetMenu(hwnd);
+            if (menu == HMENU.NULL)
+            {
+                throw new NotSupportedException("The window doesn't have a menu.");
+            }
             return new DynamicMainMenu(hwnd);
         }
 
@@ -37,8 +42,7 @@ namespace NetAutoGUI
             string className = sbClassName.ToString();
             if (className.StartsWith("HwndWrapper") || className.Contains("PresentationSource"))
             {
-                throw new ArgumentException(nameof(window),
-                    "WPF window doesn't support GetRoot()");
+                throw new NotSupportedException("WPF window doesn't support GetRoot()");
             }
             return new Win32UIElement(window.Id);
         }

@@ -80,8 +80,7 @@ public class UIElementShould
             var bitmapLabelName = labelName.ToBitmap();
             bitmapWindow.Height.Should().BeGreaterThan(bitmapLabelName.Height);
             bitmapWindow.Width.Should().BeGreaterThan(bitmapLabelName.Width);
-            bitmapWindow.Save("d:/window.png");
-            bitmapLabelName.Save("d:/label.png");
+            //todo: using OCR to assert the content
         }
         finally
         {

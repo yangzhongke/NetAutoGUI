@@ -232,7 +232,7 @@ public class Win32UIElement
 
         void MouseClick()
         {
-            var hWndWindow = User32.GetAncestor(this.hwnd, User32.GetAncestorFlag.GA_ROOT);
+            var hWndWindow = Win32Helpers.GetRootWindow(this.hwnd);
             Win32Helpers.ActiveWindow(hWndWindow); //The window must activate before being clicked.
 
             GetWindowRect(hwnd, out RECT rect);

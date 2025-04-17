@@ -7,10 +7,10 @@ public static class Win32Helpers
 {
     public static void ActiveWindow(HWND hWnd)
     {
-        if (User32.GetAncestor(hWnd, User32.GetAncestorFlag.GA_ROOT) != hWnd)
+        if (Win32Helpers.GetRootWindow(hWnd) != hWnd)
         {
             throw new ArgumentException(nameof(hWnd),
-                "Only handle to Window is supported.");
+                "Only handle to root Window is supported.");
         }
 
         User32.ShowWindow(hWnd, ShowWindowCommand.SW_RESTORE);
@@ -37,5 +37,12 @@ public static class Win32Helpers
         User32.SetFocus(hWnd);
 
         User32.AttachThreadInput(currentThreadId, targetThreadId, false);
+    }
+
+    public static HWND GetRootWindow(HWND hWnd)
+    {
+        var hWndWindow = User32.GetAncestor(hWnd, User32.GetAncestorFlag.GA_ROOT);
+        Win32Error.ThrowLastError();
+        return hWndWindow;
     }
 }

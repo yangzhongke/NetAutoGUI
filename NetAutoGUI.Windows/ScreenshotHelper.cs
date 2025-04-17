@@ -11,8 +11,11 @@ namespace NetAutoGUI.Windows
         {
             if (!User32.IsWindow(hWnd))
             {
-                throw new ArgumentException("only window is allowed", nameof(hWnd));
+                throw new ArgumentException("hWnd is not a valid window", nameof(hWnd));
             }
+
+            HWND hWndRooWindow = Win32Helpers.GetRootWindow(hWnd);
+            Win32Helpers.ActiveWindow(hWndRooWindow);
             // DWM is only available on Windows Vista and later;
             // On some server systems, DWM is not available either.
             // In this case, we use PrintWindow API instead.
@@ -44,7 +47,7 @@ namespace NetAutoGUI.Windows
         {
             RECT rectToBeCaptured;
             //if the hWnd a top-level window 
-            if (hWnd == User32.GetAncestor(hWnd, User32.GetAncestorFlag.GA_ROOT))
+            if (hWnd == Win32Helpers.GetRootWindow(hWnd))
             {
                 var hr = DwmApi.DwmGetWindowAttribute(hWnd,
                     DwmApi.DWMWINDOWATTRIBUTE.DWMWA_EXTENDED_FRAME_BOUNDS,

@@ -50,8 +50,7 @@ namespace NetAutoGUI
         /// <summary>
         /// Highlight several areas 
         /// </summary>
-        /// <param name="waitSeconds">display for the given seconds before it disappear</param>
         /// <param name="rectangles">multiple areas to highlight</param>
-        public void Highlight(double waitSeconds = 0.5, params Rectangle[] rectangles);
+        public void Highlight(params Rectangle[] rectangles);
     }
 }

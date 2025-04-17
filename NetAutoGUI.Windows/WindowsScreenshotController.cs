@@ -1,6 +1,5 @@
 ﻿using NetAutoGUI.Internals;
 using System.Runtime.Versioning;
-using System.Threading;
 using System.Windows.Forms;
 using Vanara.PInvoke;
 
@@ -20,24 +19,26 @@ namespace NetAutoGUI.Windows
             return ScreenshotHelper.CaptureWindow(windowHandler.ToHWND());
         }
 
-        private static PRECT ToPRECT(Rectangle r)
-        {
-            return new PRECT(r.X, r.Y, r.X + r.Width, r.Y + r.Height);
-        }
 
-        public override void Highlight(double waitSeconds = 0.5, params Rectangle[] rectangles)
+        public override void Highlight(params Rectangle[] rectangles)
         {
-            HDC hDC_Desktop = User32.GetDC(HWND.NULL);
+            HDC hDcDesktop = User32.GetDC(HWND.NULL);
             foreach (var rect in rectangles)
             {
                 HBRUSH blueBrush = User32.GetSysColorBrush(SystemColorIndex.COLOR_ACTIVEBORDER);
-                User32.FillRect(hDC_Desktop, new RECT(rect.X, rect.Y, rect.X + rect.Width, rect.Y + rect.Height), blueBrush);
+                User32.FillRect(hDcDesktop, new RECT(rect.X, rect.Y, rect.X + rect.Width, rect.Y + rect.Height),
+                    blueBrush);
             }
 
-            GUI.Pause(waitSeconds);
+            GUI.Pause(0.5);
             foreach (var rect in rectangles)
             {
                 User32.InvalidateRect(HWND.NULL, ToPRECT(rect), true);
+            }
+
+            PRECT ToPRECT(Rectangle r)
+            {
+                return new PRECT(r.X, r.Y, r.X + r.Width, r.Y + r.Height);
             }
         }
         

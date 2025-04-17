@@ -16,8 +16,10 @@ public class Issue21
         try
         {
             Window? win = process.WaitForWindowByTitle("MainWindow");
-            //Action actionGetRoot = () => win?.GetRoot();
-            //actionGetRoot.Should().Throw<Exception>();
+            Action actionGetRoot = () => win?.GetRoot();
+            actionGetRoot.Should().Throw<NotSupportedException>();
+            Action actionGetMenu = () => win?.GetMainMenu();
+            actionGetMenu.Should().Throw<NotSupportedException>();
             win.Activate();
             var centerOfTxtResult = GUI.Screenshot.WaitOnScreen("Issues/Resources/txtResult.png").Center;
             GUI.Screenshot.ClickOnScreen("Issues/Resources/txtName.png");
