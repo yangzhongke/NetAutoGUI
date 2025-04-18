@@ -29,6 +29,7 @@
     </ItemGroup>
     <ItemGroup>
         <Folder Include="Issues\Resources\"/>
+        <Folder Include="paddleOCR_runtime\"/>
     </ItemGroup>
     <ItemGroup>
         <None Update="Issues\Resources\cmbCountry.png">
@@ -56,5 +57,15 @@
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         </None>
     </ItemGroup>
-
+    <!--Rider's [Build solution] can copy those files from nuget to output dir;
+    in contrast, "dotnet build" cann't, it may due to PaddleOCR's bug.
+    To solve this problem,the following Target is added.
+    -->
+    <Target Name="CopyPaddleOCRFiles" AfterTargets="Build">
+        <ItemGroup>
+            <PaddleFiles Include="paddleOCR_runtime\**\*"/>
+        </ItemGroup>
+        <Copy SourceFiles="@(PaddleFiles)"
+              DestinationFiles="@(PaddleFiles->'$(OutputPath)%(RecursiveDir)%(Filename)%(Extension)')"/>
+    </Target>
 </Project>
