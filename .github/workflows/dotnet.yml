@@ -23,5 +23,7 @@ jobs:
     #      9.0.x
     - name: Restore dependencies
       run: dotnet restore
+    - name: Build
+      run: dotnet build
     - name: Test
       run: dotnet test --verbosity normal
