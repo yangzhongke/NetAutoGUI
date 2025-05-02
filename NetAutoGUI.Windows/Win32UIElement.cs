@@ -266,9 +266,9 @@ public class Win32UIElement
     }
     public override bool Equals(object? obj)
     {
-        if (obj is Win32UIElement)
+        if (obj is Win32UIElement uiElement)
         {
-            return Equals(obj, this);
+            return Equals(uiElement);
         }
 
         return false;

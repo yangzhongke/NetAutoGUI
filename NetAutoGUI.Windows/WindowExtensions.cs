@@ -1,9 +1,7 @@
 ﻿using NetAutoGUI.Windows;
 using System;
-using System.Diagnostics;
 using System.Linq;
 using System.Text;
-using System.Threading;
 using NetAutoGUI.Internals;
 using Vanara.PInvoke;
 using WildcardMatch;
@@ -29,7 +27,7 @@ namespace NetAutoGUI
             var menu = User32.GetMenu(hwnd);
             if (menu == HMENU.NULL)
             {
-                throw new NotSupportedException("The window doesn't have a menu.");
+                throw new NotSupportedException("The window doesn't have a Win32 menu.");
             }
             return new DynamicMainMenu(hwnd);
         }

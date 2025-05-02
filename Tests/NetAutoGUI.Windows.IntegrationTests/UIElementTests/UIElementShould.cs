@@ -95,4 +95,28 @@ public class UIElementShould
             process.Kill();
         }
     }
+
+    [Fact]
+    public void Equals_Correctly()
+    {
+        GUIWindows.Initialize();
+        string solutionRoot = TestHelpers.GetSolutionRootDirectory();
+        string pathOfWinFormsAppForTest1 = TestHelpers.FindFile(solutionRoot, "WinFormsAppForTest1.exe");
+        Process process = GUI.Application.LaunchApplication(pathOfWinFormsAppForTest1);
+        try
+        {
+            Window? win = process.WaitForWindowByTitle("WinFormsAppForTest1");
+            Win32UIElement? uiWindow = win?.GetRoot();
+            Win32UIElement labelName1 = uiWindow.Children.First(c => c.Text.Equals("Name"));
+            Win32UIElement labelName2 = uiWindow.Children.First(c => c.Text.Equals("Name"));
+            labelName1.Should().Be(labelName2);
+            labelName1.Equals(labelName2).Should().BeTrue();
+            labelName1.Equals((object)labelName2).Should().BeTrue();
+            uiWindow.Should().NotBe(labelName1);
+        }
+        finally
+        {
+            process.Kill();
+        }
+    }
 }

@@ -3,7 +3,7 @@ using Vanara.PInvoke;
 
 namespace NetAutoGUI.Windows;
 
-public static class Win32Helpers
+internal static class Win32Helpers
 {
     public static void ActiveWindow(HWND hWnd)
     {
