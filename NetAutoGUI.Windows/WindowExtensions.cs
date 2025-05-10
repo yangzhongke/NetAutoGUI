@@ -42,6 +42,27 @@ namespace NetAutoGUI
             {
                 throw new NotSupportedException("WPF window doesn't support GetRoot()");
             }
+
+            if (className.StartsWith("SDL_"))
+            {
+                throw new NotSupportedException("SDL window doesn't support GetRoot()");
+            }
+
+            if (className.StartsWith("Chrome_"))
+            {
+                throw new NotSupportedException("Chrome window doesn't support GetRoot()");
+            }
+
+            if (className.StartsWith("UnityWndClass_"))
+            {
+                throw new NotSupportedException("Chrome window doesn't support GetRoot()");
+            }
+
+            if (className.StartsWith("Windows.UI.Core.CoreWindow") ||
+                className.StartsWith("ApplicationFrameWindow"))
+            {
+                throw new NotSupportedException("UWP window doesn't support GetRoot()");
+            }
             return new Win32UIElement(window.Id);
         }
 

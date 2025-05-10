@@ -8,7 +8,10 @@ public class WindowsWindowController : IWindowController
 {
     public Rectangle GetBoundary(Window window)
     {
-        User32.GetWindowRect(window.Id.ToHWND(), out RECT rect);
+        if (!User32.GetWindowRect(window.Id.ToHWND(), out RECT rect))
+        {
+            Win32Error.ThrowLastError();
+        }
         return new Rectangle(rect.X, rect.Y, rect.Width, rect.Height);
     }
 

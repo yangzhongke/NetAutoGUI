@@ -1,12 +1,10 @@
 ﻿using System.Diagnostics;
 using FluentAssertions;
-using PaddleOCRSharp;
-using Vanara.PInvoke;
 using Xunit;
 
 namespace NetAutoGUI.Windows.UnitTests.WindowExtensionsTests;
 
-public class ActivateShould
+public class MaximizeShould
 {
     [Fact]
     public void Work_Correctly()
@@ -18,11 +16,16 @@ public class ActivateShould
         try
         {
             Window? win = process.WaitForWindowByTitle("WinFormsAppForTest1");
-            User32.ShowWindow(new HWND(new IntPtr(win.Id)), ShowWindowCommand.SW_MINIMIZE); //Hide the window first.
-            var ocr = new PaddleOCREngine();
-            ocr.DetectText(GUI.Screenshot.Screenshot().Data).Text.Should().NotContain("Zack666");
-            win?.Activate();
-            ocr.DetectText(GUI.Screenshot.Screenshot().Data).Text.Should().Contain("Zack666");
+            var originalBoundary = win.Boundary;
+            win.Maximize();
+            GUI.Pause(1);
+            var newBoundary = win.Boundary;
+            newBoundary.Area.Should().BeGreaterThan(originalBoundary.Area);
+
+            newBoundary.X.Should().BeLessThanOrEqualTo(0);
+            newBoundary.Y.Should().BeLessThanOrEqualTo(0);
+            newBoundary.Width.Should().BeGreaterThan(originalBoundary.Width);
+            newBoundary.Height.Should().BeGreaterThan(originalBoundary.Height);
         }
         finally
         {
