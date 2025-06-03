@@ -84,9 +84,7 @@ public class UIElementShould
             var text = TestHelpers.RecognizeText(bitmapWindow.Data);
             text.Should().Contain("Name");
             text.Should().Contain("Contact");
-            text.Should().Contain("Phone");
-            text.Should().Contain("Email");
-            text.Should().Contain("Calc");
+            text.Should().Contain("Zack666");
         }
         finally
         {

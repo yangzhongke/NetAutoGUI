@@ -168,7 +168,7 @@ partial class FormMain
         // 
         label5.AutoSize = true;
         label5.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)0));
-        label5.Location = new System.Drawing.Point(287, 9);
+        label5.Location = new System.Drawing.Point(677, 409);
         label5.Name = "label5";
         label5.Size = new System.Drawing.Size(102, 32);
         label5.TabIndex = 4;
@@ -209,5 +209,5 @@ partial class FormMain
     private Label label3;
     private TextBox txtPhone;
     private Label label2;
-    private Label label5;
+    private System.Windows.Forms.Label label5;
 }
