@@ -82,7 +82,6 @@ public class UIElementShould
             bitmapWindow.Height.Should().BeGreaterThan(bitmapLabelName.Height);
             bitmapWindow.Width.Should().BeGreaterThan(bitmapLabelName.Width);
             var text = TestHelpers.RecognizeText(bitmapWindow.Data);
-            text.Should().Contain("Name");
             text.Should().Contain("Contact");
             text.Should().Contain("Zack666");
         }

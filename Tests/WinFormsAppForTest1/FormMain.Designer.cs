@@ -53,7 +53,6 @@ partial class FormMain
         groupBox1.Controls.Add(label3);
         groupBox1.Controls.Add(txtPhone);
         groupBox1.Controls.Add(label2);
-        groupBox1.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)0));
         groupBox1.Location = new System.Drawing.Point(12, 43);
         groupBox1.Name = "groupBox1";
         groupBox1.Size = new System.Drawing.Size(699, 107);
@@ -103,7 +102,6 @@ partial class FormMain
         // label1
         // 
         label1.AutoSize = true;
-        label1.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)0));
         label1.Location = new System.Drawing.Point(12, 12);
         label1.Name = "label1";
         label1.Size = new System.Drawing.Size(53, 19);
@@ -167,7 +165,6 @@ partial class FormMain
         // label5
         // 
         label5.AutoSize = true;
-        label5.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)0));
         label5.Location = new System.Drawing.Point(677, 409);
         label5.Name = "label5";
         label5.Size = new System.Drawing.Size(102, 32);
