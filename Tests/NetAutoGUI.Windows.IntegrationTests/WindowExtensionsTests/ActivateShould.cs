@@ -1,6 +1,5 @@
 ﻿using System.Diagnostics;
 using FluentAssertions;
-using PaddleOCRSharp;
 using Vanara.PInvoke;
 using Xunit;
 
@@ -19,10 +18,9 @@ public class ActivateShould
         {
             Window? win = process.WaitForWindowByTitle("WinFormsAppForTest1");
             User32.ShowWindow(new HWND(new IntPtr(win.Id)), ShowWindowCommand.SW_MINIMIZE); //Hide the window first.
-            var ocr = new PaddleOCREngine();
-            ocr.DetectText(GUI.Screenshot.Screenshot().Data).Text.Should().NotContain("Zack666");
+            TestHelpers.RecognizeText(GUI.Screenshot.Screenshot().Data).Should().NotContain("Zack666");
             win?.Activate();
-            ocr.DetectText(GUI.Screenshot.Screenshot().Data).Text.Should().Contain("Zack666");
+            TestHelpers.RecognizeText(GUI.Screenshot.Screenshot().Data).Should().Contain("Zack666");
         }
         finally
         {

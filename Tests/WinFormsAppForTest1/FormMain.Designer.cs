@@ -53,6 +53,7 @@ partial class FormMain
         groupBox1.Controls.Add(label3);
         groupBox1.Controls.Add(txtPhone);
         groupBox1.Controls.Add(label2);
+        groupBox1.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)0));
         groupBox1.Location = new System.Drawing.Point(12, 43);
         groupBox1.Name = "groupBox1";
         groupBox1.Size = new System.Drawing.Size(699, 107);
@@ -64,7 +65,7 @@ partial class FormMain
         // 
         txtEmail.Location = new System.Drawing.Point(62, 67);
         txtEmail.Name = "txtEmail";
-        txtEmail.Size = new System.Drawing.Size(149, 23);
+        txtEmail.Size = new System.Drawing.Size(149, 21);
         txtEmail.TabIndex = 3;
         // 
         // label3
@@ -72,7 +73,7 @@ partial class FormMain
         label3.AutoSize = true;
         label3.Location = new System.Drawing.Point(15, 73);
         label3.Name = "label3";
-        label3.Size = new System.Drawing.Size(36, 15);
+        label3.Size = new System.Drawing.Size(39, 15);
         label3.TabIndex = 2;
         label3.Text = "Email";
         // 
@@ -80,7 +81,7 @@ partial class FormMain
         // 
         txtPhone.Location = new System.Drawing.Point(62, 20);
         txtPhone.Name = "txtPhone";
-        txtPhone.Size = new System.Drawing.Size(149, 23);
+        txtPhone.Size = new System.Drawing.Size(149, 21);
         txtPhone.TabIndex = 1;
         // 
         // label2
@@ -88,7 +89,7 @@ partial class FormMain
         label2.AutoSize = true;
         label2.Location = new System.Drawing.Point(15, 26);
         label2.Name = "label2";
-        label2.Size = new System.Drawing.Size(41, 15);
+        label2.Size = new System.Drawing.Size(43, 15);
         label2.TabIndex = 0;
         label2.Text = "Phone";
         // 
@@ -102,9 +103,10 @@ partial class FormMain
         // label1
         // 
         label1.AutoSize = true;
-        label1.Location = new System.Drawing.Point(27, 12);
+        label1.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)0));
+        label1.Location = new System.Drawing.Point(12, 12);
         label1.Name = "label1";
-        label1.Size = new System.Drawing.Size(39, 15);
+        label1.Size = new System.Drawing.Size(53, 19);
         label1.TabIndex = 2;
         label1.Text = "Name";
         // 
@@ -200,9 +202,9 @@ partial class FormMain
 
     #endregion
 
-    private GroupBox groupBox1;
+    private System.Windows.Forms.GroupBox groupBox1;
     private TextBox txtName;
-    private Label label1;
+    private System.Windows.Forms.Label label1;
     private TextBox txtEmail;
     private Label label3;
     private TextBox txtPhone;

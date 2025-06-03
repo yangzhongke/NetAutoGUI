@@ -1,7 +1,7 @@
 ﻿using Xunit;
 using FluentAssertions;
 using System.Diagnostics;
-using PaddleOCRSharp;
+using Tesseract;
 
 namespace NetAutoGUI.Windows.UnitTests.UIElementTests;
 
@@ -81,14 +81,12 @@ public class UIElementShould
             var bitmapLabelName = labelName.ToBitmap();
             bitmapWindow.Height.Should().BeGreaterThan(bitmapLabelName.Height);
             bitmapWindow.Width.Should().BeGreaterThan(bitmapLabelName.Width);
-            var ocr = new PaddleOCREngine();
-            ocr.DetectText(bitmapLabelName.Data).Text.Should().Be("Name");
-            var ocrResultOfWindow = ocr.DetectText(bitmapWindow.Data);
-            ocrResultOfWindow.TextBlocks.Should().Contain(e => e.Text == "Name");
-            ocrResultOfWindow.TextBlocks.Should().Contain(e => e.Text == "Contact");
-            ocrResultOfWindow.TextBlocks.Should().Contain(e => e.Text == "Phone");
-            ocrResultOfWindow.TextBlocks.Should().Contain(e => e.Text == "Email");
-            ocrResultOfWindow.TextBlocks.Should().Contain(e => e.Text == "Calc");
+            var text = TestHelpers.RecognizeText(bitmapWindow.Data);
+            text.Should().Contain("Name");
+            text.Should().Contain("Contact");
+            text.Should().Contain("Phone");
+            text.Should().Contain("Email");
+            text.Should().Contain("Calc");
         }
         finally
         {

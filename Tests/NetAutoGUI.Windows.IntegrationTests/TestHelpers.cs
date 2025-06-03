@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using Tesseract;
+
 namespace NetAutoGUI.Windows.UnitTests
 {
     internal class TestHelpers
@@ -34,6 +36,15 @@ namespace NetAutoGUI.Windows.UnitTests
             catch (IOException) { }
 
             throw new Exception($"{fileName} not found.");
+        }
+
+        public static string RecognizeText(byte[] imageBytes)
+        {
+            using var engine = new TesseractEngine(@"./tessdata", "eng", EngineMode.Default);
+            using var img = Pix.LoadFromMemory(imageBytes);
+            using var page = engine.Process(img);
+            var text = page.GetText();
+            return text;
         }
     }
 }

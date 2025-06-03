@@ -8,8 +8,8 @@
     </PropertyGroup>
     <ItemGroup>
         <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.1.0" />
-        <PackageReference Include="PaddleOCRSharp" Version="4.5.0.1"/>
         <PackageReference Include="SkiaSharp" Version="3.116.1" />
+        <PackageReference Include="Tesseract" Version="5.2.0"/>
         <PackageReference Include="xunit" Version="2.4.1" />
         <PackageReference Include="xunit.runner.visualstudio" Version="2.4.3">
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -29,7 +29,9 @@
     </ItemGroup>
     <ItemGroup>
         <Folder Include="Issues\Resources\"/>
-        <Folder Include="paddleOCR_runtime\"/>
+        <Content Include="tessdata\**\*.*">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </Content>
     </ItemGroup>
     <ItemGroup>
         <None Update="Issues\Resources\cmbCountry.png">
@@ -57,15 +59,4 @@
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         </None>
     </ItemGroup>
-    <!--Rider's [Build solution] can copy those files from nuget to output dir;
-    in contrast, "dotnet build" cann't, it may due to PaddleOCR's bug.
-    To solve this problem,the following Target is added.
-    -->
-    <Target Name="CopyPaddleOCRFiles" AfterTargets="Build">
-        <ItemGroup>
-            <PaddleFiles Include="paddleOCR_runtime\**\*"/>
-        </ItemGroup>
-        <Copy SourceFiles="@(PaddleFiles)"
-              DestinationFiles="@(PaddleFiles->'$(OutputPath)%(RecursiveDir)%(Filename)%(Extension)')"/>
-    </Target>
 </Project>
