@@ -6,10 +6,10 @@
     <UseWindowsForms>true</UseWindowsForms>
 	<Nullable>enable</Nullable>
 	<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-	<Title>.NET version of pyAutoGUI</Title>
+      <Title>GUI Automation library</Title>
 	<PackageProjectUrl>https://github.com/yangzhongke/NetAutoGUI</PackageProjectUrl>
 	<RepositoryUrl>https://github.com/yangzhongke/NetAutoGUI</RepositoryUrl>
-	<Version>2.0.1</Version>
+      <Version>3.0.0</Version>
   </PropertyGroup>
 
   <ItemGroup>

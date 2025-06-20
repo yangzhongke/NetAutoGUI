@@ -1,6 +1,0 @@
-1， 写文档，推广
-2、把pywinauto的优点融入进来。
-3. 添加集成测试，在Winform、WPF、控制台中启动程序。
-4. Support multiple .NET versions
-https://learn.microsoft.com/en-us/nuget/create-packages/supporting-multiple-target-frameworks
-5. WaitForWindow等方法提供异步版本

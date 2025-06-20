@@ -7,8 +7,8 @@
 	<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 	<PackageProjectUrl>https://github.com/yangzhongke/NetAutoGUI</PackageProjectUrl>
 	<RepositoryUrl>https://github.com/yangzhongke/NetAutoGUI</RepositoryUrl>
-	<Description>.NET version of pyAutoGUI</Description>
-	<Version>2.0.1</Version>
+      <Description>GUI Automation library</Description>
+      <Version>3.0.0</Version>
   </PropertyGroup>
 
   <ItemGroup>

@@ -1,0 +1,889 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Interface IApplicationController | NetAutoGUI </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Interface IApplicationController | NetAutoGUI ">
+      
+      <meta name="description" content="A controller for control processes and windows">
+      <link rel="icon" href="../favicon.ico">
+      <link rel="stylesheet" href="../public/docfx.min.css">
+      <link rel="stylesheet" href="../public/main.css">
+      <meta name="docfx:navrel" content="../toc.html">
+      <meta name="docfx:tocrel" content="toc.html">
+      
+      <meta name="docfx:rel" content="../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/yangzhongke/NetAutoGUI/new/main/apiSpec/new?filename=NetAutoGUI_IApplicationController.md&amp;value=---%0Auid%3A%20NetAutoGUI.IApplicationController%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="ManagedReference">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../index.html">
+            <img id="logo" class="svg" src="../logo.svg" alt="NetAutoGUI">
+            NetAutoGUI
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="NetAutoGUI.IApplicationController">
+
+
+
+  <h1 id="NetAutoGUI_IApplicationController" data-uid="NetAutoGUI.IApplicationController" class="text-break">
+Interface IApplicationController  <a class="header-action link-secondary" title="View source" href="https://github.com/yangzhongke/NetAutoGUI/blob/main/NetAutoGUI/IApplicationController.cs/#L12"><i class="bi bi-code-slash"></i></a>
+  </h1>
+
+  <div class="facts text-secondary">
+    <dl><dt>Namespace</dt><dd><a class="xref" href="NetAutoGUI.html">NetAutoGUI</a></dd></dl>
+  <dl><dt>Assembly</dt><dd>NetAutoGUI.dll</dd></dl>
+  </div>
+
+  <div class="markdown summary"><p>A controller for control processes and windows</p>
+</div>
+  <div class="markdown conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public interface IApplicationController</code></pre>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <h2 class="section" id="methods">Methods
+</h2>
+
+
+  <a id="NetAutoGUI_IApplicationController_FindWindow_" data-uid="NetAutoGUI.IApplicationController.FindWindow*"></a>
+
+  <h3 id="NetAutoGUI_IApplicationController_FindWindow_System_Func_NetAutoGUI_Window_System_Boolean__" data-uid="NetAutoGUI.IApplicationController.FindWindow(System.Func{NetAutoGUI.Window,System.Boolean})">
+  FindWindow(Func&lt;Window, bool&gt;)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/yangzhongke/NetAutoGUI/blob/main/NetAutoGUI/IApplicationController.cs/#L62"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Find a window using the given criteria</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">Window? FindWindow(Func&lt;Window, bool&gt; predict)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>predict</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.func-2">Func</a>&lt;<a class="xref" href="NetAutoGUI.Window.html">Window</a>, <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a>&gt;</dt>
+    <dd><p>the criteria</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="NetAutoGUI.Window.html">Window</a></dt>
+    <dd><p>the first found window</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="NetAutoGUI_IApplicationController_FindWindowById_" data-uid="NetAutoGUI.IApplicationController.FindWindowById*"></a>
+
+  <h3 id="NetAutoGUI_IApplicationController_FindWindowById_System_Int64_" data-uid="NetAutoGUI.IApplicationController.FindWindowById(System.Int64)">
+  FindWindowById(long)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/yangzhongke/NetAutoGUI/blob/main/NetAutoGUI/IApplicationController.cs/#L55"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Find a window by its id/handler</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">Window? FindWindowById(long id)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>id</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int64">long</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="NetAutoGUI.Window.html">Window</a></dt>
+    <dd><p>the found window</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="NetAutoGUI_IApplicationController_FindWindowByTitle_" data-uid="NetAutoGUI.IApplicationController.FindWindowByTitle*"></a>
+
+  <h3 id="NetAutoGUI_IApplicationController_FindWindowByTitle_System_String_" data-uid="NetAutoGUI.IApplicationController.FindWindowByTitle(System.String)">
+  FindWindowByTitle(string)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/yangzhongke/NetAutoGUI/blob/main/NetAutoGUI/IApplicationController.cs/#L48"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Find the first window with the given title.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">Window? FindWindowByTitle(string title)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>title</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd><p>the title of the window</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="NetAutoGUI.Window.html">Window</a></dt>
+    <dd><p>The first found window</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="NetAutoGUI_IApplicationController_FindWindowLikeTitle_" data-uid="NetAutoGUI.IApplicationController.FindWindowLikeTitle*"></a>
+
+  <h3 id="NetAutoGUI_IApplicationController_FindWindowLikeTitle_System_String_" data-uid="NetAutoGUI.IApplicationController.FindWindowLikeTitle(System.String)">
+  FindWindowLikeTitle(string)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/yangzhongke/NetAutoGUI/blob/main/NetAutoGUI/IApplicationController.cs/#L69"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Find a window with a given title using wildcard</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">Window? FindWindowLikeTitle(string wildcard)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>wildcard</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd><p>the wildcard expression. it supports * and ?. For example: <em>notepad</em>, n?te</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="NetAutoGUI.Window.html">Window</a></dt>
+    <dd><p>the first found window</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="NetAutoGUI_IApplicationController_GetAllWindows_" data-uid="NetAutoGUI.IApplicationController.GetAllWindows*"></a>
+
+  <h3 id="NetAutoGUI_IApplicationController_GetAllWindows" data-uid="NetAutoGUI.IApplicationController.GetAllWindows">
+  GetAllWindows()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/yangzhongke/NetAutoGUI/blob/main/NetAutoGUI/IApplicationController.cs/#L41"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Get all opened windows.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">Window[] GetAllWindows()</code></pre>
+  </div>
+
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="NetAutoGUI.Window.html">Window</a>[]</dt>
+    <dd><p>all opend windows</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="NetAutoGUI_IApplicationController_IsApplicationRunning_" data-uid="NetAutoGUI.IApplicationController.IsApplicationRunning*"></a>
+
+  <h3 id="NetAutoGUI_IApplicationController_IsApplicationRunning_System_String_System_String_" data-uid="NetAutoGUI.IApplicationController.IsApplicationRunning(System.String,System.String)">
+  IsApplicationRunning(string, string?)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/yangzhongke/NetAutoGUI/blob/main/NetAutoGUI/IApplicationController.cs/#L28"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Check if there is any processes running with the given process name</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">bool IsApplicationRunning(string processName, string? arguments = null)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>processName</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd><p>the process's name.</p>
+</dd>
+    <dt><code>arguments</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd><p>arguments</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd><p>true: the application is running; false: the application is not running</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="NetAutoGUI_IApplicationController_KillProcesses_" data-uid="NetAutoGUI.IApplicationController.KillProcesses*"></a>
+
+  <h3 id="NetAutoGUI_IApplicationController_KillProcesses_System_String_" data-uid="NetAutoGUI.IApplicationController.KillProcesses(System.String)">
+  KillProcesses(string)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/yangzhongke/NetAutoGUI/blob/main/NetAutoGUI/IApplicationController.cs/#L35"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Kill all processes with the given name</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">void KillProcesses(string processName)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>processName</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd><p>the process's name.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="NetAutoGUI_IApplicationController_LaunchApplication_" data-uid="NetAutoGUI.IApplicationController.LaunchApplication*"></a>
+
+  <h3 id="NetAutoGUI_IApplicationController_LaunchApplication_System_String_System_String_" data-uid="NetAutoGUI.IApplicationController.LaunchApplication(System.String,System.String)">
+  LaunchApplication(string, string?)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/yangzhongke/NetAutoGUI/blob/main/NetAutoGUI/IApplicationController.cs/#L20"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Launch an application</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">Process LaunchApplication(string appPath, string? arguments = null)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>appPath</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd><p>the path to the application</p>
+</dd>
+    <dt><code>arguments</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd><p>arguments passed to the application</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.diagnostics.process">Process</a></dt>
+    <dd><p>the Process object associated with the started application</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="NetAutoGUI_IApplicationController_OpenFileWithDefaultApp_" data-uid="NetAutoGUI.IApplicationController.OpenFileWithDefaultApp*"></a>
+
+  <h3 id="NetAutoGUI_IApplicationController_OpenFileWithDefaultApp_System_String_" data-uid="NetAutoGUI.IApplicationController.OpenFileWithDefaultApp(System.String)">
+  OpenFileWithDefaultApp(string)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/yangzhongke/NetAutoGUI/blob/main/NetAutoGUI/IApplicationController.cs/#L164"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Open the given file with the default application</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">void OpenFileWithDefaultApp(string filePath)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>filePath</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd><p>the file path to be opened</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="NetAutoGUI_IApplicationController_WaitForApplication_" data-uid="NetAutoGUI.IApplicationController.WaitForApplication*"></a>
+
+  <h3 id="NetAutoGUI_IApplicationController_WaitForApplication_System_String_System_Double_" data-uid="NetAutoGUI.IApplicationController.WaitForApplication(System.String,System.Double)">
+  WaitForApplication(string, double)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/yangzhongke/NetAutoGUI/blob/main/NetAutoGUI/IApplicationController.cs/#L78"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Wait for the first process with the give name running.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">Process WaitForApplication(string processName, double timeoutSeconds = 5)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>processName</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd><p>the process's name.</p>
+</dd>
+    <dt><code>timeoutSeconds</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.double">double</a></dt>
+    <dd><p>timeout in second</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.diagnostics.process">Process</a></dt>
+    <dd><p>the first found process</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <h4 class="section">Exceptions</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.timeoutexception">TimeoutException</a></dt>
+    <dd><p>thrown when time is up</p>
+</dd>
+  </dl>
+
+
+
+  <a id="NetAutoGUI_IApplicationController_WaitForApplicationAsync_" data-uid="NetAutoGUI.IApplicationController.WaitForApplicationAsync*"></a>
+
+  <h3 id="NetAutoGUI_IApplicationController_WaitForApplicationAsync_System_String_System_Double_System_Threading_CancellationToken_" data-uid="NetAutoGUI.IApplicationController.WaitForApplicationAsync(System.String,System.Double,System.Threading.CancellationToken)">
+  WaitForApplicationAsync(string, double, CancellationToken)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/yangzhongke/NetAutoGUI/blob/main/NetAutoGUI/IApplicationController.cs/#L88"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Wait for the first process with the give name running.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">Task&lt;Process&gt; WaitForApplicationAsync(string processName, double timeoutSeconds = 5, CancellationToken cancellationToken = default)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>processName</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd><p>the process's name.</p>
+</dd>
+    <dt><code>timeoutSeconds</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.double">double</a></dt>
+    <dd><p>timeout in second</p>
+</dd>
+    <dt><code>cancellationToken</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.cancellationtoken">CancellationToken</a></dt>
+    <dd><p>cancellationToken</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.diagnostics.process">Process</a>&gt;</dt>
+    <dd><p>the first found process</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <h4 class="section">Exceptions</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.timeoutexception">TimeoutException</a></dt>
+    <dd><p>thrown when time is up</p>
+</dd>
+  </dl>
+
+
+
+  <a id="NetAutoGUI_IApplicationController_WaitForWindow_" data-uid="NetAutoGUI.IApplicationController.WaitForWindow*"></a>
+
+  <h3 id="NetAutoGUI_IApplicationController_WaitForWindow_System_Func_NetAutoGUI_Window_System_Boolean__System_String_System_Double_" data-uid="NetAutoGUI.IApplicationController.WaitForWindow(System.Func{NetAutoGUI.Window,System.Boolean},System.String,System.Double)">
+  WaitForWindow(Func&lt;Window, bool&gt;, string, double)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/yangzhongke/NetAutoGUI/blob/main/NetAutoGUI/IApplicationController.cs/#L120"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Wait for a window using the given criteria</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">Window WaitForWindow(Func&lt;Window, bool&gt; predict, string errorMessageWhenTimeout, double timeoutSeconds = 5)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>predict</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.func-2">Func</a>&lt;<a class="xref" href="NetAutoGUI.Window.html">Window</a>, <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a>&gt;</dt>
+    <dd><p>the condition</p>
+</dd>
+    <dt><code>errorMessageWhenTimeout</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd><p>errorMessageWhenTimeout</p>
+</dd>
+    <dt><code>timeoutSeconds</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.double">double</a></dt>
+    <dd><p>timeout in second</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="NetAutoGUI.Window.html">Window</a></dt>
+    <dd><p>the first found window</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <h4 class="section">Exceptions</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.timeoutexception">TimeoutException</a></dt>
+    <dd><p>thrown when time is up</p>
+</dd>
+  </dl>
+
+
+
+  <a id="NetAutoGUI_IApplicationController_WaitForWindowAsync_" data-uid="NetAutoGUI.IApplicationController.WaitForWindowAsync*"></a>
+
+  <h3 id="NetAutoGUI_IApplicationController_WaitForWindowAsync_System_Func_NetAutoGUI_Window_System_Boolean__System_String_System_Double_System_Threading_CancellationToken_" data-uid="NetAutoGUI.IApplicationController.WaitForWindowAsync(System.Func{NetAutoGUI.Window,System.Boolean},System.String,System.Double,System.Threading.CancellationToken)">
+  WaitForWindowAsync(Func&lt;Window, bool&gt;, string, double, CancellationToken)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/yangzhongke/NetAutoGUI/blob/main/NetAutoGUI/IApplicationController.cs/#L132"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Wait for a window using the given criteria</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">Task&lt;Window&gt; WaitForWindowAsync(Func&lt;Window, bool&gt; predict, string errorMessageWhenTimeout, double timeoutSeconds = 5, CancellationToken cancellationToken = default)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>predict</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.func-2">Func</a>&lt;<a class="xref" href="NetAutoGUI.Window.html">Window</a>, <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a>&gt;</dt>
+    <dd><p>the condition</p>
+</dd>
+    <dt><code>errorMessageWhenTimeout</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd><p>errorMessageWhenTimeout</p>
+</dd>
+    <dt><code>timeoutSeconds</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.double">double</a></dt>
+    <dd><p>timeout in second</p>
+</dd>
+    <dt><code>cancellationToken</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.cancellationtoken">CancellationToken</a></dt>
+    <dd><p>cancellationToken</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="NetAutoGUI.Window.html">Window</a>&gt;</dt>
+    <dd><p>the first found window</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <h4 class="section">Exceptions</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.timeoutexception">TimeoutException</a></dt>
+    <dd><p>thrown when time is up</p>
+</dd>
+  </dl>
+
+
+
+  <a id="NetAutoGUI_IApplicationController_WaitForWindowByTitle_" data-uid="NetAutoGUI.IApplicationController.WaitForWindowByTitle*"></a>
+
+  <h3 id="NetAutoGUI_IApplicationController_WaitForWindowByTitle_System_String_System_Double_" data-uid="NetAutoGUI.IApplicationController.WaitForWindowByTitle(System.String,System.Double)">
+  WaitForWindowByTitle(string, double)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/yangzhongke/NetAutoGUI/blob/main/NetAutoGUI/IApplicationController.cs/#L99"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Wait for the window with the given title</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">Window WaitForWindowByTitle(string title, double timeoutSeconds = 5)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>title</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd><p>title</p>
+</dd>
+    <dt><code>timeoutSeconds</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.double">double</a></dt>
+    <dd><p>timeout in second</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="NetAutoGUI.Window.html">Window</a></dt>
+    <dd><p>The first found window</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <h4 class="section">Exceptions</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.timeoutexception">TimeoutException</a></dt>
+    <dd><p>thrown when time is up</p>
+</dd>
+  </dl>
+
+
+
+  <a id="NetAutoGUI_IApplicationController_WaitForWindowByTitleAsync_" data-uid="NetAutoGUI.IApplicationController.WaitForWindowByTitleAsync*"></a>
+
+  <h3 id="NetAutoGUI_IApplicationController_WaitForWindowByTitleAsync_System_String_System_Double_System_Threading_CancellationToken_" data-uid="NetAutoGUI.IApplicationController.WaitForWindowByTitleAsync(System.String,System.Double,System.Threading.CancellationToken)">
+  WaitForWindowByTitleAsync(string, double, CancellationToken)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/yangzhongke/NetAutoGUI/blob/main/NetAutoGUI/IApplicationController.cs/#L109"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Wait for the window with the given title</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">Task&lt;Window&gt; WaitForWindowByTitleAsync(string title, double timeoutSeconds = 5, CancellationToken cancellationToken = default)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>title</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd><p>title</p>
+</dd>
+    <dt><code>timeoutSeconds</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.double">double</a></dt>
+    <dd><p>timeout in second</p>
+</dd>
+    <dt><code>cancellationToken</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.cancellationtoken">CancellationToken</a></dt>
+    <dd><p>cancellationToken</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="NetAutoGUI.Window.html">Window</a>&gt;</dt>
+    <dd><p>The first found window</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <h4 class="section">Exceptions</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.timeoutexception">TimeoutException</a></dt>
+    <dd><p>thrown when time is up</p>
+</dd>
+  </dl>
+
+
+
+  <a id="NetAutoGUI_IApplicationController_WaitForWindowLikeTitle_" data-uid="NetAutoGUI.IApplicationController.WaitForWindowLikeTitle*"></a>
+
+  <h3 id="NetAutoGUI_IApplicationController_WaitForWindowLikeTitle_System_String_System_Double_" data-uid="NetAutoGUI.IApplicationController.WaitForWindowLikeTitle(System.String,System.Double)">
+  WaitForWindowLikeTitle(string, double)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/yangzhongke/NetAutoGUI/blob/main/NetAutoGUI/IApplicationController.cs/#L145"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Wait for a window using the given wildcard title</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">Window WaitForWindowLikeTitle(string wildcard, double timeoutSeconds = 5)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>wildcard</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd><p>the wildcard expression. it supports * and ?. For example: <em>notepad</em>, n?te</p>
+</dd>
+    <dt><code>timeoutSeconds</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.double">double</a></dt>
+    <dd><p>timeout in second</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="NetAutoGUI.Window.html">Window</a></dt>
+    <dd><p>the first found window</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <h4 class="section">Exceptions</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.timeoutexception">TimeoutException</a></dt>
+    <dd><p>thrown when time is up</p>
+</dd>
+  </dl>
+
+
+
+  <a id="NetAutoGUI_IApplicationController_WaitForWindowLikeTitleAsync_" data-uid="NetAutoGUI.IApplicationController.WaitForWindowLikeTitleAsync*"></a>
+
+  <h3 id="NetAutoGUI_IApplicationController_WaitForWindowLikeTitleAsync_System_String_System_Double_System_Threading_CancellationToken_" data-uid="NetAutoGUI.IApplicationController.WaitForWindowLikeTitleAsync(System.String,System.Double,System.Threading.CancellationToken)">
+  WaitForWindowLikeTitleAsync(string, double, CancellationToken)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/yangzhongke/NetAutoGUI/blob/main/NetAutoGUI/IApplicationController.cs/#L156"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Wait for a window using the given wildcard title</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">Task&lt;Window&gt; WaitForWindowLikeTitleAsync(string wildcard, double timeoutSeconds = 5, CancellationToken cancellationToken = default)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>wildcard</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd><p>the wildcard expression. it supports * and ?. For example: <em>notepad</em>, n?te</p>
+</dd>
+    <dt><code>timeoutSeconds</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.double">double</a></dt>
+    <dd><p>timeout in second</p>
+</dd>
+    <dt><code>cancellationToken</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.cancellationtoken">CancellationToken</a></dt>
+    <dd><p>cancellationToken</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="NetAutoGUI.Window.html">Window</a>&gt;</dt>
+    <dd><p>the first found window</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <h4 class="section">Exceptions</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.timeoutexception">TimeoutException</a></dt>
+    <dd><p>thrown when time is up</p>
+</dd>
+  </dl>
+
+
+
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/yangzhongke/NetAutoGUI/blob/main/NetAutoGUI/IApplicationController.cs/#L12" class="edit-link">Edit this page</a>
+        </div>
+
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>
