@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using Tesseract;
-
+﻿using IronOcr;
 namespace NetAutoGUI.Windows.UnitTests
 {
     internal class TestHelpers
@@ -40,11 +37,17 @@ namespace NetAutoGUI.Windows.UnitTests
 
         public static string RecognizeText(byte[] imageBytes)
         {
-            using var engine = new TesseractEngine(@"./tessdata", "eng", EngineMode.Default);
-            using var img = Pix.LoadFromMemory(imageBytes);
-            using var page = engine.Process(img);
-            var text = page.GetText();
-            return text;
+            //30 days trial license key for IronOCR only for testing purposes.
+            License.LicenseKey =
+                "IRONSUITE.YANGZHONGKE8.GMAIL.COM.22106-90FE0AAA3C-OD3XZ-PVWAV2FNGYIZ-YLPG6NXOE4GJ-P7DROHHD4LHA-N3C7WKRH3RXX-4OPJZH7DSLIS-HZMNQHLROTGX-4IXOUV-TKMJDR7O4VWPUA-DEPLOYMENT.TRIAL-ALR7LC.TRIAL.EXPIRES.20.JUL.2025";
+
+            var ocr = new IronTesseract();
+            using var ocrInput = new OcrInput();
+            ocrInput.LoadImage(imageBytes);
+            var ocrResult = ocr.Read(ocrInput);
+            return ocrResult.Text;
+
+            //todo: change to Azure OCR, and put credentials in environment variables to avoid hardcoding
         }
     }
 }

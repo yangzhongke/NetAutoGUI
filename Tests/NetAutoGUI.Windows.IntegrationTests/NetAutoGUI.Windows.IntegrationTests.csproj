@@ -7,9 +7,9 @@
         <RootNamespace>NetAutoGUI.Windows.UnitTests</RootNamespace>
     </PropertyGroup>
     <ItemGroup>
+        <PackageReference Include="IronOcr" Version="2025.6.4"/>
         <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.1.0" />
         <PackageReference Include="SkiaSharp" Version="3.116.1" />
-        <PackageReference Include="Tesseract" Version="5.2.0"/>
         <PackageReference Include="xunit" Version="2.4.1" />
         <PackageReference Include="xunit.runner.visualstudio" Version="2.4.3">
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>

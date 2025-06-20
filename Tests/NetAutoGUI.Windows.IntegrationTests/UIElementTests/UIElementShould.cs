@@ -1,7 +1,6 @@
 ﻿using Xunit;
 using FluentAssertions;
 using System.Diagnostics;
-using Tesseract;
 
 namespace NetAutoGUI.Windows.UnitTests.UIElementTests;
 
